@@ -25,11 +25,13 @@ export default function PracticePage() {
   return (
     <main className="px-5 py-6">
       <h1 className="text-3xl font-bold">{t("nav.practice")}</h1>
-      <p className="mt-6 text-lg font-semibold">{t("practice.due", { count: due.length })}</p>
       {due.length ? (
-        <Link href="/practice/session" className="btn-primary mt-3 inline-flex items-center justify-center">{t("practice.review")}</Link>
+        <>
+          <p className="mt-6 text-lg font-semibold">{t("practice.due", { count: due.length })}</p>
+          <Link href="/practice/session" className="btn-primary mt-3 inline-flex items-center justify-center">{t("practice.review")}</Link>
+        </>
       ) : (
-        <div className="mt-2">
+        <div className="mt-6">
           <p className="text-lg font-semibold">{t("practice.none")}</p>
           <p className="mt-1 text-[#57534E]">{words.length ? t("practice.noneBody") : t("practice.noWords")}</p>
           {resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ? (
