@@ -54,7 +54,8 @@ export function deferExtraNewCards(cards: SavedCard[], seen: SeenStamp[], day: s
 
 export function practiceQueue(cards: SavedCard[], seen: SeenStamp[], now = new Date()): SavedCard[] {
   const day = localDay(now);
-  const due = cards.filter((card) => isDue(card, now));
+  const seenIds = new Set(seen.map((row) => row.id));
+  const due = cards.filter((card) => seenIds.has(card.itemId) && isDue(card, now));
   const introduced = due.filter((card) => card.introducedOn === day);
   const reviews = due.filter((card) => card.introducedOn !== day);
   const allowed = new Set(rankNewCards(introduced, seen).slice(0, NEW_CARD_CAP).map(cardKey));

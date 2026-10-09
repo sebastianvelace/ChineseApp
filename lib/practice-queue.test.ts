@@ -65,7 +65,7 @@ test("same seen time fills from the seen list, meaning then pinyin then hanzi", 
 
 test("due reviews stay in the session and new cards still stop at ten", () => {
   const ids = ["n1", "n2", "n3", "n4"];
-  const seen = ids.map((id, index) => ({ id, at: `2026-10-09T10:00:0${index}.000Z` }));
+  const seen = [...ids, "o1", "o2", "o3", "o4", "o5"].map((id, index) => ({ id, at: `2026-10-09T10:00:0${index}.000Z` }));
   const older = ["o1", "o2", "o3", "o4", "o5"].map((id) => card(id, "meaning", "2026-10-08"));
   const queue = practiceQueue([...older, ...pack(ids, day)], seen, now);
   assert.equal(queue.length, 15);
@@ -75,7 +75,14 @@ test("due reviews stay in the session and new cards still stop at ten", () => {
 
 test("a session never holds more than twenty due reviews", () => {
   const older = Array.from({ length: 25 }, (_, index) => card(`o${index}`, "meaning", "2026-10-01"));
-  assert.equal(practiceQueue(older, [], now).length, 20);
+  const seen = older.map((row) => ({ id: row.itemId, at: "2026-10-01T00:00:00.000Z" }));
+  assert.equal(practiceQueue(older, seen, now).length, 20);
+});
+
+test("a due card for a word the learner has not passed stays out", () => {
+  const seen = [{ id: "ni", at: "2026-10-09T10:00:00.000Z" }];
+  const queue = practiceQueue([card("ni", "meaning", day), card("ta", "meaning", day)], seen, now);
+  assert.deepEqual(queue.map((row) => row.itemId), ["ni"]);
 });
 
 test("cards past the daily cap wait until 00:05 tomorrow", () => {

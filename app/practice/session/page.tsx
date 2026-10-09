@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useLayoutEffect, useState } from "react";
+import { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { pinyinChoices } from "@/lib/assemble";
 import { getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -34,7 +34,10 @@ function Deck() {
   const router = useRouter();
   const [sessionId] = useState(() => crypto.randomUUID());
   const [xpStart] = useState(xp);
-  const [deck] = useState(() => (only ? cards.filter((c) => c.itemId === only) : practiceQueue(cards, seenItems)));
+  const [deck] = useState(() => (only && seen.has(only) ? cards.filter((c) => c.itemId === only) : only ? [] : practiceQueue(cards, seenItems)));
+  useEffect(() => {
+    if (only && !seen.has(only)) router.replace("/practice");
+  }, [only, seen, router]);
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [shownAt, setShownAt] = useState(0);
@@ -45,6 +48,8 @@ function Deck() {
   const [missed, setMissed] = useState(0);
   const [feedback, setFeedback] = useState<{ ok: boolean; answer: string } | null>(null);
   const card = deck[index];
+
+  if (only && !seen.has(only)) return <p className="p-6">{t("loading")}</p>;
 
   if (!card) {
     const stillDue = practiceQueue(cards, seenItems).length;
