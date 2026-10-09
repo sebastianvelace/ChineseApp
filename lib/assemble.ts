@@ -58,6 +58,17 @@ function pinyinItem(itemId: string, lessonTargets: string[], pool: string[], see
   return { type: "pinyin", itemId, options: pinyinChoices(itemId, lessonTargets, pool, seed) };
 }
 
+function exampleIdFor(itemId: string, sentenceIds: string[]): string | undefined {
+  const item = getLearnable(itemId);
+  if (!item) return undefined;
+  if (item.teachSentenceId && getSentence(item.teachSentenceId)) return item.teachSentenceId;
+  for (const id of sentenceIds) {
+    const sentence = getSentence(id);
+    if (sentence && contentTokens(sentence).some((token) => token.wordId === itemId || token.supportId === itemId)) return id;
+  }
+  return undefined;
+}
+
 function setBuildSentence(sentenceIds: string[]) {
   for (const id of sentenceIds) {
     const sentence = getSentence(id);
@@ -124,7 +135,12 @@ export function assembleLesson(lessonId: string, seenWordIds: readonly string[] 
   const pool = introducedIds(lesson.id);
 
   if (lesson.presentation === "set") {
-    items.push({ type: "teach-set", itemIds: targets, showGrammar: true });
+    const exampleIds: Record<string, string> = {};
+    for (const id of targets) {
+      const exampleId = exampleIdFor(id, lesson.sentenceIds);
+      if (exampleId) exampleIds[id] = exampleId;
+    }
+    items.push({ type: "teach-set", itemIds: targets, showGrammar: true, exampleIds });
     for (const id of targets) items.push(meaningItem(id, pool, `${lesson.id}:meaning:${id}`));
     const pinyinAt = new Set([0, 2, 4, targets.length - 1]);
     targets.forEach((id, index) => {
@@ -142,7 +158,7 @@ export function assembleLesson(lessonId: string, seenWordIds: readonly string[] 
   let grammarShown = false;
   for (const id of targets) {
     if (!seen.has(id)) {
-      items.push({ type: "teach", itemId: id, showGrammar: !grammarShown });
+      items.push({ type: "teach", itemId: id, showGrammar: !grammarShown, exampleId: exampleIdFor(id, lesson.sentenceIds) });
       grammarShown = true;
     }
   }

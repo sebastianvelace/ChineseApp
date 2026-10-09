@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
 import { lessonRatings } from "@/lib/srs";
-import { allRadicals, contentTokens, exampleSentence, getLearnable, getSentence, radicalFor } from "@/lib/content";
+import { allRadicals, contentTokens, getLearnable, getSentence, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { shuffle } from "@/lib/shuffle";
@@ -295,19 +295,24 @@ function Card({
     return (
       <div>
         {item.showGrammar && grammar ? (
-          <div className="mb-4 rounded-2xl bg-white p-4">
-            <p className="font-[family-name:var(--font-hanzi)] text-xl">{grammar.pattern}</p>
-            <p className="mt-2 text-base leading-6 text-[#57534E]">{grammar.body[locale]}</p>
-          </div>
+          item.type === "teach-set" ? (
+            <div className="mb-4 rounded-2xl bg-white p-4">
+              <p className="font-[family-name:var(--font-hanzi)] text-xl">{grammar.pattern}</p>
+              <p className="mt-2 text-base leading-6 text-[#57534E]">{grammar.body[locale]}</p>
+            </div>
+          ) : (
+            <p className="mb-4 inline-block rounded-full bg-white px-4 py-2 font-[family-name:var(--font-hanzi)] text-base">{grammar.pattern}</p>
+          )
         ) : null}
         <div className="flex flex-col gap-3">
           {ids.map((id) => {
             const row = getLearnable(id);
-            const example = row ? exampleSentence(row) : undefined;
+            const exampleId = item.type === "teach" ? item.exampleId : item.exampleIds[id];
+            const example = exampleId ? getSentence(exampleId) : undefined;
             if (!row) return null;
             return (
               <article key={id} className="rounded-2xl bg-white p-5 text-center shadow-[0_8px_24px_rgb(28_25_23/6%)]">
-                <p className="font-[family-name:var(--font-hanzi)] text-6xl font-medium">{row.hanzi}</p>
+                <p className="font-[family-name:var(--font-hanzi)] text-[64px] font-medium leading-none">{row.hanzi}</p>
                 {showPinyin ? <p className="mt-2 text-lg text-[#57534E]">{row.pinyin}</p> : (
                   <button className="mt-2 text-sm font-semibold text-[#E25B45]" onClick={onReveal}>{t("lesson.showPinyin")}</button>
                 )}

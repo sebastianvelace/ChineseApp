@@ -56,6 +56,16 @@ test("lesson 1 is stable, teaches four words, and stays inside that set", () => 
   );
 });
 
+test("a support word uses a sentence from its own lesson", () => {
+  const items = assembleLesson("ev-u06-l3", [], "1.0.0");
+  const card = items.find((item) => item.type === "teach" && item.itemId === "sup-ba");
+  assert.ok(card && card.type === "teach");
+  assert.equal(card.exampleId?.startsWith("ev-u06-l3"), true);
+  const sentence = getSentence(card.exampleId ?? "");
+  assert.equal(sentence?.tokens.some((token) => token.supportId === "sup-ba"), true);
+  assert.equal(items.find((item) => item.type === "teach")?.showGrammar, true);
+});
+
 test("a lone word still gets four tone choices", () => {
   const options = pinyinChoices("hsk1-w072", ["hsk1-w072"], [], "practice");
   assert.deepEqual([...options].sort(), ["nì", "ní", "nī", "nǐ"]);

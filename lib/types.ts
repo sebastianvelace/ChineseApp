@@ -109,8 +109,8 @@ export type Learnable = {
   teachSentenceId: string | null;
 };
 
-export type TeachItem = { type: "teach"; itemId: string; showGrammar: boolean };
-export type TeachSetItem = { type: "teach-set"; itemIds: string[]; showGrammar: boolean };
+export type TeachItem = { type: "teach"; itemId: string; showGrammar: boolean; exampleId?: string };
+export type TeachSetItem = { type: "teach-set"; itemIds: string[]; showGrammar: boolean; exampleIds: Record<string, string> };
 export type MeaningItem = { type: "meaning"; itemId: string; options: string[] };
 export type PinyinItem = { type: "pinyin"; itemId: string; options: string[] };
 export type BuildItem = { type: "build"; sentenceId: string; order: number[] };
