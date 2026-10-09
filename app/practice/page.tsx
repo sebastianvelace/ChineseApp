@@ -44,9 +44,12 @@ export default function PracticePage() {
       <ul className="mt-3 flex flex-col gap-2">
         {filtered.map((item) => (
           <li key={item.id}>
-            <Link href={`/word/${item.id}`} className="flex items-baseline justify-between rounded-2xl bg-white px-4 py-3">
-              <span className="font-[family-name:var(--font-hanzi)] text-2xl">{item.hanzi}</span>
-              <span className="text-sm text-[#57534E]">{pinyin ? item.pinyin : ""} {item.gloss[locale]}</span>
+            <Link href={`/word/${item.id}`} className="flex items-baseline justify-between gap-3 rounded-2xl bg-white px-4 py-3">
+              <span className="font-[family-name:var(--font-hanzi)] text-[22px] font-medium">{item.hanzi}</span>
+              <span className="text-base">
+                {pinyin ? <span className="mr-2 text-lg text-[#57534E]">{item.pinyin}</span> : null}
+                {item.gloss[locale]}
+              </span>
             </Link>
           </li>
         ))}
