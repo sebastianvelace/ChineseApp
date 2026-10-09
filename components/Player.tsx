@@ -202,8 +202,11 @@ export function Player({
 
   return (
     <main className="flex min-h-full flex-col px-5 py-4">
-      <div className="mb-5 h-1 overflow-hidden rounded-full bg-[#E7E0D6]">
-        <div className="h-full bg-[#E25B45]" style={{ width: `${Math.min(100, bar * 100)}%` }} />
+      <div className="mb-5 flex items-center gap-3">
+        <div className="h-1 flex-1 overflow-hidden rounded-full bg-[#E7E0D6]">
+          <div className="h-full bg-[#E25B45]" style={{ width: `${Math.min(100, bar * 100)}%` }} />
+        </div>
+        <p className="text-sm font-semibold tabular-nums text-[#57534E]">{gradedSoFar}/{planned}</p>
       </div>
       <div className="mb-4 flex items-center justify-between gap-3">
         <button
