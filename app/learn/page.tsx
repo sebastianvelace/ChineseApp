@@ -10,7 +10,7 @@ import { canOpenOffline } from "@/lib/saved-here";
 import { resumeTarget, unitState } from "@/lib/unlock";
 
 export default function LearnPage() {
-  const { ready, track, setTrack, streak, xpToday, dailyGoal, locale, passed } = useProgress();
+  const { ready, track, setTrack, streak, xpToday, dailyGoal, locale, passed, freezeNotice, dismissFreezeNotice } = useProgress();
   const t = useT();
   const [blocked, setBlocked] = useState(false);
   if (!ready) return <p className="p-6 text-[#57534E]">{t("loading")}</p>;
@@ -27,6 +27,11 @@ export default function LearnPage() {
       <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#E7E0D6]">
         <div className="h-full rounded-full bg-[#E25B45]" style={{ width: `${Math.min(100, dailyGoal ? (xpToday / dailyGoal) * 100 : 0)}%` }} />
       </div>
+      {freezeNotice ? (
+        <button className="mt-3 w-full rounded-2xl bg-white px-4 py-3 text-left text-sm font-semibold" onClick={dismissFreezeNotice}>
+          {t("streak.freezeUsed")}
+        </button>
+      ) : null}
       <p className="mt-3 rounded-2xl bg-white px-4 py-3 text-sm text-[#57534E]">{t("local.banner")}</p>
       <div className="mt-4 grid grid-cols-2 gap-2">
         <button className={`min-h-11 rounded-full font-semibold ${track === "hsk" ? "bg-[#1C1917] text-white" : "bg-white"}`} onClick={() => setTrack("hsk")}>
