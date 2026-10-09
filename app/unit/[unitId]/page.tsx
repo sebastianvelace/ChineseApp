@@ -22,7 +22,7 @@ export default function UnitPage() {
         {unit.lessons.map((lesson) => {
           const status = lessonStatus(unit, lesson, passed);
           const hanzi = [...lesson.targetWordIds, ...lesson.supportTargetIds].map((id) => getLearnable(id)?.hanzi).filter(Boolean).join("、");
-          return <Row key={lesson.id} href={status === "locked" ? undefined : `/lesson/${lesson.id}`} title={t("unit.lesson", { order: lesson.order })} subtitle={hanzi} status={status} />;
+          return <Row key={lesson.id} href={status === "locked" ? undefined : `/lesson/${lesson.id}`} title={t("unit.lesson", { order: lesson.order })} subtitle={lesson.grammar.pattern} detail={hanzi} status={status} />;
         })}
       </ul>
       <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-white/90" style={{ color: unit.color }}>{t("unit.further")}</h2>
@@ -34,12 +34,13 @@ export default function UnitPage() {
   );
 }
 
-function Row({ href, title, subtitle, status }: { href?: string; title: string; subtitle: string; status: string }) {
+function Row({ href, title, subtitle, detail, status }: { href?: string; title: string; subtitle: string; detail?: string; status: string }) {
   const body = (
     <span className="flex items-center justify-between gap-3 rounded-2xl bg-white px-4 py-4">
       <span>
         <span className="block font-semibold">{title}</span>
-        <span className="mt-1 block font-[family-name:var(--font-hanzi)] text-sm text-[#57534E]">{subtitle}</span>
+        <span className="mt-1 block text-sm text-[#57534E]">{subtitle}</span>
+        {detail ? <span className="mt-1 block font-[family-name:var(--font-hanzi)] text-sm">{detail}</span> : null}
       </span>
       <span className="text-[#57534E]">{status === "passed" ? "✓" : status === "locked" ? "🔒" : "›"}</span>
     </span>

@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { getLearnable } from "@/lib/content";
+import { getLearnable, trackById } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { dueCards, useProgress } from "@/lib/progress";
+import { resumeHref } from "@/lib/unlock";
 
 export default function PracticePage() {
-  const { ready, cards, seen, locale, pinyin } = useProgress();
+  const { ready, cards, seen, locale, pinyin, track, passed } = useProgress();
   const t = useT();
   const [query, setQuery] = useState("");
   const due = useMemo(() => dueCards(cards), [cards]);
@@ -25,7 +26,14 @@ export default function PracticePage() {
       {due.length ? (
         <Link href="/practice/session" className="btn-primary mt-3 inline-flex items-center justify-center">{t("practice.review")}</Link>
       ) : (
-        <p className="mt-2 text-[#57534E]">{words.length ? t("practice.noneBody") : t("practice.noWords")}</p>
+        <div className="mt-2">
+          <p className="text-[#57534E]">{words.length ? t("practice.noneBody") : t("practice.noWords")}</p>
+          {resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ? (
+            <Link href={resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ?? "/learn"} className="btn-primary mt-3 inline-flex items-center justify-center">
+              {t("practice.continue")}
+            </Link>
+          ) : null}
+        </div>
       )}
       <h2 className="mt-8 font-semibold">{t("practice.words")} · {words.length}</h2>
       <input className="mt-3 w-full rounded-xl border border-[#E7E0D6] bg-white px-4 py-3" placeholder={t("practice.search")} value={query} onChange={(e) => setQuery(e.target.value)} />

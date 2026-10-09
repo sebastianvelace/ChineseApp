@@ -19,6 +19,8 @@ The dev server listens on port **4317**.
 - HSK path and Everyday path, units unlocking in order
 - Lessons: teach cards, meaning, pinyin, tones, radicals, stroke order, sentence building, fill-in
 - After a pass, continue to the next lesson or the culture note
+- Stroke order is stored in the app, so those quizzes work offline
+- The path shows how far you are in each unit, and Practice can send you back to the next lesson
 - Teacher talks and unit reviews
 - Practice with FSRS (`ts-fsrs`) for words you have already passed
 - Daily goal, XP, and streak, saved in `localStorage`

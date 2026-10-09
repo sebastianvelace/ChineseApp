@@ -40,10 +40,13 @@ export function StrokePad({
         showOutline: true,
         showCharacter: false,
         charDataLoader: (glyph, onLoad, onErr) => {
-          fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0.1/${encodeURIComponent(glyph)}.json`)
+          fetch(`/strokes/${encodeURIComponent(glyph)}.json`)
             .then((res) => {
-              if (!res.ok) throw new Error("missing");
-              return res.json();
+              if (res.ok) return res.json();
+              return fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0.1/${encodeURIComponent(glyph)}.json`).then((cdn) => {
+                if (!cdn.ok) throw new Error("missing");
+                return cdn.json();
+              });
             })
             .then((data) => onLoad(data))
             .catch((err: Error) => onErr(err));

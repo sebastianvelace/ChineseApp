@@ -22,6 +22,18 @@ export function extraStatus(unit: Unit, nodeId: string, passed: Record<string, u
   return last && passed[last.id] ? "available" : "locked";
 }
 
+export function resumeHref(units: Unit[], passed: Record<string, unknown>): string | null {
+  for (const unit of units) {
+    if (!unitUnlocked(unit, passed)) return null;
+    for (const lesson of unit.lessons) {
+      if (lessonStatus(unit, lesson, passed) === "available") return `/lesson/${lesson.id}`;
+    }
+    if (extraStatus(unit, unit.teacherTalk.id, passed) === "available") return `/talk/${unit.teacherTalk.id}`;
+    if (extraStatus(unit, unit.review.id, passed) === "available") return `/lesson/${unit.review.id}`;
+  }
+  return null;
+}
+
 export function unitState(unit: Unit, passed: Record<string, unknown>): "locked" | "current" | "done" {
   if (!unitUnlocked(unit, passed)) return "locked";
   if (unit.lessons.every((lesson) => passed[lesson.id])) return "done";
