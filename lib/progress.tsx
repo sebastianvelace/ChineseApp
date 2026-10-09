@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { cardKey, freshCard, isDue, rateCard, type CardType, type SavedCard } from "./srs";
+import { applyLessonRatings, cardKey, freshCard, isDue, rateCard, type CardType, type LessonRating, type SavedCard } from "./srs";
 import { type Grade } from "ts-fsrs";
 
 const KEY = "hanlu-progress-v1";
@@ -48,7 +48,7 @@ type ProgressApi = {
   setPinyin: (pinyin: boolean) => void;
   setGoal: (goal: 10 | 20 | 50) => void;
   setTrack: (track: "hsk" | "everyday") => void;
-  passNode: (nodeId: string, kind: PassKind, info?: { ratio: number; correct: number; itemIds: string[] }) => void;
+  passNode: (nodeId: string, kind: PassKind, info?: { ratio: number; correct: number; itemIds: string[]; ratings?: LessonRating[] }) => void;
   answerCard: (card: SavedCard, rating: Grade) => void;
 };
 
@@ -195,7 +195,11 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
               seenIds.add(id);
             }
           }
-          const cards = kind === "lesson" && info ? ensureCards(base.cards, info.itemIds, dayNow) : base.cards;
+          let cards = base.cards;
+          if (kind === "lesson" && info) {
+            cards = ensureCards(cards, info.itemIds, dayNow);
+            if (!already && info.ratings?.length) cards = applyLessonRatings(cards, info.ratings);
+          }
           const streak = amount > 0 || !already ? bumpStreak(base.streak, dayNow) : base.streak;
           return { ...base, xpEvents, passed, seen: seenRows, cards, streak };
         });

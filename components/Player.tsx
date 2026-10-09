@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { StrokePad } from "@/components/StrokePad";
+import { lessonRatings } from "@/lib/srs";
 import { allRadicals, contentTokens, exampleSentence, getLearnable, getSentence, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
@@ -29,7 +30,7 @@ export function Player({
   title: string;
   items: ExerciseItem[];
   grammar?: Lesson["grammar"];
-  onPass: (result: { ratio: number; correct: number; graded: number }) => void;
+  onPass: (result: { ratio: number; correct: number; graded: number; ratings: { itemId: string; rating: 1 | 2 | 3 }[] }) => void;
   onExit: () => void;
   onNext?: () => void;
   nextLabel?: string;
@@ -51,6 +52,7 @@ export function Player({
   const [finalCorrect, setFinalCorrect] = useState(0);
   const reported = useRef(false);
   const answeredLock = useRef(false);
+  const outcomes = useRef<{ itemId: string; ok: boolean }[]>([]);
 
   const current = queue[index];
   if (phase === "end" || !current) {
@@ -75,6 +77,7 @@ export function Player({
               onClick={() => {
                 reported.current = false;
                 answeredLock.current = false;
+                outcomes.current = [];
                 setQueue(items.map((item) => ({ item, recycle: false })));
                 setIndex(0);
                 setCorrectCount(0);
@@ -103,6 +106,9 @@ export function Player({
     if (answeredLock.current) return;
     answeredLock.current = true;
     if (!current.recycle && ok) setCorrectCount((n) => n + 1);
+    if (!current.recycle && (current.item.type === "meaning" || current.item.type === "pinyin")) {
+      outcomes.current.push({ itemId: current.item.itemId, ok });
+    }
     setChecked({ ok, answer });
   }
 
@@ -159,7 +165,7 @@ export function Player({
       setPhase("end");
       if (nextRatio >= 0.8 && !reported.current) {
         reported.current = true;
-        onPass({ ratio: nextRatio, correct: answeredCorrect, graded });
+        onPass({ ratio: nextRatio, correct: answeredCorrect, graded, ratings: lessonRatings(outcomes.current) });
       }
       return;
     }

@@ -66,6 +66,26 @@ export function rateCard(saved: SavedCard, rating: Grade, now = new Date()): Sav
   return fromCard(saved, next.card);
 }
 
-export function isDue(saved: SavedCard, now = new Date()): boolean {
-  return new Date(saved.due).getTime() <= now.getTime();
+export type LessonRating = { itemId: string; rating: 1 | 2 | 3 };
+
+export function lessonRatings(outcomes: { itemId: string; ok: boolean }[]): LessonRating[] {
+  const missed = new Set(outcomes.filter((row) => !row.ok).map((row) => row.itemId));
+  return outcomes.map((row) => ({
+    itemId: row.itemId,
+    rating: !row.ok ? 1 : missed.has(row.itemId) ? 2 : 3,
+  }));
+}
+
+export function applyLessonRatings(cards: SavedCard[], ratings: LessonRating[]): SavedCard[] {
+  let next = cards;
+  for (const row of ratings) {
+    const grade = row.rating === 1 ? 1 : row.rating === 2 ? 2 : 3;
+    next = next.map((card) => (card.itemId === row.itemId ? rateCard(card, grade as Grade) : card));
+  }
+  return next;
+}
+
+export function isDue(saved: SavedCard, now?: Date): boolean {
+  const at = now ?? new Date();
+  return new Date(saved.due).getTime() <= at.getTime();
 }

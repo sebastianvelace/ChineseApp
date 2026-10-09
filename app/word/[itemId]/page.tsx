@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { StrokeReplay } from "@/components/StrokePad";
 import { exampleSentence, getLearnable, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
@@ -35,6 +36,12 @@ export default function WordPage() {
       {item.senses.slice(1).map((sense) => (
         <p key={sense.id} className="mt-2 text-center text-[#57534E]">{t("word.also")}: {sense.gloss[locale]}</p>
       ))}
+      <h2 className="mt-6 text-sm font-semibold text-[#57534E]">{t("word.strokes")}</h2>
+      <div className="mt-2 flex flex-wrap justify-center gap-3">
+        {[...item.hanzi].map((char, index) => (
+          <StrokeReplay key={`${char}-${index}`} char={char} />
+        ))}
+      </div>
       {example ? (
         <article className="mt-6 rounded-2xl bg-white p-4">
           <p className="font-[family-name:var(--font-hanzi)] text-xl">{example.hanzi}</p>
