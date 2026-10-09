@@ -32,6 +32,32 @@ test("passing lesson 1 creates 12 cards, 12 lesson reviews, and marks the words 
   assert.equal(state.streakBurst, 1);
 });
 
+test("a later try on the same word is stored as its own reviews", () => {
+  let state = passNode(
+    emptyProgress(),
+    "hsk1-u01-l1",
+    "lesson",
+    {
+      ratio: 0.9,
+      correct: 1,
+      itemIds: ["hsk1-w072"],
+      ratings: [
+        { itemId: "hsk1-w072", rating: 1 },
+        { itemId: "hsk1-w072", rating: 2 },
+      ],
+    },
+    on(1),
+  );
+  assert.deepEqual(
+    state.reviews.map((row) => row.rating),
+    [1, 1, 1, 2, 2, 2],
+  );
+  assert.equal(state.cards.find((card) => card.cardType === "meaning")?.reps, 2);
+  state = passNode(state, "hsk1-u01-l1", "lesson", { ratio: 1, correct: 1, itemIds: ["hsk1-w072"], ratings: [{ itemId: "hsk1-w072", rating: 3 }] }, on(1));
+  assert.equal(state.reviews.length, 6);
+  assert.equal(state.cards.find((card) => card.cardType === "meaning")?.reps, 2);
+});
+
 test("a second pass the same day grants replay XP once and does not rate again", () => {
   let state = lesson(emptyProgress(), "hsk1-u01-l1", on(1));
   state = lesson(state, "hsk1-u01-l1", on(1));

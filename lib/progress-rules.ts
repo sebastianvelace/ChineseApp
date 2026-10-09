@@ -104,14 +104,14 @@ function ensureCards(cards: SavedCard[], itemIds: string[], day: string, now: Da
 function lessonReviewRows(nodeId: string, ratings: LessonRating[], at: string, existing: ReviewRow[]): ReviewRow[] {
   const have = new Set(existing.map((row) => row.id));
   const added: ReviewRow[] = [];
-  for (const rating of ratings) {
+  ratings.forEach((rating, index) => {
     for (const cardType of ["meaning", "pinyin", "hanzi"] as CardType[]) {
-      const id = `lesson:${nodeId}:${rating.itemId}:${cardType}`;
+      const id = `lesson:${nodeId}:${index}:${rating.itemId}:${cardType}`;
       if (have.has(id)) continue;
       added.push({ id, itemId: rating.itemId, cardType, rating: rating.rating, at, source: "lesson" });
       have.add(id);
     }
-  }
+  });
   return added;
 }
 
