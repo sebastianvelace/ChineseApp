@@ -34,7 +34,7 @@ export default function UnitPage() {
         {unit.lessons.map((lesson) => {
           const status = lessonStatus(unit, lesson, passed);
           const hanzi = [...lesson.targetWordIds, ...lesson.supportTargetIds].map((id) => getLearnable(id)?.hanzi).filter(Boolean).join("、");
-          return <Row key={lesson.id} href={status === "locked" ? undefined : `/lesson/${lesson.id}`} title={t("unit.lesson", { order: lesson.order })} subtitle={lesson.grammar.pattern} detail={hanzi} status={status} onNavigate={(event) => guard(event, lesson.id)} />;
+          return <Row key={lesson.id} href={status === "locked" ? undefined : `/lesson/${lesson.id}`} title={t("unit.lesson", { order: lesson.order })} subtitle={hanzi} hanzi status={status} onNavigate={(event) => guard(event, lesson.id)} />;
         })}
       </ul>
       <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-white/90" style={{ color: unit.color }}>{t("unit.further")}</h2>
@@ -46,13 +46,12 @@ export default function UnitPage() {
   );
 }
 
-function Row({ href, title, subtitle, detail, status, onNavigate }: { href?: string; title: string; subtitle: string; detail?: string; status: string; onNavigate?: (event: { preventDefault: () => void }) => void }) {
+function Row({ href, title, subtitle, status, onNavigate, hanzi = false }: { href?: string; title: string; subtitle: string; status: string; onNavigate?: (event: { preventDefault: () => void }) => void; hanzi?: boolean }) {
   const body = (
     <span className="flex items-center justify-between gap-3 rounded-2xl bg-white px-4 py-4">
       <span>
         <span className="block font-semibold">{title}</span>
-        <span className="mt-1 block text-sm text-[#57534E]">{subtitle}</span>
-        {detail ? <span className="mt-1 block font-[family-name:var(--font-hanzi)] text-sm">{detail}</span> : null}
+        <span className={`mt-1 block text-[#57534E] ${hanzi ? "font-[family-name:var(--font-hanzi)] text-[22px]" : "text-sm"}`}>{subtitle}</span>
       </span>
       <span className="text-[#57534E]">{status === "passed" ? <Check size={20} aria-hidden /> : status === "locked" ? <Lock size={20} aria-hidden /> : <ChevronRight size={20} aria-hidden />}</span>
     </span>
