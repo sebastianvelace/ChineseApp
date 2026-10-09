@@ -1,6 +1,21 @@
-import { allLearnableIds, allRadicals, contentTokens, firstTone, getDialogue, getLearnable, getSentence, radicalFor } from "./content";
+import { allRadicals, allUnits, contentTokens, firstTone, getDialogue, getLearnable, getSentence, radicalFor } from "./content";
 import { shuffle } from "./shuffle";
 import type { ExerciseItem, Lesson, Review, Unit } from "./types";
+
+function introducedIds(lessonId: string): string[] {
+  const units = allUnits();
+  const unit = units.find((item) => item.lessons.some((lesson) => lesson.id === lessonId));
+  if (!unit) return [];
+  const ids: string[] = [];
+  for (const item of units) {
+    if (item.trackId !== unit.trackId) continue;
+    for (const lesson of item.lessons) {
+      ids.push(...lesson.targetWordIds, ...lesson.supportTargetIds);
+      if (lesson.id === lessonId) return [...new Set(ids)];
+    }
+  }
+  return [...new Set(ids)];
+}
 
 function padIds(correct: string, pool: string[], seed: string): string[] {
   const options = [correct];
@@ -8,22 +23,13 @@ function padIds(correct: string, pool: string[], seed: string): string[] {
     if (!options.includes(id)) options.push(id);
     if (options.length === 4) break;
   }
-  if (options.length < 4) {
-    for (const id of allLearnableIds()) {
-      if (!options.includes(id)) options.push(id);
-      if (options.length === 4) break;
-    }
-  }
   return shuffle(options, seed);
 }
 
-function padPinyin(correct: string, pool: string[], seed: string): string[] {
+function padPinyin(correct: string, poolIds: string[], seed: string): string[] {
   const options = [correct];
-  const extras = [
-    ...pool,
-    ...allLearnableIds().map((id) => getLearnable(id)?.pinyin ?? ""),
-  ];
-  for (const py of extras) {
+  for (const id of poolIds) {
+    const py = getLearnable(id)?.pinyin ?? "";
     if (py && !options.includes(py)) options.push(py);
     if (options.length === 4) break;
   }
@@ -36,8 +42,7 @@ function meaningItem(itemId: string, pool: string[], seed: string): ExerciseItem
 
 function pinyinItem(itemId: string, poolIds: string[], seed: string): ExerciseItem {
   const correct = getLearnable(itemId)?.pinyin ?? itemId;
-  const pool = poolIds.map((id) => getLearnable(id)?.pinyin ?? "").filter(Boolean);
-  return { type: "pinyin", itemId, options: padPinyin(correct, pool, seed) };
+  return { type: "pinyin", itemId, options: padPinyin(correct, poolIds, seed) };
 }
 
 function setBuildSentence(sentenceIds: string[]) {
@@ -97,7 +102,7 @@ function blankItem(sentenceId: string, targetIds: string[], seed: string): Exerc
 export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): ExerciseItem[] {
   const targets = [...lesson.targetWordIds, ...lesson.supportTargetIds];
   const items: ExerciseItem[] = [];
-  const pool = targets.length >= 4 ? targets : [...targets, ...allLearnableIds()];
+  const pool = introducedIds(lesson.id);
 
   if (lesson.presentation === "set") {
     items.push({ type: "teach-set", itemIds: targets, showGrammar: true });

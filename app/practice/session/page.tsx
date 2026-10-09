@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { allLearnableIds, getLearnable } from "@/lib/content";
+import { getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { dueCards, useProgress } from "@/lib/progress";
 import { shuffle } from "@/lib/shuffle";
@@ -27,7 +27,7 @@ function Session() {
 function Deck() {
   const params = useSearchParams();
   const only = params.get("item");
-  const { cards, answerCard, locale, pinyin } = useProgress();
+  const { cards, answerCard, locale, pinyin, seen } = useProgress();
   const t = useT();
   const router = useRouter();
   const [deck] = useState(() => (only ? cards.filter((c) => c.itemId === only) : dueCards(cards).slice(0, 20)));
@@ -61,7 +61,7 @@ function Deck() {
   }
 
   const item = getLearnable(card.itemId);
-  const options = optionsFor(card, locale);
+  const options = optionsFor(card, locale, seen);
   function grade() {
     if (!selected || !item) return;
     const ok = selected === (card.cardType === "pinyin" ? item.pinyin : card.itemId);
@@ -110,10 +110,10 @@ function Deck() {
   );
 }
 
-function optionsFor(card: SavedCard, locale: "en" | "es"): { value: string; label: string }[] {
+function optionsFor(card: SavedCard, locale: "en" | "es", seen: Set<string>): { value: string; label: string }[] {
   const item = getLearnable(card.itemId);
   if (!item) return [];
-  const pool = allLearnableIds().filter((id) => id !== card.itemId);
+  const pool = [...seen].filter((id) => id !== card.itemId);
   const picked = shuffle(pool, `${card.itemId}:${card.cardType}`).slice(0, 3);
   if (card.cardType === "pinyin") {
     const options = [item.pinyin, ...picked.map((id) => getLearnable(id)?.pinyin ?? "")].filter(Boolean);
