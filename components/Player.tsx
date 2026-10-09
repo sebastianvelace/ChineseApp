@@ -48,7 +48,7 @@ export function Player({
   const [selected, setSelected] = useState<string | null>(null);
   const [placed, setPlaced] = useState<string[]>([]);
   const [revealPinyin, setRevealPinyin] = useState(false);
-  const [checked, setChecked] = useState<{ ok: boolean; answer: string } | null>(null);
+  const [checked, setChecked] = useState<{ ok: boolean; answer: string; gloss: string } | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [phase, setPhase] = useState<"play" | "end">("play");
   const [ratio, setRatio] = useState(0);
@@ -112,49 +112,49 @@ export function Player({
   const gradedSoFar = queue.slice(0, index).filter((row) => !row.recycle && isGraded(row.item)).length;
   const bar = planned === 0 ? 1 : gradedSoFar / planned;
 
-  function finish(ok: boolean, answer: string) {
+  function finish(ok: boolean, answer: string, glossText = "", itemId?: string) {
     if (answeredLock.current) return;
     answeredLock.current = true;
     if (!current.recycle && ok) setCorrectCount((n) => n + 1);
-    if (!current.recycle && (current.item.type === "meaning" || current.item.type === "pinyin")) {
-      outcomes.current.push({ itemId: current.item.itemId, ok });
-    }
-    setChecked({ ok, answer });
+    if (!current.recycle && itemId) outcomes.current.push({ itemId, ok });
+    setChecked({ ok, answer, gloss: glossText });
   }
 
   function onCheck() {
     const item = current.item;
     if (item.type === "meaning") {
       const ok = selected === item.itemId;
-      finish(ok, gloss(item.itemId, locale));
+      finish(ok, gloss(item.itemId, locale), getLearnable(item.itemId)?.hanzi ?? "", item.itemId);
       return;
     }
     if (item.type === "pinyin") {
       const answer = getLearnable(item.itemId)?.pinyin ?? "";
-      finish(selected === answer, answer);
+      finish(selected === answer, answer, gloss(item.itemId, locale), item.itemId);
       return;
     }
     if (item.type === "blank") {
       const sentence = getSentence(item.sentenceId);
-      const answer = sentence ? contentTokens(sentence)[item.blankAt]?.text ?? "" : "";
-      finish(selected === answer, sentence?.hanzi ?? answer);
+      const token = sentence ? contentTokens(sentence)[item.blankAt] : undefined;
+      const answer = token?.text ?? "";
+      const tokenId = token?.wordId ?? token?.supportId;
+      finish(selected === answer, answer, tokenId ? gloss(tokenId, locale) : "", tokenId);
       return;
     }
     if (item.type === "build") {
       const sentence = getSentence(item.sentenceId);
       const tokens = sentence ? contentTokens(sentence) : [];
       const ok = placed.join("|") === tokens.map((_, i) => String(i)).join("|");
-      finish(ok, sentence?.hanzi ?? "");
+      finish(ok, sentence?.hanzi ?? "", sentence?.translation[locale] ?? "");
       return;
     }
     if (item.type === "tone") {
-      finish(selected === String(item.tone), t(`tone.${item.tone}`));
+      finish(selected === String(item.tone), t(`tone.${item.tone}`), gloss(item.itemId, locale), item.itemId);
       return;
     }
     if (item.type === "radical") {
       const radical = allRadicals().find((row) => row.id === item.radicalId);
       const answer = radical ? `${radical.variant} · ${radical.gloss[locale]}` : item.char;
-      finish(selected === item.radicalId, answer);
+      finish(selected === item.radicalId, answer, radical?.hint[locale] ?? "");
     }
   }
 
@@ -236,7 +236,14 @@ export function Player({
             <p className={checked.ok ? "font-semibold text-[#1F8A70]" : "font-semibold text-[#9F1239]"}>
               {checked.ok ? t("lesson.correct") : t("lesson.wrong")}
             </p>
-            {checked.ok ? null : <p className="mt-1 font-[family-name:var(--font-hanzi)] text-lg">{checked.answer}</p>}
+            {checked.ok ? null : (
+              <>
+                <p className={`mt-1 text-lg ${/[\u3400-\u9fff]/.test(checked.answer) ? "font-[family-name:var(--font-hanzi)]" : ""}`}>{checked.answer}</p>
+                {checked.gloss && checked.gloss !== checked.answer ? (
+                  <p className={`mt-1 text-[#57534E] ${/[\u3400-\u9fff]/.test(checked.gloss) ? "font-[family-name:var(--font-hanzi)] text-lg" : ""}`}>{checked.gloss}</p>
+                ) : null}
+              </>
+            )}
           </div>
         ) : null}
         {current.item.type === "teach" || current.item.type === "teach-set" || current.item.type === "line" || ((current.item.type === "stroke" || current.item.type === "match") && checked) ? (
@@ -276,7 +283,7 @@ function Card({
   showPinyin: boolean;
   selected: string | null;
   placed: string[];
-  checked: { ok: boolean; answer: string } | null;
+  checked: { ok: boolean; answer: string; gloss: string } | null;
   onSelect: (id: string) => void;
   onPlace: (keys: string[]) => void;
   onReveal: () => void;
