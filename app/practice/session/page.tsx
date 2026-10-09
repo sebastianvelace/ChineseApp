@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { pinyinChoices } from "@/lib/assemble";
@@ -82,10 +83,22 @@ function Deck() {
     setFeedback({ ok, answer });
   }
 
+  const done = index;
+  const total = deck.length;
   return (
-    <main className="flex min-h-full flex-col px-5 py-6">
-      <button className="self-start text-sm font-semibold text-[#57534E]" onClick={() => router.push("/practice")}>{t("lesson.leave")}</button>
-      <p className="mt-6 text-center font-[family-name:var(--font-hanzi)] text-6xl">{card.cardType === "hanzi" ? item?.gloss[locale] : item?.hanzi}</p>
+    <main className="flex min-h-full flex-col px-5 py-4">
+      <div className="mb-4 flex items-center justify-between">
+        <button className="flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]" aria-label={t("lesson.leave")} onClick={() => router.push("/practice")}>
+          <X size={22} aria-hidden />
+        </button>
+      </div>
+      <div className="mb-5 flex items-center gap-3">
+        <div className="h-1 flex-1 overflow-hidden rounded-full bg-[#E7E0D6]">
+          <div className="h-full bg-[#E25B45]" style={{ width: `${total ? Math.min(100, (done / total) * 100) : 0}%` }} />
+        </div>
+        <p className="text-sm font-semibold tabular-nums text-[#57534E]">{done}/{total}</p>
+      </div>
+      <p className={`mt-2 text-center text-[64px] font-medium leading-none ${card.cardType === "hanzi" ? "" : "font-[family-name:var(--font-hanzi)]"}`}>{card.cardType === "hanzi" ? item?.gloss[locale] : item?.hanzi}</p>
       {card.cardType === "meaning" && pinyin ? <p className="mt-2 text-center text-[#57534E]">{item?.pinyin}</p> : null}
       <div className="choice-grid">
         {options.map((option) => (
