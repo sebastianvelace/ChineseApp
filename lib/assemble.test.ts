@@ -56,6 +56,13 @@ test("lesson 1 is stable, teaches four words, and stays inside that set", () => 
   );
 });
 
+test("an everyday lesson skips a word already seen on HSK", () => {
+  const items = assembleLesson("ev-u01-l1", ["hsk1-w072"], "1.0.0");
+  assert.equal(items.some((item) => item.type === "teach" && item.itemId === "hsk1-w072"), false);
+  assert.equal(items.some((item) => item.type === "meaning" && item.itemId === "hsk1-w072"), true);
+  assert.equal(items.find((item) => item.type === "teach")?.itemId, "hsk1-w035");
+});
+
 test("a support word uses a sentence from its own lesson", () => {
   const items = assembleLesson("ev-u06-l3", [], "1.0.0");
   const card = items.find((item) => item.type === "teach" && item.itemId === "sup-ba");

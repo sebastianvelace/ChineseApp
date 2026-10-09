@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import { LocaleLang } from "@/components/LocaleLang";
 import { RegisterSW } from "@/components/RegisterSW";
 import { Shell } from "@/components/Shell";
 import { ProgressProvider } from "@/lib/progress";
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full">
         <ProgressProvider>
+          <LocaleLang />
           <RegisterSW />
           <Shell>{children}</Shell>
         </ProgressProvider>

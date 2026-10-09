@@ -27,7 +27,7 @@ export default function UnitPage() {
   if (!unit) return <p className="p-6">Missing unit.</p>;
   if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
   return (
-    <main className="px-5 py-6" style={{ background: `${unit.color}14` }}>
+    <main className="px-5 py-6" style={{ background: `${unit.color}1f` }}>
       <Link href="/learn" className="text-sm font-semibold text-[#57534E]">‹</Link>
       <h1 className="mt-2 text-3xl font-bold">{unit.title[locale]}</h1>
       <ul className="mt-6 flex flex-col gap-3">
