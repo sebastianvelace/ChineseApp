@@ -27,6 +27,7 @@ export function Player({
   nextLabel,
   learned,
   xpFor,
+  accent,
 }: {
   title: string;
   items: ExerciseItem[];
@@ -37,9 +38,10 @@ export function Player({
   nextLabel?: string;
   learned?: string[];
   xpFor: (correct: number) => number;
+  accent?: string;
 }) {
   const t = useT();
-  const { locale, pinyin } = useProgress();
+  const { locale, pinyin, streakBurst } = useProgress();
   const planned = useMemo(() => items.filter(isGraded).length, [items]);
   const [queue, setQueue] = useState<Play[]>(() => items.map((item) => ({ item, recycle: false })));
   const [index, setIndex] = useState(0);
@@ -59,20 +61,20 @@ export function Player({
   if (phase === "end" || !current) {
     const passed = ratio >= 0.8;
     return (
-      <main className="flex min-h-full flex-col px-5 py-8">
+      <main className="flex min-h-full flex-col px-5 py-8" style={passed && accent ? { background: `${accent}1f` } : undefined}>
         <h1 className="font-[family-name:var(--font-hanzi)] text-4xl">{passed ? t("lesson.passTitle") : t("lesson.failTitle")}</h1>
         <p className="mt-3 text-lg text-[#57534E]">{Math.round(ratio * 100)}%</p>
         {passed ? <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: xpFor(finalCorrect) })}</p> : null}
+        {passed && streakBurst ? <p className="mt-2 font-semibold">🔥 {t("lesson.streak", { count: streakBurst })}</p> : null}
         {passed && learned && learned.length > 0 ? (
           <p className="mt-4 font-[family-name:var(--font-hanzi)] text-2xl leading-9">{learned.join("  ")}</p>
         ) : null}
         <div className="mt-8 flex flex-col gap-3">
-          {passed && onNext ? (
-            <button className="btn-primary" onClick={onNext}>
-              {nextLabel}
+          {passed ? (
+            <button className="btn-primary" onClick={onExit}>
+              {t("lesson.unit")}
             </button>
-          ) : null}
-          {passed ? null : (
+          ) : (
             <button
               className="btn-primary"
               onClick={() => {
@@ -92,9 +94,16 @@ export function Player({
               {t("lesson.retry")}
             </button>
           )}
-          <button className={passed && !onNext ? "btn-primary" : "btn-ghost"} onClick={onExit}>
-            {t("lesson.back")}
-          </button>
+          {passed && onNext ? (
+            <button className="btn-ghost" onClick={onNext}>
+              {nextLabel}
+            </button>
+          ) : null}
+          {passed ? null : (
+            <button className="btn-ghost" onClick={onExit}>
+              {t("lesson.back")}
+            </button>
+          )}
         </div>
       </main>
     );

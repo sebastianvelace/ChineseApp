@@ -29,6 +29,7 @@ test("passing lesson 1 creates 12 cards, 12 lesson reviews, and marks the words 
   assert.equal(state.reviews.every((row) => row.source === "lesson"), true);
   assert.equal(state.xpEvents[0]?.id, "lesson:hsk1-u01-l1");
   assert.equal(state.xpEvents[0]?.amount, 28);
+  assert.equal(state.streakBurst, 1);
 });
 
 test("a second pass the same day grants replay XP once and does not rate again", () => {
@@ -47,6 +48,7 @@ test("two lessons on the same day do not raise the streak twice", () => {
   let state = lesson(emptyProgress(), "hsk1-u01-l1", on(1));
   state = passNode(state, "hsk1-u01-l2", "lesson", { ratio: 1, correct: 4, itemIds: ["e", "f", "g", "h"] }, on(1));
   assert.equal(state.streak.current, 1);
+  assert.equal(state.streakBurst, null);
 });
 
 test("a freeze is granted at streak 7 and a missed day spends one", () => {

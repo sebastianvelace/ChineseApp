@@ -20,6 +20,7 @@ export type ProgressState = {
   cards: SavedCard[];
   reviews: ReviewRow[];
   streak: Streak;
+  streakBurst: number | null;
 };
 
 export type PassKind = "lesson" | "review" | "talk";
@@ -56,6 +57,7 @@ export function emptyProgress(): ProgressState {
     cards: [],
     reviews: [],
     streak: { current: 0, longest: 0, lastActive: null, freezes: 0, granted: [], freezeNotice: null },
+    streakBurst: null,
   };
 }
 
@@ -148,7 +150,9 @@ export function passNode(
     }
     cards = deferExtraNewCards(cards, seen, dayNow);
   }
-  return { ...state, xpEvents, passed, seen, cards, reviews, streak: bumpStreak(state.streak, dayNow) };
+  const streak = bumpStreak(state.streak, dayNow);
+  const streakBurst = streak.lastActive === dayNow && state.streak.lastActive !== dayNow ? streak.current : null;
+  return { ...state, xpEvents, passed, seen, cards, reviews, streak, streakBurst };
 }
 
 export function answerCard(

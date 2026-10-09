@@ -37,6 +37,7 @@ type ProgressApi = {
   streak: number;
   freezes: number;
   freezeNotice: boolean;
+  streakBurst: number | null;
   cards: SavedCard[];
   activeDays: string[];
   weekDates: string[];
@@ -64,6 +65,7 @@ function normalize(saved: Partial<ProgressState> | null): ProgressState {
     cards: saved.cards ?? [],
     reviews: saved.reviews ?? [],
     streak: { ...base.streak, ...saved.streak, freezeNotice: saved.streak?.freezeNotice ?? null },
+    streakBurst: saved.streakBurst ?? null,
   };
 }
 
@@ -112,6 +114,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       streak: current.streak.current,
       freezes: current.streak.freezes,
       freezeNotice: current.streak.freezeNotice === day,
+      streakBurst: current.streakBurst,
       cards: current.cards,
       activeDays,
       weekDates,

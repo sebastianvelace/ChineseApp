@@ -52,6 +52,7 @@ export default function LessonPage() {
         onNext={() => go(nextAfterLesson(lessonHit.unit, lessonHit.lesson.order))}
         nextLabel={lessonHit.unit.lessons.some((lesson) => lesson.order === lessonHit.lesson.order + 1) ? t("lesson.next") : t("unit.talk")}
         learned={lessonTargets(lessonHit.lesson).map((id) => getLearnable(id)?.hanzi).filter((hanzi): hanzi is string => !!hanzi)}
+        accent={lessonHit.unit.color}
       />
     );
   }
@@ -68,6 +69,7 @@ export default function LessonPage() {
       onExit={() => go(`/unit/${reviewHit!.unit.id}`)}
       onNext={nextUnitHref(reviewHit!.unit.id) ? () => go(nextUnitHref(reviewHit!.unit.id)!) : undefined}
       nextLabel={t("lesson.nextUnit")}
+      accent={reviewHit!.unit.color}
     />
   );
 }
