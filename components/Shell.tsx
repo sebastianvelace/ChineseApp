@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useT } from "@/lib/i18n";
+import { useOnline } from "@/lib/online";
 import { useProgress } from "@/lib/progress";
 
 const HIDE = [/^\/lesson\//, /^\/talk\//, /^\/onboarding$/, /^\/practice\/session/];
@@ -12,6 +13,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const router = useRouter();
   const { ready, onboarded } = useProgress();
+  const online = useOnline();
   const t = useT();
   useEffect(() => {
     if (!ready) return;
@@ -22,6 +24,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-full bg-[#F7F3EC] text-[#1C1917]">
       <div className={wide && !hide ? "mx-auto min-h-full w-full max-w-[480px] pb-24 lg:max-w-none lg:pl-56" : "mx-auto min-h-full w-full max-w-[480px]"}>
+        {online === false && !hide ? <p className="px-5 pt-4 text-sm font-semibold text-[#57534E]">{t("offline.banner")}</p> : null}
         {children}
       </div>
       {hide ? null : (

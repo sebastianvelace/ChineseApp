@@ -1,10 +1,10 @@
-const CACHE = "hanlu-v2";
+const CACHE = "hanlu-v3";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(CACHE)
-      .then((cache) => cache.addAll(["/offline.html", "/icons/icon-192.png", "/icons/icon-512.png"]))
+      .then((cache) => cache.addAll(["/offline.html", "/offline-lesson.html", "/icons/icon-192.png", "/icons/icon-512.png"]))
       .then(() => self.skipWaiting()),
   );
 });
@@ -50,6 +50,12 @@ async function networkFirstNavigation(request) {
     if (response.ok) await cache.put(request, response.clone());
     return response;
   } catch {
-    return (await cache.match(request)) || (await cache.match("/offline.html"));
+    const cached = await cache.match(request);
+    if (cached) return cached;
+    const path = new URL(request.url).pathname;
+    if (path.startsWith("/lesson/") || path.startsWith("/talk/")) {
+      return (await cache.match("/offline-lesson.html")) || (await cache.match("/offline.html"));
+    }
+    return (await cache.match("/offline.html"));
   }
 }

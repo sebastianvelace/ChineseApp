@@ -2,19 +2,35 @@
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import { Player } from "@/components/Player";
+import { OfflineLesson } from "@/components/OfflineLesson";
 import { assembleLesson, assembleReview, lessonTargets, unitTargets } from "@/lib/assemble";
 import { allUnits, findLesson, findReview, getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
+import { canOpenOffline, useSavedHere } from "@/lib/saved-here";
 import { extraStatus, lessonStatus } from "@/lib/unlock";
-import { Player } from "@/components/Player";
 
 export default function LessonPage() {
   const params = useParams<{ lessonId: string }>();
   const router = useRouter();
   const t = useT();
   const { ready, seen, passed, passNode } = useProgress();
-  if (!ready) return <p className="p-6">{t("loading")}</p>;
+  const saved = useSavedHere(params.lessonId);
+  const [blocked, setBlocked] = useState(false);
+  function go(href: string) {
+    const guarded = href.startsWith("/lesson/") || href.startsWith("/talk/");
+    const id = href.split("/").filter(Boolean).pop() ?? "";
+    if (guarded && !canOpenOffline(id)) {
+      setBlocked(true);
+      return;
+    }
+    router.push(href);
+  }
+  if (!ready || saved === "loading") return <p className="p-6">{t("loading")}</p>;
+  if (saved === "missing") return <OfflineLesson />;
+  if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
 
   const lessonHit = findLesson(params.lessonId);
   const reviewHit = findReview(params.lessonId);
@@ -32,8 +48,8 @@ export default function LessonPage() {
         grammar={lessonHit.lesson.grammar}
         xpFor={(correct) => (passed[lessonHit.lesson.id] ? 5 : 20 + 2 * correct)}
         onPass={(result) => passNode(lessonHit.lesson.id, "lesson", { ...result, itemIds: lessonTargets(lessonHit.lesson) })}
-        onExit={() => router.push(`/unit/${lessonHit.unit.id}`)}
-        onNext={() => router.push(nextAfterLesson(lessonHit.unit, lessonHit.lesson.order))}
+        onExit={() => go(`/unit/${lessonHit.unit.id}`)}
+        onNext={() => go(nextAfterLesson(lessonHit.unit, lessonHit.lesson.order))}
         nextLabel={lessonHit.unit.lessons.some((lesson) => lesson.order === lessonHit.lesson.order + 1) ? t("lesson.next") : t("unit.talk")}
         learned={lessonTargets(lessonHit.lesson).map((id) => getLearnable(id)?.hanzi).filter((hanzi): hanzi is string => !!hanzi)}
       />
@@ -49,8 +65,8 @@ export default function LessonPage() {
       items={assembleReview(reviewHit!.unit, reviewHit!.review)}
       xpFor={() => 15}
       onPass={(result) => passNode(reviewHit!.review.id, "review", { ...result, itemIds: unitTargets(reviewHit!.unit) })}
-      onExit={() => router.push(`/unit/${reviewHit!.unit.id}`)}
-      onNext={nextUnitHref(reviewHit!.unit.id) ? () => router.push(nextUnitHref(reviewHit!.unit.id)!) : undefined}
+      onExit={() => go(`/unit/${reviewHit!.unit.id}`)}
+      onNext={nextUnitHref(reviewHit!.unit.id) ? () => go(nextUnitHref(reviewHit!.unit.id)!) : undefined}
       nextLabel={t("lesson.nextUnit")}
     />
   );

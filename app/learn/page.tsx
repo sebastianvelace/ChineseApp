@@ -1,15 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { OfflineLesson } from "@/components/OfflineLesson";
 import { trackById } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
+import { canOpenOffline } from "@/lib/saved-here";
 import { resumeTarget, unitState } from "@/lib/unlock";
 
 export default function LearnPage() {
   const { ready, track, setTrack, streak, xpToday, dailyGoal, locale, passed } = useProgress();
   const t = useT();
+  const [blocked, setBlocked] = useState(false);
   if (!ready) return <p className="p-6 text-[#57534E]">{t("loading")}</p>;
+  if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
   const units = trackById(track)?.levels[0]?.units ?? [];
   return (
     <main className="px-5 py-6">
@@ -36,7 +41,16 @@ export default function LearnPage() {
         if (!next) return null;
         const label = next.kind === "lesson" ? t("unit.lesson", { order: next.order ?? 1 }) : next.kind === "talk" ? t("unit.talk") : t("unit.review");
         return (
-          <Link href={next.href} className="mt-4 block rounded-2xl bg-[#E25B45] px-4 py-4 text-white">
+          <Link
+            href={next.href}
+            className="mt-4 block rounded-2xl bg-[#E25B45] px-4 py-4 text-white"
+            onClick={(event) => {
+              const id = next.href.split("/").filter(Boolean).pop() ?? "";
+              if (canOpenOffline(id)) return;
+              event.preventDefault();
+              setBlocked(true);
+            }}
+          >
             <span className="text-sm font-semibold">{t("practice.continue")}</span>
             <span className="mt-1 block text-lg font-bold">{label}</span>
             {next.hanzi ? <span className="mt-1 block font-[family-name:var(--font-hanzi)] text-base">{next.hanzi}</span> : null}

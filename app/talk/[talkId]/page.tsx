@@ -2,9 +2,11 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { OfflineLesson } from "@/components/OfflineLesson";
 import { findTalk, getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
+import { useSavedHere } from "@/lib/saved-here";
 import { extraStatus } from "@/lib/unlock";
 
 export default function TalkPage() {
@@ -12,10 +14,12 @@ export default function TalkPage() {
   const router = useRouter();
   const t = useT();
   const { ready, locale, passed, passNode } = useProgress();
+  const saved = useSavedHere(params.talkId);
   const [step, setStep] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const hit = findTalk(params.talkId);
-  if (!ready) return <p className="p-6">{t("loading")}</p>;
+  if (!ready || saved === "loading") return <p className="p-6">{t("loading")}</p>;
+  if (saved === "missing") return <OfflineLesson />;
   if (!hit) return <p className="p-6">Missing talk.</p>;
   if (extraStatus(hit.unit, hit.talk.id, passed) === "locked") {
     return (
