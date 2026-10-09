@@ -1,4 +1,5 @@
-import { allRadicals, allUnits, contentTokens, firstTone, getDialogue, getLearnable, getSentence, radicalFor } from "./content";
+import { allRadicals, allUnits, contentTokens, findLesson, firstTone, getDialogue, getLearnable, getSentence, radicalFor } from "./content";
+import { firstNumberedTone, markPinyin, withFirstTone } from "./pinyin";
 import { shuffle } from "./shuffle";
 import type { ExerciseItem, Lesson, Review, Unit } from "./types";
 
@@ -26,23 +27,35 @@ function padIds(correct: string, pool: string[], seed: string): string[] {
   return shuffle(options, seed);
 }
 
-function padPinyin(correct: string, poolIds: string[], seed: string): string[] {
-  const options = [correct];
-  for (const id of poolIds) {
-    const py = getLearnable(id)?.pinyin ?? "";
-    if (py && !options.includes(py)) options.push(py);
-    if (options.length === 4) break;
-  }
-  return shuffle(options, seed);
-}
-
 function meaningItem(itemId: string, pool: string[], seed: string): ExerciseItem {
   return { type: "meaning", itemId, options: padIds(itemId, pool, seed) };
 }
 
-function pinyinItem(itemId: string, poolIds: string[], seed: string): ExerciseItem {
-  const correct = getLearnable(itemId)?.pinyin ?? itemId;
-  return { type: "pinyin", itemId, options: padPinyin(correct, poolIds, seed) };
+function pinyinChoices(itemId: string, lessonTargets: string[], pool: string[], seed: string): string[] {
+  const item = getLearnable(itemId);
+  const correct = item?.pinyin ?? itemId;
+  const options = [correct];
+  const numbered = item?.pinyinNumbered ?? "";
+  const trueTone = firstNumberedTone(numbered);
+  if (numbered && trueTone) {
+    for (const tone of [1, 2, 3, 4, 5]) {
+      if (tone === trueTone) continue;
+      const marked = markPinyin(withFirstTone(numbered, tone));
+      if (marked && !options.includes(marked)) options.push(marked);
+      if (options.length === 4) break;
+    }
+  }
+  const rest = [...lessonTargets.filter((id) => id !== itemId), ...pool.filter((id) => id !== itemId && !lessonTargets.includes(id))];
+  for (const id of rest) {
+    if (options.length >= 4) break;
+    const py = getLearnable(id)?.pinyin ?? "";
+    if (py && !options.includes(py)) options.push(py);
+  }
+  return shuffle(options.slice(0, 4), seed);
+}
+
+function pinyinItem(itemId: string, lessonTargets: string[], pool: string[], seed: string): ExerciseItem {
+  return { type: "pinyin", itemId, options: pinyinChoices(itemId, lessonTargets, pool, seed) };
 }
 
 function setBuildSentence(sentenceIds: string[]) {
@@ -99,7 +112,11 @@ function blankItem(sentenceId: string, targetIds: string[], seed: string): Exerc
   return { type: "blank", sentenceId, blankAt, options: shuffle(options.slice(0, 4), seed) };
 }
 
-export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): ExerciseItem[] {
+export function assembleLesson(lessonId: string, seenWordIds: readonly string[] = [], contentVersion = "1.0.0"): ExerciseItem[] {
+  void contentVersion;
+  const lesson = findLesson(lessonId)?.lesson;
+  if (!lesson) return [];
+  const seen = new Set(seenWordIds);
   const targets = [...lesson.targetWordIds, ...lesson.supportTargetIds];
   const items: ExerciseItem[] = [];
   const pool = introducedIds(lesson.id);
@@ -107,10 +124,9 @@ export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): Exerc
   if (lesson.presentation === "set") {
     items.push({ type: "teach-set", itemIds: targets, showGrammar: true });
     for (const id of targets) items.push(meaningItem(id, pool, `${lesson.id}:meaning:${id}`));
+    const pinyinAt = new Set([0, 2, 4, targets.length - 1]);
     targets.forEach((id, index) => {
-      if ([0, 2, 4, targets.length - 1].includes(index)) {
-        items.push(pinyinItem(id, pool, `${lesson.id}:pinyin:${id}`));
-      }
+      if (pinyinAt.has(index)) items.push(pinyinItem(id, targets, pool, `${lesson.id}:pinyin:${id}`));
     });
     const buildSentence = setBuildSentence(lesson.sentenceIds);
     if (buildSentence) {
@@ -119,20 +135,21 @@ export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): Exerc
     }
     items.push(...toneItems(targets, true));
     return items;
-  } else {
-    let grammarShown = false;
-    for (const id of targets) {
-      if (!seen.has(id)) {
-        items.push({ type: "teach", itemId: id, showGrammar: !grammarShown });
-        grammarShown = true;
-      }
-    }
-    for (const id of targets) {
-      items.push(meaningItem(id, pool, `${lesson.id}:meaning:${id}`));
-      if (!seen.has(id)) items.push(pinyinItem(id, pool, `${lesson.id}:pinyin:${id}`));
-    }
   }
 
+  let grammarShown = false;
+  for (const id of targets) {
+    if (!seen.has(id)) {
+      items.push({ type: "teach", itemId: id, showGrammar: !grammarShown });
+      grammarShown = true;
+    }
+  }
+  for (const id of targets) items.push(meaningItem(id, pool, `${lesson.id}:meaning:${id}`));
+  for (const id of targets) {
+    if (!seen.has(id)) items.push(pinyinItem(id, targets, pool, `${lesson.id}:pinyin:${id}`));
+  }
+
+  items.push(...toneItems(targets, false));
   const buildSentence = sentenceWithTarget(targets, lesson.sentenceIds);
   const blankSentence =
     lesson.sentenceIds.map((id) => getSentence(id)).find((s) => s && s.id !== buildSentence?.id) ??
@@ -145,7 +162,6 @@ export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): Exerc
     const blank = blankItem(blankSentence.id, targets, `${lesson.id}:blank:${blankSentence.id}`);
     if (blank) items.push(blank);
   }
-  items.push(...toneItems(targets, false));
   items.push(...radicalItems(lesson.id, targets));
   const stroke = strokeChar(targets);
   if (stroke) items.push({ type: "stroke", char: stroke });
@@ -196,18 +212,16 @@ function strokeChar(targets: string[]): string | null {
 }
 
 export function assembleReview(unit: Unit, review: Review): ExerciseItem[] {
-  const targets = unit.lessons.flatMap((l) => [...l.targetWordIds, ...l.supportTargetIds]);
-  const unique = [...new Set(targets)];
+  const targetIds = [...new Set(unit.lessons.flatMap((lesson) => lesson.targetWordIds))];
   const items: ExerciseItem[] = [];
   const dialogue = getDialogue(review.dialogueId);
   for (const line of dialogue?.lines ?? []) {
     items.push({ type: "line", sentenceId: line.id });
   }
-  const quizIds = unique.slice(0, 8);
-  const matchIds = unique.slice(0, 4);
+  const matchIds = targetIds.slice(0, 4);
   if (matchIds.length >= 2) items.push({ type: "match", itemIds: matchIds });
-  for (const id of quizIds) {
-    items.push(meaningItem(id, unique, `${review.id}:meaning:${id}`));
+  for (const id of targetIds.slice(0, 8)) {
+    items.push(meaningItem(id, targetIds, `${review.id}:meaning:${id}`));
   }
   const first = review.sentenceIds[0];
   const second = review.sentenceIds[1] ?? first;
@@ -216,7 +230,7 @@ export function assembleReview(unit: Unit, review: Review): ExerciseItem[] {
     if (built) items.push(built);
   }
   if (second) {
-    const blank = blankItem(second, unique, `${review.id}:blank:${second}`);
+    const blank = blankItem(second, targetIds, `${review.id}:blank:${second}`);
     if (blank) items.push(blank);
   }
   return items;

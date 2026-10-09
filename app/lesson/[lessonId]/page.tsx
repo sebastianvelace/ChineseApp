@@ -39,7 +39,7 @@ export default function LessonPage() {
   if (lessonHit) {
     const status = lessonStatus(lessonHit.unit, lessonHit.lesson, passed);
     if (status === "locked") return <Locked back={`/unit/${lessonHit.unit.id}`} />;
-    const items = assembleLesson(lessonHit.lesson, seen);
+    const items = assembleLesson(lessonHit.lesson.id, [...seen]);
     return (
       <Player
         key={lessonHit.lesson.id}
