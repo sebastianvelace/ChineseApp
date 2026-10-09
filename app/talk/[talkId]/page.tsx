@@ -7,6 +7,7 @@ import { findTalk, getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { useSavedHere } from "@/lib/saved-here";
+import { talkChoices } from "@/lib/talk-choices";
 import { extraStatus } from "@/lib/unlock";
 
 export default function TalkPage() {
@@ -40,7 +41,9 @@ export default function TalkPage() {
       </main>
     );
   }
-  const options = unique([check.answer, checks[1 - step]?.answer, getLearnable(hit.unit.lessons[0]?.targetWordIds[0] ?? "")?.hanzi].filter((v): v is string => !!v)).slice(0, 3);
+  const other = checks.find((item, index) => index !== step)?.answer;
+  const hanzi = hit.unit.lessons.flatMap((lesson) => lesson.targetWordIds).map((id) => getLearnable(id)?.hanzi).filter((text): text is string => !!text);
+  const options = talkChoices(check.answer, other, hanzi);
   return (
     <main className="px-5 py-6">
       <button className="text-sm font-semibold text-[#57534E]" onClick={() => router.push(`/unit/${hit.unit.id}`)}>{t("lesson.leave")}</button>
@@ -78,6 +81,3 @@ export default function TalkPage() {
   );
 }
 
-function unique(values: string[]): string[] {
-  return [...new Set(values)];
-}
