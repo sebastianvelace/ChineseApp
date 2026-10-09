@@ -30,7 +30,8 @@ export default function PracticePage() {
         <Link href="/practice/session" className="btn-primary mt-3 inline-flex items-center justify-center">{t("practice.review")}</Link>
       ) : (
         <div className="mt-2">
-          <p className="text-[#57534E]">{words.length ? t("practice.noneBody") : t("practice.noWords")}</p>
+          <p className="text-lg font-semibold">{t("practice.none")}</p>
+          <p className="mt-1 text-[#57534E]">{words.length ? t("practice.noneBody") : t("practice.noWords")}</p>
           {resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ? (
             <Link href={resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ?? "/learn"} className="btn-primary mt-3 inline-flex items-center justify-center">
               {t("practice.continue")}

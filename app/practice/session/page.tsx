@@ -28,10 +28,11 @@ function Session() {
 function Deck() {
   const params = useSearchParams();
   const only = params.get("item");
-  const { cards, answerCard, locale, pinyin, seen, seenItems } = useProgress();
+  const { cards, answerCard, locale, pinyin, seen, seenItems, xp } = useProgress();
   const t = useT();
   const router = useRouter();
   const [sessionId] = useState(() => crypto.randomUUID());
+  const [xpStart] = useState(xp);
   const [deck] = useState(() => (only ? cards.filter((c) => c.itemId === only) : practiceQueue(cards, seenItems)));
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -56,8 +57,9 @@ function Deck() {
         <h1 className="text-3xl font-bold">{t("practice.done")}</h1>
         <p className="mt-2">{t("practice.remembered", { count: remembered })}</p>
         <p className="mt-1 text-[#57534E]">{t("practice.missed", { count: missed })}</p>
+        <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: Math.max(0, xp - xpStart) })}</p>
         {stillDue === 0 && when ? <p className="mt-4 font-semibold">{t("practice.nextDue", { when })}</p> : null}
-        <button className="btn-primary mt-8" onClick={() => router.push("/practice")}>{t("lesson.back")}</button>
+        <button className="btn-primary mt-8" onClick={() => router.push("/practice")}>{t("talk.done")}</button>
       </main>
     );
   }
@@ -75,7 +77,7 @@ function Deck() {
     answerCard(card, rating, { id: crypto.randomUUID(), sessionId });
     if (ok) setRemembered((n) => n + 1);
     else setMissed((n) => n + 1);
-    const answer = card.cardType === "pinyin" ? item.pinyin : card.cardType === "hanzi" ? item.hanzi : `${item.hanzi} · ${item.gloss[locale]}`;
+    const answer = card.cardType === "pinyin" ? `${item.pinyin} · ${item.gloss[locale]}` : `${item.hanzi} · ${item.gloss[locale]}`;
     setFeedback({ ok, answer });
   }
 
@@ -84,7 +86,7 @@ function Deck() {
       <button className="self-start text-sm font-semibold text-[#57534E]" onClick={() => router.push("/practice")}>{t("lesson.leave")}</button>
       <p className="mt-6 text-center font-[family-name:var(--font-hanzi)] text-6xl">{card.cardType === "hanzi" ? item?.gloss[locale] : item?.hanzi}</p>
       {card.cardType === "meaning" && pinyin ? <p className="mt-2 text-center text-[#57534E]">{item?.pinyin}</p> : null}
-      <div className="mt-6 flex flex-col gap-3">
+      <div className="choice-grid">
         {options.map((option) => (
           <button key={option.value} disabled={!!feedback} className={`min-h-12 rounded-xl border bg-white px-4 text-left font-semibold ${selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]"}`} onClick={() => setSelected(option.value)}>
             {option.label}
