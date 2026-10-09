@@ -6,7 +6,8 @@
     "dev": "next dev -p 4317 -H 0.0.0.0",
     "build": "next build",
     "start": "next start -p 4317 -H 0.0.0.0",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:content": "node scripts/lint-content.mjs && node scripts/lint-content.test.mjs"
   },
   "dependencies": {
     "hanzi-writer": "^3.7.3",

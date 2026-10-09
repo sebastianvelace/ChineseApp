@@ -11,6 +11,8 @@ npm run dev
 
 Open [http://localhost:4317](http://localhost:4317).
 
+Check the lesson files with `npm run lint:content`. It fails if a word, sentence, or id does not match.
+
 The dev server listens on port **4317**.
 
 ## What this build includes
