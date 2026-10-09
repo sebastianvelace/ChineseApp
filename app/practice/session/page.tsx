@@ -4,7 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
-import { dueCards, useProgress } from "@/lib/progress";
+import { useProgress } from "@/lib/progress";
+import { practiceQueue } from "@/lib/practice-queue";
 import { shuffle } from "@/lib/shuffle";
 import type { SavedCard } from "@/lib/srs";
 import { Rating } from "ts-fsrs";
@@ -27,10 +28,11 @@ function Session() {
 function Deck() {
   const params = useSearchParams();
   const only = params.get("item");
-  const { cards, answerCard, locale, pinyin, seen } = useProgress();
+  const { cards, answerCard, locale, pinyin, seen, seenItems } = useProgress();
   const t = useT();
   const router = useRouter();
-  const [deck] = useState(() => (only ? cards.filter((c) => c.itemId === only) : dueCards(cards).slice(0, 20)));
+  const [sessionId] = useState(() => crypto.randomUUID());
+  const [deck] = useState(() => (only ? cards.filter((c) => c.itemId === only) : practiceQueue(cards, seenItems)));
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [shownAt, setShownAt] = useState(0);
@@ -43,7 +45,7 @@ function Deck() {
   const card = deck[index];
 
   if (!card) {
-    const stillDue = dueCards(cards).length;
+    const stillDue = practiceQueue(cards, seenItems).length;
     const nextTime = cards
       .map((saved) => new Date(saved.due).getTime())
       .filter((time) => time > Date.now())
@@ -70,7 +72,7 @@ function Deck() {
     if (ok && seconds < 4 && card.reps >= 2) rating = Rating.Easy;
     else if (ok && seconds < 8) rating = Rating.Good;
     else if (ok) rating = Rating.Hard;
-    answerCard(card, rating);
+    answerCard(card, rating, { id: crypto.randomUUID(), sessionId });
     if (ok) setRemembered((n) => n + 1);
     else setMissed((n) => n + 1);
     const answer = card.cardType === "pinyin" ? item.pinyin : card.cardType === "hanzi" ? item.hanzi : `${item.hanzi} · ${item.gloss[locale]}`;

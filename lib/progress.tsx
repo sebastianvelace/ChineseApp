@@ -2,13 +2,15 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { loadDeviceProgress, saveDeviceProgress } from "./device-store";
-import { applyLessonRatings, cardKey, freshCard, isDue, rateCard, type CardType, type LessonRating, type SavedCard } from "./srs";
+import { deferExtraNewCards, type SeenStamp } from "./practice-queue";
+import { applyLessonRatings, cardKey, freshCard, rateCard, type CardType, type LessonRating, type SavedCard } from "./srs";
 import { type Grade } from "ts-fsrs";
 
 export type Locale = "en" | "es";
 
 type XpEvent = { id: string; amount: number; at: string };
 type Passed = { ratio: number | null; at: string };
+type ReviewRow = { id: string; itemId: string; cardType: CardType; rating: number; at: string; source: "practice" };
 type Streak = { current: number; longest: number; lastActive: string | null; freezes: number; granted: number[] };
 
 type Persisted = {
@@ -21,6 +23,7 @@ type Persisted = {
   passed: Record<string, Passed>;
   xpEvents: XpEvent[];
   cards: SavedCard[];
+  reviews: ReviewRow[];
   streak: Streak;
 };
 
@@ -34,6 +37,7 @@ type ProgressApi = {
   dailyGoal: 10 | 20 | 50;
   track: "hsk" | "everyday";
   seen: Set<string>;
+  seenItems: SeenStamp[];
   passed: Record<string, Passed>;
   xp: number;
   xpToday: number;
@@ -48,7 +52,7 @@ type ProgressApi = {
   setGoal: (goal: 10 | 20 | 50) => void;
   setTrack: (track: "hsk" | "everyday") => void;
   passNode: (nodeId: string, kind: PassKind, info?: { ratio: number; correct: number; itemIds: string[]; ratings?: LessonRating[] }) => void;
-  answerCard: (card: SavedCard, rating: Grade) => void;
+  answerCard: (card: SavedCard, rating: Grade, review: { id: string; sessionId: string }) => void;
 };
 
 const ProgressContext = createContext<ProgressApi | null>(null);
@@ -83,6 +87,7 @@ function empty(): Persisted {
     passed: {},
     xpEvents: [],
     cards: [],
+    reviews: [],
     streak: { current: 0, longest: 0, lastActive: null, freezes: 0, granted: [] },
   };
 }
@@ -110,18 +115,12 @@ function bumpStreak(streak: Streak, day: string): Streak {
 function ensureCards(cards: SavedCard[], itemIds: string[], day: string): SavedCard[] {
   const next = [...cards];
   const have = new Set(next.map(cardKey));
-  let introducedToday = next.filter((c) => c.introducedOn === day).length;
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(0, 5, 0, 0);
   for (const itemId of itemIds) {
     for (const cardType of ["meaning", "pinyin", "hanzi"] as CardType[]) {
       const key = `${itemId}:${cardType}`;
       if (have.has(key)) continue;
-      const due = introducedToday >= 10 ? tomorrow : new Date();
-      next.push(freshCard(itemId, cardType, day, due));
+      next.push(freshCard(itemId, cardType, day, new Date()));
       have.add(key);
-      introducedToday += 1;
     }
   }
   return next;
@@ -165,6 +164,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       dailyGoal: current.dailyGoal,
       track: current.track,
       seen,
+      seenItems: current.seen.map((row) => ({ id: row.id, at: row.at })),
       passed: current.passed,
       xp,
       xpToday,
@@ -203,21 +203,29 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
           if (kind === "lesson" && info) {
             cards = ensureCards(cards, info.itemIds, dayNow);
             if (!already && info.ratings?.length) cards = applyLessonRatings(cards, info.ratings);
+            cards = deferExtraNewCards(cards, seenRows, dayNow);
           }
           const streak = amount > 0 || !already ? bumpStreak(base.streak, dayNow) : base.streak;
           return { ...base, xpEvents, passed, seen: seenRows, cards, streak };
         });
       },
-      answerCard: (card, rating) => {
+      answerCard: (card, rating, review) => {
         setData((prev) => {
           if (!prev) return prev;
+          const reviews = prev.reviews ?? [];
+          if (reviews.some((row) => row.id === review.id)) return prev;
           const nextCard = rateCard(card, rating);
           const cards = prev.cards.map((c) => (cardKey(c) === cardKey(card) ? nextCard : c));
-          const eventId = `practice:${crypto.randomUUID()}`;
-          const sessionCount = prev.xpEvents.filter((e) => e.id.startsWith("practice:") && e.at.slice(0, 10) === today()).length;
-          const xpEvents = sessionCount >= 20 ? prev.xpEvents : [...prev.xpEvents, { id: eventId, amount: 1, at: new Date().toISOString() }];
+          const sessionCount = prev.xpEvents.filter((e) => e.id.startsWith(`practice:${review.sessionId}:`)).length;
+          const xpEvents = sessionCount >= 20 ? prev.xpEvents : [...prev.xpEvents, { id: `practice:${review.sessionId}:${review.id}`, amount: 1, at: new Date().toISOString() }];
           const streak = bumpStreak(prev.streak, today());
-          return { ...prev, cards, xpEvents, streak };
+          return {
+            ...prev,
+            cards,
+            xpEvents,
+            streak,
+            reviews: [...reviews, { id: review.id, itemId: card.itemId, cardType: card.cardType, rating, at: new Date().toISOString(), source: "practice" }],
+          };
         });
       },
     };
@@ -230,12 +238,4 @@ export function useProgress(): ProgressApi {
   const ctx = useContext(ProgressContext);
   if (!ctx) throw new Error("useProgress outside provider");
   return ctx;
-}
-
-export function dueCards(cards: SavedCard[], now?: Date): SavedCard[] {
-  const at = now ?? new Date();
-  const order: CardType[] = ["meaning", "pinyin", "hanzi"];
-  return cards
-    .filter((c) => isDue(c, at))
-    .sort((a, b) => new Date(a.due).getTime() - new Date(b.due).getTime() || order.indexOf(a.cardType) - order.indexOf(b.cardType));
 }

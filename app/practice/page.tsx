@@ -4,14 +4,15 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { getLearnable, trackById } from "@/lib/content";
 import { useT } from "@/lib/i18n";
-import { dueCards, useProgress } from "@/lib/progress";
+import { useProgress } from "@/lib/progress";
+import { practiceQueue } from "@/lib/practice-queue";
 import { resumeHref } from "@/lib/unlock";
 
 export default function PracticePage() {
-  const { ready, cards, seen, locale, pinyin, track, passed } = useProgress();
+  const { ready, cards, seen, seenItems, locale, pinyin, track, passed } = useProgress();
   const t = useT();
   const [query, setQuery] = useState("");
-  const due = useMemo(() => dueCards(cards), [cards]);
+  const due = useMemo(() => practiceQueue(cards, seenItems), [cards, seenItems]);
   if (!ready) return <p className="p-6">{t("loading")}</p>;
   const words = [...seen].map((id) => getLearnable(id)).filter((item) => !!item);
   const filtered = words.filter((item) => {
