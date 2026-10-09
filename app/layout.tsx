@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import { RegisterSW } from "@/components/RegisterSW";
 import { Shell } from "@/components/Shell";
 import { ProgressProvider } from "@/lib/progress";
 import "./globals.css";
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full">
         <ProgressProvider>
+          <RegisterSW />
           <Shell>{children}</Shell>
         </ProgressProvider>
       </body>

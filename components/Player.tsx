@@ -23,6 +23,7 @@ export function Player({
   onExit,
   onNext,
   nextLabel,
+  learned,
   xpFor,
 }: {
   title: string;
@@ -32,6 +33,7 @@ export function Player({
   onExit: () => void;
   onNext?: () => void;
   nextLabel?: string;
+  learned?: string[];
   xpFor: (correct: number) => number;
 }) {
   const t = useT();
@@ -58,6 +60,9 @@ export function Player({
         <h1 className="font-[family-name:var(--font-hanzi)] text-4xl">{passed ? t("lesson.passTitle") : t("lesson.failTitle")}</h1>
         <p className="mt-3 text-lg text-[#57534E]">{Math.round(ratio * 100)}%</p>
         {passed ? <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: xpFor(finalCorrect) })}</p> : null}
+        {passed && learned && learned.length > 0 ? (
+          <p className="mt-4 font-[family-name:var(--font-hanzi)] text-2xl leading-9">{learned.join("  ")}</p>
+        ) : null}
         <div className="mt-8 flex flex-col gap-3">
           {passed && onNext ? (
             <button className="btn-primary" onClick={onNext}>

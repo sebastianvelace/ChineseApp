@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { assembleLesson, assembleReview, lessonTargets, unitTargets } from "@/lib/assemble";
-import { allUnits, findLesson, findReview } from "@/lib/content";
+import { allUnits, findLesson, findReview, getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { extraStatus, lessonStatus } from "@/lib/unlock";
@@ -35,6 +35,7 @@ export default function LessonPage() {
         onExit={() => router.push(`/unit/${lessonHit.unit.id}`)}
         onNext={() => router.push(nextAfterLesson(lessonHit.unit, lessonHit.lesson.order))}
         nextLabel={lessonHit.unit.lessons.some((lesson) => lesson.order === lessonHit.lesson.order + 1) ? t("lesson.next") : t("unit.talk")}
+        learned={lessonTargets(lessonHit.lesson).map((id) => getLearnable(id)?.hanzi).filter((hanzi): hanzi is string => !!hanzi)}
       />
     );
   }

@@ -41,6 +41,8 @@ type ProgressApi = {
   streak: number;
   freezes: number;
   cards: SavedCard[];
+  activeDays: string[];
+  weekDates: string[];
   completeOnboarding: (locale: Locale, pinyin: boolean) => void;
   setLocale: (locale: Locale) => void;
   setPinyin: (pinyin: boolean) => void;
@@ -54,6 +56,14 @@ const ProgressContext = createContext<ProgressApi | null>(null);
 
 function today(): string {
   return new Date().toLocaleDateString("en-CA");
+}
+
+function localDayFromIso(iso: string): string {
+  const parsed = new Date(iso);
+  if (Number.isNaN(parsed.getTime())) return iso.slice(0, 10);
+  const month = String(parsed.getMonth() + 1).padStart(2, "0");
+  const date = String(parsed.getDate()).padStart(2, "0");
+  return `${parsed.getFullYear()}-${month}-${date}`;
 }
 
 function addDays(iso: string, days: number): string {
@@ -140,7 +150,9 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const current = data ?? empty();
     const seen = new Set(current.seen.map((s) => s.id));
     const xp = current.xpEvents.reduce((sum, e) => sum + e.amount, 0);
-    const xpToday = current.xpEvents.filter((e) => e.at.slice(0, 10) === day).reduce((sum, e) => sum + e.amount, 0);
+    const xpToday = current.xpEvents.filter((e) => localDayFromIso(e.at) === day).reduce((sum, e) => sum + e.amount, 0);
+    const activeDays = [...new Set(current.xpEvents.map((event) => localDayFromIso(event.at)))];
+    const weekDates = [6, 5, 4, 3, 2, 1, 0].map((offset) => addDays(day, -offset));
     return {
       ready: data !== null,
       onboarded: current.onboarded,
@@ -155,6 +167,8 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       streak: current.streak.current,
       freezes: current.streak.freezes,
       cards: current.cards,
+      activeDays,
+      weekDates,
       completeOnboarding: (locale, pinyin) => setData((prev) => ({ ...(prev ?? empty()), onboarded: true, locale, pinyin })),
       setLocale: (locale) => setData((prev) => ({ ...(prev ?? empty()), locale })),
       setPinyin: (pinyin) => setData((prev) => ({ ...(prev ?? empty()), pinyin })),
