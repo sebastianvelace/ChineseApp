@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f7f3ec;
+  --ink: #1c1917;
+  --font-hanzi: "Noto Sans SC", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-nunito), Nunito, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn-primary {
+  min-height: 48px;
+  width: 100%;
+  border-radius: 12px;
+  background: #e25b45;
+  color: white;
+  font-weight: 700;
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+}
+
+.btn-ghost {
+  min-height: 48px;
+  width: 100%;
+  border-radius: 12px;
+  background: white;
+  font-weight: 700;
+}
+
+.tile {
+  min-height: 44px;
+  border-radius: 12px;
+  background: white;
+  padding: 0 14px;
+  font-family: var(--font-hanzi);
+  font-size: 18px;
+}

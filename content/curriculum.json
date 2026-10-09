@@ -1,0 +1,3725 @@
+{
+  "contentVersion": "1.0.0",
+  "locale": {
+    "en": "en",
+    "es": "es-419"
+  },
+  "provenance": {
+    "headwords": "HSK 1.0 150-word list, user-supplied hsk1-vocabulary.pdf",
+    "dictionaryExamples": "hsk1-vocabulary.pdf",
+    "englishGlosses": "written for Hanlu",
+    "spanishGlosses": "adapted from hsk1-vocabulary.pdf into es-419",
+    "lessonSentences": "written for Hanlu"
+  },
+  "tracks": [
+    {
+      "id": "hsk",
+      "title": {
+        "en": "HSK",
+        "es": "HSK"
+      },
+      "description": {
+        "en": "Vocabulary in HSK order. HSK 1 is complete. HSK 2–5 reuse this shape.",
+        "es": "Vocabulario en orden HSK. HSK 1 está completo. HSK 2–5 reutilizan esta forma."
+      },
+      "levels": [
+        {
+          "id": "hsk1",
+          "hskLevel": 1,
+          "title": {
+            "en": "HSK 1",
+            "es": "HSK 1"
+          },
+          "wordCount": 150,
+          "units": [
+            {
+              "id": "hsk1-u01",
+              "slug": "hello",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 1,
+              "title": {
+                "en": "Hello",
+                "es": "Hola"
+              },
+              "icon": "👋",
+              "color": "#E25B45",
+              "requiresUnitId": null,
+              "lessons": [
+                {
+                  "id": "hsk1-u01-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Hello and 我是",
+                    "es": "Hola y 我是"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w072",
+                    "hsk1-w035",
+                    "hsk1-w111",
+                    "hsk1-w095"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u01-l1",
+                    "pattern": "你好！ / 我是…",
+                    "title": {
+                      "en": "Hello and 我是",
+                      "es": "Hola y 我是"
+                    },
+                    "body": {
+                      "en": "你好 is the greeting: 你 (you) plus 好 (good). To say who you are, use 我是 + a name. 是 means 'to be'. There is no word for 'a' or 'am' besides 是.",
+                      "es": "你好 es el saludo: 你 (tú) más 好 (bien). Para decir quién eres, usa 我是 + un nombre. 是 significa 'ser'. No hace falta otra palabra para 'soy'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u01-l1-s01",
+                    "hsk1-u01-l1-s02",
+                    "hsk1-u01-l1-s03",
+                    "hsk1-u01-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u01-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Yes/no questions",
+                    "es": "Preguntas de sí o no"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w104",
+                    "hsk1-w105",
+                    "hsk1-w008",
+                    "hsk1-w060"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u01-l2",
+                    "pattern": "…吗？ / 不",
+                    "title": {
+                      "en": "Yes/no questions",
+                      "es": "Preguntas de sí o no"
+                    },
+                    "body": {
+                      "en": "Add 吗 at the end to turn 你是李明 into the question 你是李明吗？ Answer with 是 or 不是. 不 goes right before 是. 他 and 她 are both pronounced tā; the character shows he or she.",
+                      "es": "Añade 吗 al final para convertir 你是李明 en la pregunta 你是李明吗？ Responde 是 o 不是. 不 va justo antes de 是. 他 y 她 se pronuncian tā; el carácter marca él o ella."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u01-l2-s01",
+                    "hsk1-u01-l2-s02",
+                    "hsk1-u01-l2-s03",
+                    "hsk1-u01-l2-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u01-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Thanks and goodbye",
+                    "es": "Gracias y adiós"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w125",
+                    "hsk1-w007",
+                    "hsk1-w138"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u01-l3",
+                    "pattern": "谢谢 / 不客气 / 再见",
+                    "title": {
+                      "en": "Thanks and goodbye",
+                      "es": "Gracias y adiós"
+                    },
+                    "body": {
+                      "en": "谢谢你 thanks someone. The usual reply is 不客气, not a translation of 'you're welcome' word by word. 再见 means 'goodbye' (literally 'see you again').",
+                      "es": "谢谢你 agradece a alguien. La respuesta habitual es 不客气. 再见 significa 'adiós' (literalmente 'nos vemos otra vez')."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u01-l3-s01",
+                    "hsk1-u01-l3-s02",
+                    "hsk1-u01-l3-s03",
+                    "hsk1-u01-l3-s04",
+                    "hsk1-u01-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u01-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Hello, family name first",
+                  "es": "Hola: primero el apellido"
+                },
+                "body": {
+                  "en": "Chinese names put the family name first. In 李明, 李 is the family name and 明 is the given name. Greet people with 你好. A more formal 您好 exists, but it is not in HSK 1, so 你好 is the greeting to use with everyone for now. A small nod is a normal greeting. Hugging or a kiss on the cheek is not.",
+                  "es": "En los nombres chinos el apellido va primero. En 李明, 李 es el apellido y 明 es el nombre. Saluda con 你好. Existe un 您好 más formal, pero no está en HSK 1, así que de momento 你好 sirve para todos. Una leve inclinación de cabeza es un saludo normal. Abrazar o dar un beso en la mejilla no lo es."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u01-tt-c1",
+                    "prompt": {
+                      "en": "In 李明, which character is the family name?",
+                      "es": "En 李明, ¿qué carácter es el apellido?"
+                    },
+                    "answer": "李"
+                  },
+                  {
+                    "id": "hsk1-u01-tt-c2",
+                    "prompt": {
+                      "en": "How do you greet someone in this course?",
+                      "es": "¿Cómo se saluda en este curso?"
+                    },
+                    "answer": "你好"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u01-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u01-l1-s01",
+                  "hsk1-u01-l1-s02",
+                  "hsk1-u01-l1-s03",
+                  "hsk1-u01-l1-s04",
+                  "hsk1-u01-l2-s01",
+                  "hsk1-u01-l2-s02",
+                  "hsk1-u01-l2-s03",
+                  "hsk1-u01-l2-s04",
+                  "hsk1-u01-l3-s01",
+                  "hsk1-u01-l3-s02",
+                  "hsk1-u01-l3-s03",
+                  "hsk1-u01-l3-s04",
+                  "hsk1-u01-l3-s05"
+                ],
+                "dialogueId": "hsk1-u01-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u02",
+              "slug": "nice-to-meet-you",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 2,
+              "title": {
+                "en": "Nice to Meet You",
+                "es": "Encantado"
+              },
+              "icon": "🤝",
+              "color": "#E09A2B",
+              "requiresUnitId": "hsk1-u01",
+              "lessons": [
+                {
+                  "id": "hsk1-u02-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Asking a name",
+                    "es": "Preguntar el nombre"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w045",
+                    "hsk1-w092",
+                    "hsk1-w066",
+                    "hsk1-w070"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u02-l1",
+                    "pattern": "你叫什么名字？",
+                    "title": {
+                      "en": "Asking a name",
+                      "es": "Preguntar el nombre"
+                    },
+                    "body": {
+                      "en": "你叫什么名字？ asks 'what is your name?' 我叫 + name answers it. 什么 means 'what'. 呢 at the end bounces the question back: 你呢？ means 'and you?'",
+                      "es": "你叫什么名字？ pregunta '¿cómo te llamas?' 我叫 + nombre responde. 什么 significa 'qué'. 呢 al final devuelve la pregunta: 你呢？ significa '¿y tú?'"
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u02-l1-s01",
+                    "hsk1-u02-l1-s02",
+                    "hsk1-u02-l1-s03",
+                    "hsk1-u02-l1-s04",
+                    "hsk1-u02-l1-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u02-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Country and language",
+                    "es": "País e idioma"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w143",
+                    "hsk1-w084",
+                    "hsk1-w034"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u02-l2",
+                    "pattern": "中国人 / 汉语",
+                    "title": {
+                      "en": "Country and language",
+                      "es": "País e idioma"
+                    },
+                    "body": {
+                      "en": "A country plus 人 means a person from there: 中国人, a Chinese person. 汉语 is the Chinese language. 我是中国人 and 我学汉语 use words you already know.",
+                      "es": "Un país más 人 significa una persona de allí: 中国人, una persona china. 汉语 es el idioma chino. 我是中国人 y 我学汉语 usan palabras que ya conoces."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u02-l2-s01",
+                    "hsk1-u02-l2-s02",
+                    "hsk1-u02-l2-s03",
+                    "hsk1-u02-l2-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u02-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Nice to meet you",
+                    "es": "Encantado de conocerte"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w085",
+                    "hsk1-w039",
+                    "hsk1-w031"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u02-l3",
+                    "pattern": "认识你很高兴",
+                    "title": {
+                      "en": "Nice to meet you",
+                      "es": "Encantado de conocerte"
+                    },
+                    "body": {
+                      "en": "认识你很高兴 is the set phrase for 'nice to meet you'. 很 goes before 高兴 and softens it; Chinese adjectives usually need 很 in a simple statement, not because everything is 'very'.",
+                      "es": "认识你很高兴 es la frase hecha para 'encantado de conocerte'. 很 va antes de 高兴 y suaviza el adjetivo; en una frase simple el adjetivo suele llevar 很, no porque todo sea 'muy'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u02-l3-s01",
+                    "hsk1-u02-l3-s02",
+                    "hsk1-u02-l3-s03",
+                    "hsk1-u02-l3-s04",
+                    "hsk1-u02-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u02-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Nice to meet you",
+                  "es": "Encantado de conocerte"
+                },
+                "body": {
+                  "en": "认识你很高兴 is what you say just after names. People often ask 你是哪儿人 or 你是哪国人 early. Answer with 我是 + place + 人. Calling the language 汉语 is the neutral textbook word. 中文 is also common in speech; you only need 汉语 here.",
+                  "es": "认识你很高兴 se dice justo después de los nombres. A menudo preguntan pronto 你是哪儿人 o 你是哪国人. Responde con 我是 + lugar + 人. 汉语 es la palabra neutra de los manuales para el idioma. 中文 también se oye; aquí basta con 汉语."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u02-tt-c1",
+                    "prompt": {
+                      "en": "What do you say for 'nice to meet you'?",
+                      "es": "¿Qué se dice para 'encantado de conocerte'?"
+                    },
+                    "answer": "认识你很高兴"
+                  },
+                  {
+                    "id": "hsk1-u02-tt-c2",
+                    "prompt": {
+                      "en": "Which HSK 1 word names the Chinese language?",
+                      "es": "¿Qué palabra de HSK 1 nombra el idioma chino?"
+                    },
+                    "answer": "汉语"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u02-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u02-l1-s01",
+                  "hsk1-u02-l1-s02",
+                  "hsk1-u02-l1-s03",
+                  "hsk1-u02-l1-s04",
+                  "hsk1-u02-l1-s05",
+                  "hsk1-u02-l2-s01",
+                  "hsk1-u02-l2-s02",
+                  "hsk1-u02-l2-s03",
+                  "hsk1-u02-l2-s04",
+                  "hsk1-u02-l3-s01",
+                  "hsk1-u02-l3-s02",
+                  "hsk1-u02-l3-s03",
+                  "hsk1-u02-l3-s04",
+                  "hsk1-u02-l3-s05"
+                ],
+                "dialogueId": "hsk1-u02-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u03",
+              "slug": "people",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 3,
+              "title": {
+                "en": "People Around Me",
+                "es": "La gente a mi alrededor"
+              },
+              "icon": "🧑‍🏫",
+              "color": "#1F8A70",
+              "requiresUnitId": "hsk1-u02",
+              "lessons": [
+                {
+                  "id": "hsk1-u03-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "This, that, whose",
+                    "es": "Esto, eso, de quién"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w142",
+                    "hsk1-w069",
+                    "hsk1-w015",
+                    "hsk1-w091"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u03-l1",
+                    "pattern": "这 / 那 / 的 / 谁",
+                    "title": {
+                      "en": "This, that, whose",
+                      "es": "Esto, eso, de quién"
+                    },
+                    "body": {
+                      "en": "这 is 'this' and 那 is 'that'. 的 links an owner to a thing: 我的名字, 'my name'. 谁 means 'who'. 这是谁？ asks 'who is this?'",
+                      "es": "这 es 'este' y 那 es 'ese'. 的 une al dueño con la cosa: 我的名字, 'mi nombre'. 谁 significa 'quién'. 这是谁？ pregunta '¿quién es?'"
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u03-l1-s01",
+                    "hsk1-u03-l1-s02",
+                    "hsk1-u03-l1-s03",
+                    "hsk1-u03-l1-s04",
+                    "hsk1-u03-l1-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u03-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "People at school",
+                    "es": "Gente en la escuela"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w053",
+                    "hsk1-w127",
+                    "hsk1-w109",
+                    "hsk1-w112"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u03-l2",
+                    "pattern": "老师 / 学生 / 我们",
+                    "title": {
+                      "en": "People at school",
+                      "es": "Gente en la escuela"
+                    },
+                    "body": {
+                      "en": "老师 is 'teacher' and 学生 is 'student'. 同学 is a classmate. 我们 means 'we' or 'us': 我们是同学.",
+                      "es": "老师 es 'profesor' y 学生 es 'estudiante'. 同学 es un compañero de clase. 我们 significa 'nosotros': 我们是同学."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u03-l2-s01",
+                    "hsk1-u03-l2-s02",
+                    "hsk1-u03-l2-s03",
+                    "hsk1-u03-l2-s04",
+                    "hsk1-u03-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u03-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Names and titles",
+                    "es": "Nombres y títulos"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w075",
+                    "hsk1-w133",
+                    "hsk1-w118",
+                    "hsk1-w122"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u03-l3",
+                    "pattern": "王先生 / 李小姐",
+                    "title": {
+                      "en": "Names and titles",
+                      "es": "Nombres y títulos"
+                    },
+                    "body": {
+                      "en": "Titles follow the family name: 王先生 (Mr. Wang), 李小姐 (Miss Li). 朋友 is 'friend' and 医生 is 'doctor'. Use the family name, not the given name, with 先生.",
+                      "es": "El título va después del apellido: 王先生 (señor Wang), 李小姐 (señorita Li). 朋友 es 'amigo' y 医生 es 'médico'. Con 先生 se usa el apellido, no el nombre."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u03-l3-s01",
+                    "hsk1-u03-l3-s02",
+                    "hsk1-u03-l3-s03",
+                    "hsk1-u03-l3-s04",
+                    "hsk1-u03-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u03-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Titles after the family name",
+                  "es": "El título va tras el apellido"
+                },
+                "body": {
+                  "en": "Use a family name plus a title: 王老师, 李医生, 王先生. Given names alone are for friends and family. 小姐 is on the HSK 1 list and you must recognize it, but in mainland China today calling a woman 小姐 can sound rude. Prefer a name, 老师, or later 女士. 同学 is a warm way to address classmates.",
+                  "es": "Se usa apellido más título: 王老师, 李医生, 王先生. El nombre solo es para amigos y familia. 小姐 está en la lista HSK 1 y hay que reconocerla, pero en la China continental de hoy llamar 小姐 a una mujer puede sonar grosero. Mejor un nombre, 老师, o más adelante 女士. 同学 es una forma cercana de dirigirse a los compañeros."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u03-tt-c1",
+                    "prompt": {
+                      "en": "Where does 先生 go in 'Mr. Wang'?",
+                      "es": "¿Dónde va 先生 en 'señor Wang'?"
+                    },
+                    "answer": "王先生"
+                  },
+                  {
+                    "id": "hsk1-u03-tt-c2",
+                    "prompt": {
+                      "en": "Which word addresses a classmate?",
+                      "es": "¿Qué palabra se usa para un compañero de clase?"
+                    },
+                    "answer": "同学"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u03-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u03-l1-s01",
+                  "hsk1-u03-l1-s02",
+                  "hsk1-u03-l1-s03",
+                  "hsk1-u03-l1-s04",
+                  "hsk1-u03-l1-s05",
+                  "hsk1-u03-l2-s01",
+                  "hsk1-u03-l2-s02",
+                  "hsk1-u03-l2-s03",
+                  "hsk1-u03-l2-s04",
+                  "hsk1-u03-l2-s05",
+                  "hsk1-u03-l3-s01",
+                  "hsk1-u03-l3-s02",
+                  "hsk1-u03-l3-s03",
+                  "hsk1-u03-l3-s04",
+                  "hsk1-u03-l3-s05"
+                ],
+                "dialogueId": "hsk1-u03-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u04",
+              "slug": "numbers",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 4,
+              "title": {
+                "en": "Numbers",
+                "es": "Los números"
+              },
+              "icon": "🔢",
+              "color": "#3D7A9C",
+              "requiresUnitId": "hsk1-u03",
+              "lessons": [
+                {
+                  "id": "hsk1-u04-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "set",
+                  "title": {
+                    "en": "Numbers 1–5",
+                    "es": "Números 1–5"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w130",
+                    "hsk1-w027",
+                    "hsk1-w086",
+                    "hsk1-w102",
+                    "hsk1-w113"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u04-l1",
+                    "pattern": "一 二 三 四 五",
+                    "title": {
+                      "en": "Numbers 1–5",
+                      "es": "Números 1–5"
+                    },
+                    "body": {
+                      "en": "Count 一 yī, 二 èr, 三 sān, 四 sì, 五 wǔ. 一 on its own is first tone. You will meet the tone change (yí / yì) later; in this lesson say yī.",
+                      "es": "Cuenta 一 yī, 二 èr, 三 sān, 四 sì, 五 wǔ. 一 solo lleva primer tono. El cambio de tono (yí / yì) viene después; en esta lección di yī."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u04-l1-s01",
+                    "hsk1-u04-l1-s02",
+                    "hsk1-u04-l1-s03"
+                  ],
+                  "estimatedMinutes": 7
+                },
+                {
+                  "id": "hsk1-u04-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "set",
+                  "title": {
+                    "en": "Numbers 6–99",
+                    "es": "Números 6–99"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w058",
+                    "hsk1-w078",
+                    "hsk1-w002",
+                    "hsk1-w047",
+                    "hsk1-w093"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u04-l2",
+                    "pattern": "六…十 / 十一 / 二十",
+                    "title": {
+                      "en": "Numbers 6–99",
+                      "es": "Números 6–99"
+                    },
+                    "body": {
+                      "en": "六 to 十 continue the count. 11 is 十一 (ten plus one), not a new word. 20 is 二十, 35 is 三十五: tens, then 十, then the unit.",
+                      "es": "六 a 十 siguen la cuenta. 11 es 十一 (diez más uno), no una palabra nueva. 20 es 二十, 35 es 三十五: las decenas, luego 十, luego la unidad."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u04-l2-s01",
+                    "hsk1-u04-l2-s02",
+                    "hsk1-u04-l2-s03",
+                    "hsk1-u04-l2-s04",
+                    "hsk1-u04-l2-s05"
+                  ],
+                  "estimatedMinutes": 7
+                },
+                {
+                  "id": "hsk1-u04-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "How many",
+                    "es": "Cuántos"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w057",
+                    "hsk1-w043",
+                    "hsk1-w032"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u04-l3",
+                    "pattern": "几 + 个",
+                    "title": {
+                      "en": "How many",
+                      "es": "Cuántos"
+                    },
+                    "body": {
+                      "en": "几 asks 'how many' when you expect a small number: 几个人？ A number cannot sit directly on a noun. Put 个 in between: 三个人, 一个学生. 零 is zero, used when reading years digit by digit, as in 二零二六.",
+                      "es": "几 pregunta 'cuántos' cuando esperas un número pequeño: 几个人？ El número no va pegado al sustantivo. Pon 个 en medio: 三个人, 一个学生. 零 es cero, y se usa al leer un año cifra a cifra, como 二零二六."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u04-l3-s01",
+                    "hsk1-u04-l3-s02",
+                    "hsk1-u04-l3-s03",
+                    "hsk1-u04-l3-s04",
+                    "hsk1-u04-l3-s05",
+                    "hsk1-u04-l3-s06"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u04-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Two for 'two'",
+                  "es": "Dos palabras para 'dos'"
+                },
+                "body": {
+                  "en": "二 is for counting, math, and reading numbers aloud: 二, 十二, 二十. In front of a measure word, spoken Chinese uses 两: 两个人, 两个朋友. 几 expects a small number, usually under ten. Phone numbers and years are read digit by digit, so 二零二六 uses 二 and 零, not 两千.",
+                  "es": "二 sirve para contar, las matemáticas y leer números: 二, 十二, 二十. Delante de un clasificador, el chino hablado usa 两: 两个人, 两个朋友. 几 espera un número pequeño, normalmente menos de diez. Los teléfonos y los años se leen cifra a cifra, así que 二零二六 usa 二 y 零, no 两千."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u04-tt-c1",
+                    "prompt": {
+                      "en": "Which 'two' goes before 个?",
+                      "es": "¿Qué 'dos' va antes de 个?"
+                    },
+                    "answer": "两"
+                  },
+                  {
+                    "id": "hsk1-u04-tt-c2",
+                    "prompt": {
+                      "en": "How do you read the zero in 二零二六?",
+                      "es": "¿Cómo se lee el cero en 二零二六?"
+                    },
+                    "answer": "零"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u04-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u04-l1-s01",
+                  "hsk1-u04-l1-s02",
+                  "hsk1-u04-l1-s03",
+                  "hsk1-u04-l2-s01",
+                  "hsk1-u04-l2-s02",
+                  "hsk1-u04-l2-s03",
+                  "hsk1-u04-l2-s04",
+                  "hsk1-u04-l2-s05",
+                  "hsk1-u04-l3-s01",
+                  "hsk1-u04-l3-s02",
+                  "hsk1-u04-l3-s03",
+                  "hsk1-u04-l3-s04",
+                  "hsk1-u04-l3-s05",
+                  "hsk1-u04-l3-s06"
+                ],
+                "dialogueId": "hsk1-u04-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u05",
+              "slug": "family",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 5,
+              "title": {
+                "en": "My Family",
+                "es": "Mi familia"
+              },
+              "icon": "👨‍👩‍👧",
+              "color": "#C45B86",
+              "requiresUnitId": "hsk1-u04",
+              "lessons": [
+                {
+                  "id": "hsk1-u05-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Family and home",
+                    "es": "Familia y casa"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w003",
+                    "hsk1-w059",
+                    "hsk1-w044"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u05-l1",
+                    "pattern": "爸爸 / 妈妈 / 家",
+                    "title": {
+                      "en": "Family and home",
+                      "es": "Familia y casa"
+                    },
+                    "body": {
+                      "en": "爸爸 and 妈妈 are the everyday words for dad and mom. 家 means both 'home' and 'family': 我家在北京 means 'my home is in Beijing'.",
+                      "es": "爸爸 y 妈妈 son las palabras de todos los días para papá y mamá. 家 significa 'casa' y también 'familia': 我家在北京 significa 'mi casa está en Pekín'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u05-l1-s01",
+                    "hsk1-u05-l1-s02",
+                    "hsk1-u05-l1-s03",
+                    "hsk1-u05-l1-s04",
+                    "hsk1-u05-l1-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u05-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Having and not having",
+                    "es": "Tener y no tener"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w026",
+                    "hsk1-w074",
+                    "hsk1-w136",
+                    "hsk1-w063"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u05-l2",
+                    "pattern": "有 / 没有",
+                    "title": {
+                      "en": "Having and not having",
+                      "es": "Tener y no tener"
+                    },
+                    "body": {
+                      "en": "有 means 'have' or 'there is'. 没有 is the negative — do not say 不有. 我有一个女儿。 我没有儿子。",
+                      "es": "有 significa 'tener' o 'hay'. 没有 es la negación: no se dice 不有. 我有一个女儿。 我没有儿子。"
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u05-l2-s01",
+                    "hsk1-u05-l2-s02",
+                    "hsk1-u05-l2-s03",
+                    "hsk1-u05-l2-s04",
+                    "hsk1-u05-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u05-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Age and size",
+                    "es": "Edad y tamaño"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w103",
+                    "hsk1-w024",
+                    "hsk1-w014",
+                    "hsk1-w121"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u05-l3",
+                    "pattern": "几岁 / 多大",
+                    "title": {
+                      "en": "Age and size",
+                      "es": "Edad y tamaño"
+                    },
+                    "body": {
+                      "en": "For a child, ask 你几岁？ For an adult, ask 你多大？ The age comes before 岁: 五岁. 大 is 'big' and 小 is 'small'. In a full sentence use 很: 我家很大。",
+                      "es": "A un niño se le pregunta 你几岁？ A un adulto, 你多大？ La edad va antes de 岁: 五岁. 大 es 'grande' y 小 es 'pequeño'. En una frase completa usa 很: 我家很大。"
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u05-l3-s01",
+                    "hsk1-u05-l3-s02",
+                    "hsk1-u05-l3-s03",
+                    "hsk1-u05-l3-s04",
+                    "hsk1-u05-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u05-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Asking about family",
+                  "es": "Preguntar por la familia"
+                },
+                "body": {
+                  "en": "Asking 你家有几个人？ is an ordinary question, not a prying one. Age is also asked more freely than in English or Spanish, especially of children (几岁) and older people. 多大 is the safer question for an adult you just met. 家 can mean the household, so 我们家有四个人 counts the people, not the building.",
+                  "es": "Preguntar 你家有几个人？ es una pregunta normal, no una indiscreción. La edad también se pregunta con más libertad que en español, sobre todo a los niños (几岁) y a las personas mayores. 多大 es la pregunta más segura para un adulto que acabas de conocer. 家 puede ser el hogar, así que 我们家有四个人 cuenta a las personas, no el edificio."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u05-tt-c1",
+                    "prompt": {
+                      "en": "What do you ask a child about age?",
+                      "es": "¿Qué le preguntas a un niño sobre la edad?"
+                    },
+                    "answer": "几岁"
+                  },
+                  {
+                    "id": "hsk1-u05-tt-c2",
+                    "prompt": {
+                      "en": "Which word covers both home and family?",
+                      "es": "¿Qué palabra cubre casa y familia?"
+                    },
+                    "answer": "家"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u05-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u05-l1-s01",
+                  "hsk1-u05-l1-s02",
+                  "hsk1-u05-l1-s03",
+                  "hsk1-u05-l1-s04",
+                  "hsk1-u05-l1-s05",
+                  "hsk1-u05-l2-s01",
+                  "hsk1-u05-l2-s02",
+                  "hsk1-u05-l2-s03",
+                  "hsk1-u05-l2-s04",
+                  "hsk1-u05-l2-s05",
+                  "hsk1-u05-l3-s01",
+                  "hsk1-u05-l3-s02",
+                  "hsk1-u05-l3-s03",
+                  "hsk1-u05-l3-s04",
+                  "hsk1-u05-l3-s05"
+                ],
+                "dialogueId": "hsk1-u05-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u06",
+              "slug": "food-drink",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 6,
+              "title": {
+                "en": "Food & Drink",
+                "es": "Comida y bebida"
+              },
+              "icon": "🍚",
+              "color": "#D4722C",
+              "requiresUnitId": "hsk1-u05",
+              "lessons": [
+                {
+                  "id": "hsk1-u06-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Eat and drink",
+                    "es": "Comer y beber"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w011",
+                    "hsk1-w037",
+                    "hsk1-w097",
+                    "hsk1-w010"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u06-l1",
+                    "pattern": "吃 / 喝",
+                    "title": {
+                      "en": "Eat and drink",
+                      "es": "Comer y beber"
+                    },
+                    "body": {
+                      "en": "吃 is 'eat' and 喝 is 'drink'. The thing you eat or drink comes after the verb: 喝茶, 吃米饭. 不 goes before the verb: 他不喝茶。",
+                      "es": "吃 es 'comer' y 喝 es 'beber'. Lo que comes o bebes va después del verbo: 喝茶, 吃米饭. 不 va antes del verbo: 他不喝茶。"
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u06-l1-s01",
+                    "hsk1-u06-l1-s02",
+                    "hsk1-u06-l1-s03",
+                    "hsk1-u06-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u06-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Food words",
+                    "es": "Palabras de comida"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w064",
+                    "hsk1-w009",
+                    "hsk1-w077",
+                    "hsk1-w098"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u06-l2",
+                    "pattern": "米饭 / 菜 / 水果",
+                    "title": {
+                      "en": "Food words",
+                      "es": "Palabras de comida"
+                    },
+                    "body": {
+                      "en": "米饭 is cooked rice, 菜 is a dish or vegetables, 苹果 is 'apple', and 水果 is 'fruit' in general. 苹果是水果。",
+                      "es": "米饭 es el arroz cocido, 菜 es un plato o las verduras, 苹果 es 'manzana' y 水果 es 'fruta' en general. 苹果是水果。"
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u06-l2-s01",
+                    "hsk1-u06-l2-s02",
+                    "hsk1-u06-l2-s03",
+                    "hsk1-u06-l2-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u06-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Want, like, love",
+                    "es": "Querer, gustar, encantar"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w120",
+                    "hsk1-w001",
+                    "hsk1-w114",
+                    "hsk1-w004"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u06-l3",
+                    "pattern": "想 / 喜欢 / 爱",
+                    "title": {
+                      "en": "Want, like, love",
+                      "es": "Querer, gustar, encantar"
+                    },
+                    "body": {
+                      "en": "想 + verb means 'want to' or 'would like to': 我想喝茶. 喜欢 + verb or noun means 'like'. 爱 is stronger, 'love'. All three take the thing or the action after them.",
+                      "es": "想 + verbo significa 'querer' o 'me apetece': 我想喝茶. 喜欢 + verbo o sustantivo significa 'gustar'. 爱 es más fuerte, 'encantar' o 'amar'. Los tres llevan después la cosa o la acción."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u06-l3-s01",
+                    "hsk1-u06-l3-s02",
+                    "hsk1-u06-l3-s03",
+                    "hsk1-u06-l3-s04",
+                    "hsk1-u06-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u06-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Food is small talk",
+                  "es": "La comida es conversación"
+                },
+                "body": {
+                  "en": "Meals are a normal topic with people you don't know well. 你想吃什么？ and 你想喝什么？ are friendly, not nosy. Tea (茶) offered in a home or an office is a basic welcome; accepting is polite. 米饭 is the default staple in much of China, but noodles and bread are staple foods in the north — the word 米饭 itself is just cooked rice. 好吃 is how you praise a dish.",
+                  "es": "La comida es un tema normal con gente que no conoces bien. 你想吃什么？ y 你想喝什么？ son preguntas amables, no entrometidas. El té (茶) que te ofrecen en una casa o una oficina es una bienvenida básica; aceptarlo es cortés. 米饭 es la base en gran parte de China, pero en el norte también lo son los fideos y el pan: la palabra 米饭 solo es el arroz cocido. 好吃 es como se elogia un plato."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u06-tt-c1",
+                    "prompt": {
+                      "en": "Which word praises food as delicious?",
+                      "es": "¿Qué palabra elogia una comida rica?"
+                    },
+                    "answer": "好吃"
+                  },
+                  {
+                    "id": "hsk1-u06-tt-c2",
+                    "prompt": {
+                      "en": "What drink is a basic welcome?",
+                      "es": "¿Qué bebida es una bienvenida básica?"
+                    },
+                    "answer": "茶"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u06-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u06-l1-s01",
+                  "hsk1-u06-l1-s02",
+                  "hsk1-u06-l1-s03",
+                  "hsk1-u06-l1-s04",
+                  "hsk1-u06-l2-s01",
+                  "hsk1-u06-l2-s02",
+                  "hsk1-u06-l2-s03",
+                  "hsk1-u06-l2-s04",
+                  "hsk1-u06-l3-s01",
+                  "hsk1-u06-l3-s02",
+                  "hsk1-u06-l3-s03",
+                  "hsk1-u06-l3-s04",
+                  "hsk1-u06-l3-s05"
+                ],
+                "dialogueId": "hsk1-u06-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u07",
+              "slug": "dates",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 7,
+              "title": {
+                "en": "Days & Dates",
+                "es": "Días y fechas"
+              },
+              "icon": "📅",
+              "color": "#6B6BB3",
+              "requiresUnitId": "hsk1-u06",
+              "lessons": [
+                {
+                  "id": "hsk1-u07-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Today, tomorrow, yesterday",
+                    "es": "Hoy, mañana, ayer"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w046",
+                    "hsk1-w065",
+                    "hsk1-w148"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u07-l1",
+                    "pattern": "今天 / 明天 / 昨天",
+                    "title": {
+                      "en": "Today, tomorrow, yesterday",
+                      "es": "Hoy, mañana, ayer"
+                    },
+                    "body": {
+                      "en": "今天, 明天, and 昨天 are time words. Put them before the verb, usually after the subject: 我今天去北京. 明天见 is the set goodbye 'see you tomorrow'.",
+                      "es": "今天, 明天 y 昨天 son palabras de tiempo. Van antes del verbo, normalmente después del sujeto: 我今天去北京. 明天见 es la despedida 'hasta mañana'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u07-l1-s01",
+                    "hsk1-u07-l1-s02",
+                    "hsk1-u07-l1-s03",
+                    "hsk1-u07-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u07-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Dates and weekdays",
+                    "es": "Fechas y días"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w073",
+                    "hsk1-w137",
+                    "hsk1-w036",
+                    "hsk1-w126"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u07-l2",
+                    "pattern": "年 月 号 / 星期",
+                    "title": {
+                      "en": "Dates and weekdays",
+                      "es": "Fechas y días"
+                    },
+                    "body": {
+                      "en": "Dates run big to small: year 年, month 月, day 号. 今天十月九号 is October 9. Ask 今天几号？ Weekdays are 星期 plus a number: 星期一 Monday through 星期六 Saturday. 星期日 is Sunday. Ask 今天星期几？",
+                      "es": "Las fechas van de mayor a menor: año 年, mes 月, día 号. 今天十月九号 es el 9 de octubre. Pregunta 今天几号？ Los días son 星期 más un número: 星期一 lunes hasta 星期六 sábado. 星期日 es domingo. Pregunta 今天星期几？"
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u07-l2-s01",
+                    "hsk1-u07-l2-s02",
+                    "hsk1-u07-l2-s03",
+                    "hsk1-u07-l2-s04",
+                    "hsk1-u07-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u07-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Come, go, now",
+                    "es": "Venir, ir, ahora"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w119",
+                    "hsk1-w082",
+                    "hsk1-w052"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u07-l3",
+                    "pattern": "去 / 来 / 现在",
+                    "title": {
+                      "en": "Come, go, now",
+                      "es": "Venir, ir, ahora"
+                    },
+                    "body": {
+                      "en": "去 is 'go' and 来 is 'come'. The place follows the verb: 我去北京, 他来我家. 现在 means 'now' and sits where other time words sit.",
+                      "es": "去 es 'ir' y 来 es 'venir'. El lugar va después del verbo: 我去北京, 他来我家. 现在 significa 'ahora' y ocupa el mismo sitio que otras palabras de tiempo."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u07-l3-s01",
+                    "hsk1-u07-l3-s02",
+                    "hsk1-u07-l3-s03",
+                    "hsk1-u07-l3-s04",
+                    "hsk1-u07-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u07-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Big dates, then small",
+                  "es": "La fecha, de mayor a menor"
+                },
+                "body": {
+                  "en": "Dates run year, month, day: 二零二六年十月九号. That is the opposite of day-month-year Spanish and of month-day-year American English. The week starts with 星期一 as Monday. 星期日 and 星期天 both mean Sunday; HSK 1 teaches 星期日. Time words like 今天 prefer the slot after the subject and before the verb.",
+                  "es": "Las fechas van año, mes, día: 二零二六年十月九号. Es al revés del día-mes-año del español. La semana empieza con 星期一 como lunes. 星期日 y 星期天 significan domingo; HSK 1 enseña 星期日. Palabras como 今天 prefieren el hueco después del sujeto y antes del verbo."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u07-tt-c1",
+                    "prompt": {
+                      "en": "Which word is Monday?",
+                      "es": "¿Qué palabra es el lunes?"
+                    },
+                    "answer": "星期一"
+                  },
+                  {
+                    "id": "hsk1-u07-tt-c2",
+                    "prompt": {
+                      "en": "Which comes first in a date, 月 or 号?",
+                      "es": "En una fecha, ¿qué va primero, 月 o 号?"
+                    },
+                    "answer": "月"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u07-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u07-l1-s01",
+                  "hsk1-u07-l1-s02",
+                  "hsk1-u07-l1-s03",
+                  "hsk1-u07-l1-s04",
+                  "hsk1-u07-l2-s01",
+                  "hsk1-u07-l2-s02",
+                  "hsk1-u07-l2-s03",
+                  "hsk1-u07-l2-s04",
+                  "hsk1-u07-l2-s05",
+                  "hsk1-u07-l3-s01",
+                  "hsk1-u07-l3-s02",
+                  "hsk1-u07-l3-s03",
+                  "hsk1-u07-l3-s04",
+                  "hsk1-u07-l3-s05"
+                ],
+                "dialogueId": "hsk1-u07-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u08",
+              "slug": "time",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 8,
+              "title": {
+                "en": "What Time Is It?",
+                "es": "¿Qué hora es?"
+              },
+              "icon": "⏰",
+              "color": "#2A9D8F",
+              "requiresUnitId": "hsk1-u07",
+              "lessons": [
+                {
+                  "id": "hsk1-u08-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Telling the hour",
+                    "es": "Decir la hora"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w016",
+                    "hsk1-w030",
+                    "hsk1-w089"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u08-l1",
+                    "pattern": "现在几点？",
+                    "title": {
+                      "en": "Telling the hour",
+                      "es": "Decir la hora"
+                    },
+                    "body": {
+                      "en": "几点 asks the hour. 点 is o'clock: 三点 is three o'clock. 分钟 is 'minute'. 上午 is the morning, from waking until noon.",
+                      "es": "几点 pregunta la hora. 点 es 'en punto': 三点 son las tres. 分钟 es 'minuto'. 上午 es la mañana, desde que te levantas hasta el mediodía."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u08-l1-s01",
+                    "hsk1-u08-l1-s02",
+                    "hsk1-u08-l1-s03",
+                    "hsk1-u08-l1-s04",
+                    "hsk1-u08-l1-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u08-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Noon and afternoon",
+                    "es": "Mediodía y tarde"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w144",
+                    "hsk1-w116"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u08-l2",
+                    "pattern": "中午 / 下午",
+                    "title": {
+                      "en": "Noon and afternoon",
+                      "es": "Mediodía y tarde"
+                    },
+                    "body": {
+                      "en": "中午 is noon and 下午 is the afternoon. They work like 上午: 我下午去. 中午十二点 is 12 noon.",
+                      "es": "中午 es el mediodía y 下午 es la tarde. Funcionan como 上午: 我下午去. 中午十二点 son las 12 del mediodía."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u08-l2-s01",
+                    "hsk1-u08-l2-s02",
+                    "hsk1-u08-l2-s03",
+                    "hsk1-u08-l2-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u08-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Home, sleep, work",
+                    "es": "Casa, dormir, trabajo"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w041",
+                    "hsk1-w099",
+                    "hsk1-w033"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u08-l3",
+                    "pattern": "回家 / 睡觉 / 工作",
+                    "title": {
+                      "en": "Home, sleep, work",
+                      "es": "Casa, dormir, trabajo"
+                    },
+                    "body": {
+                      "en": "回 means 'return'. 回家 is 'go home'. 睡觉 is 'sleep' or 'go to bed'. 工作 is both 'work' the noun and 'to work': 我在医院工作.",
+                      "es": "回 significa 'volver'. 回家 es 'volver a casa'. 睡觉 es 'dormir' o 'acostarse'. 工作 es el sustantivo 'trabajo' y el verbo 'trabajar': 我在医院工作."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u08-l3-s01",
+                    "hsk1-u08-l3-s02",
+                    "hsk1-u08-l3-s03",
+                    "hsk1-u08-l3-s04",
+                    "hsk1-u08-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u08-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Hours without am/pm words",
+                  "es": "La hora sin am/pm"
+                },
+                "body": {
+                  "en": "上午, 中午, and 下午 do the job of 'a.m.' and 'p.m.' You say the part of the day, then the hour: 上午十点, 下午五点. 中午十二点 is noon. People often eat the biggest meal around noon, so 中午你吃什么？ is a natural question. 点 is enough for o'clock; 点钟 is a longer form you do not need yet.",
+                  "es": "上午, 中午 y 下午 hacen el trabajo de 'de la mañana' y 'de la tarde'. Se dice la parte del día y luego la hora: 上午十点, 下午五点. 中午十二点 es el mediodía. A menudo la comida más fuerte es al mediodía, así que 中午你吃什么？ es una pregunta natural. 点 basta para 'en punto'; 点钟 es una forma más larga que aún no necesitas."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u08-tt-c1",
+                    "prompt": {
+                      "en": "How do you say 10 in the morning?",
+                      "es": "¿Cómo se dicen las 10 de la mañana?"
+                    },
+                    "answer": "上午十点"
+                  },
+                  {
+                    "id": "hsk1-u08-tt-c2",
+                    "prompt": {
+                      "en": "Which word is noon?",
+                      "es": "¿Qué palabra es el mediodía?"
+                    },
+                    "answer": "中午"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u08-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u08-l1-s01",
+                  "hsk1-u08-l1-s02",
+                  "hsk1-u08-l1-s03",
+                  "hsk1-u08-l1-s04",
+                  "hsk1-u08-l1-s05",
+                  "hsk1-u08-l2-s01",
+                  "hsk1-u08-l2-s02",
+                  "hsk1-u08-l2-s03",
+                  "hsk1-u08-l2-s04",
+                  "hsk1-u08-l3-s01",
+                  "hsk1-u08-l3-s02",
+                  "hsk1-u08-l3-s03",
+                  "hsk1-u08-l3-s04",
+                  "hsk1-u08-l3-s05"
+                ],
+                "dialogueId": "hsk1-u08-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u09",
+              "slug": "shopping",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 9,
+              "title": {
+                "en": "Shopping",
+                "es": "De compras"
+              },
+              "icon": "🛍️",
+              "color": "#C4654A",
+              "requiresUnitId": "hsk1-u08",
+              "lessons": [
+                {
+                  "id": "hsk1-u09-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Prices",
+                    "es": "Precios"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w061",
+                    "hsk1-w079",
+                    "hsk1-w051",
+                    "hsk1-w025"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u09-l1",
+                    "pattern": "多少钱？ / 块",
+                    "title": {
+                      "en": "Prices",
+                      "es": "Precios"
+                    },
+                    "body": {
+                      "en": "多少钱？ asks the price. 块 is the colloquial word for yuan: 三块钱 is three yuan. 买 is 'buy'. The thing bought can come after 买: 买茶.",
+                      "es": "多少钱？ pregunta el precio. 块 es la palabra coloquial para el yuan: 三块钱 son tres yuanes. 买 es 'comprar'. Lo que compras puede ir después de 买: 买茶."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u09-l1-s01",
+                    "hsk1-u09-l1-s02",
+                    "hsk1-u09-l1-s03",
+                    "hsk1-u09-l1-s04",
+                    "hsk1-u09-l1-s05",
+                    "hsk1-u09-l1-s06"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u09-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "The store",
+                    "es": "La tienda"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w087",
+                    "hsk1-w020",
+                    "hsk1-w132"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u09-l2",
+                    "pattern": "商店 / 东西 / 衣服",
+                    "title": {
+                      "en": "The store",
+                      "es": "La tienda"
+                    },
+                    "body": {
+                      "en": "商店 is a shop. 东西 means 'things' (it is not 'east' plus 'west' in this word; the second syllable is neutral). 衣服 is 'clothes'.",
+                      "es": "商店 es una tienda. 东西 significa 'cosas' (en esta palabra no es 'este' más 'oeste'; la segunda sílaba es neutra). 衣服 es 'ropa'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u09-l2-s01",
+                    "hsk1-u09-l2-s02",
+                    "hsk1-u09-l2-s03",
+                    "hsk1-u09-l2-s04",
+                    "hsk1-u09-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u09-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Some and a little",
+                    "es": "Algunos y un poco"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w123",
+                    "hsk1-w131",
+                    "hsk1-w090",
+                    "hsk1-w076"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u09-l3",
+                    "pattern": "一些 / 一点儿 / 少",
+                    "title": {
+                      "en": "Some and a little",
+                      "es": "Algunos y un poco"
+                    },
+                    "body": {
+                      "en": "一些 (often just 些) means 'some'. 一点儿 means 'a little'. 少 means 'few' or 'little', the opposite of 多. 漂亮 means 'pretty'. Adjectives still like 很: 很漂亮.",
+                      "es": "一些 (a menudo solo 些) significa 'algunos'. 一点儿 significa 'un poco'. 少 significa 'poco', lo contrario de 多. 漂亮 significa 'bonito'. Los adjetivos siguen pidiendo 很: 很漂亮."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u09-l3-s01",
+                    "hsk1-u09-l3-s02",
+                    "hsk1-u09-l3-s03",
+                    "hsk1-u09-l3-s04",
+                    "hsk1-u09-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u09-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Prices in 块",
+                  "es": "Los precios en 块"
+                },
+                "body": {
+                  "en": "In speech, yuan is 块: 三块钱. 元 is the formal written word and is not in this HSK 1 list. Small shops and markets may expect cash or a phone payment; the language you need at the stall is still 这个多少钱？ Bargaining is normal in some markets and out of place in supermarkets and chain stores. 东西 is a useful vague word, like 'stuff'.",
+                  "es": "Al hablar, el yuan es 块: 三块钱. 元 es la palabra formal de la escritura y no está en esta lista de HSK 1. En un puesto la frase que necesitas sigue siendo 这个多少钱？ Regatear es normal en algunos mercados y está fuera de lugar en supermercados y cadenas. 东西 es una palabra vaga útil, como 'cosas'."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u09-tt-c1",
+                    "prompt": {
+                      "en": "How do you ask the price?",
+                      "es": "¿Cómo se pregunta el precio?"
+                    },
+                    "answer": "多少钱"
+                  },
+                  {
+                    "id": "hsk1-u09-tt-c2",
+                    "prompt": {
+                      "en": "What is the spoken word for yuan in this course?",
+                      "es": "¿Cuál es la palabra hablada para el yuan en este curso?"
+                    },
+                    "answer": "块"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u09-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u09-l1-s01",
+                  "hsk1-u09-l1-s02",
+                  "hsk1-u09-l1-s03",
+                  "hsk1-u09-l1-s04",
+                  "hsk1-u09-l1-s05",
+                  "hsk1-u09-l1-s06",
+                  "hsk1-u09-l2-s01",
+                  "hsk1-u09-l2-s02",
+                  "hsk1-u09-l2-s03",
+                  "hsk1-u09-l2-s04",
+                  "hsk1-u09-l2-s05",
+                  "hsk1-u09-l3-s01",
+                  "hsk1-u09-l3-s02",
+                  "hsk1-u09-l3-s03",
+                  "hsk1-u09-l3-s04",
+                  "hsk1-u09-l3-s05"
+                ],
+                "dialogueId": "hsk1-u09-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u10",
+              "slug": "location",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 10,
+              "title": {
+                "en": "Where Is It?",
+                "es": "¿Dónde está?"
+              },
+              "icon": "📍",
+              "color": "#4C7C5A",
+              "requiresUnitId": "hsk1-u09",
+              "lessons": [
+                {
+                  "id": "hsk1-u10-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Being somewhere",
+                    "es": "Estar en un sitio"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w139",
+                    "hsk1-w056",
+                    "hsk1-w088",
+                    "hsk1-w146"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u10-l1",
+                    "pattern": "在 + 地方",
+                    "title": {
+                      "en": "Being somewhere",
+                      "es": "Estar en un sitio"
+                    },
+                    "body": {
+                      "en": "在 says someone or something is located: 我在家. 里 is 'inside', 上 is 'on', and 下 is 'under' or 'next': 在学校里, 在桌子上, 下个 means 'next' before 星期 or 月.",
+                      "es": "在 dice que alguien o algo está en un sitio: 我在家. 里 es 'dentro', 上 es 'encima' y 下 es 'debajo' o 'siguiente': 在学校里, 在桌子上, 下个 significa 'próximo' antes de 星期 o 月."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u10-l1-s01",
+                    "hsk1-u10-l1-s02",
+                    "hsk1-u10-l1-s03",
+                    "hsk1-u10-l1-s04",
+                    "hsk1-u10-l1-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u10-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Where and which",
+                    "es": "Dónde y cuál"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w080",
+                    "hsk1-w040",
+                    "hsk1-w068",
+                    "hsk1-w067"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u10-l2",
+                    "pattern": "哪儿 / 哪个",
+                    "title": {
+                      "en": "Where and which",
+                      "es": "Dónde y cuál"
+                    },
+                    "body": {
+                      "en": "哪儿 asks 'where': 你在哪儿？ 前面 is 'in front' and 后面 is 'behind'. 哪 before a measure word asks 'which': 哪个杯子.",
+                      "es": "哪儿 pregunta 'dónde': 你在哪儿？ 前面 es 'delante' y 后面 es 'detrás'. 哪 antes de un clasificador pregunta 'cuál': 哪个杯子."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u10-l2-s01",
+                    "hsk1-u10-l2-s02",
+                    "hsk1-u10-l2-s03",
+                    "hsk1-u10-l2-s04",
+                    "hsk1-u10-l2-s05",
+                    "hsk1-u10-l2-s06"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u10-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Furniture and living",
+                    "es": "Muebles y vivir"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w135",
+                    "hsk1-w145",
+                    "hsk1-w115"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u10-l3",
+                    "pattern": "桌子 / 椅子 / 住",
+                    "title": {
+                      "en": "Furniture and living",
+                      "es": "Muebles y vivir"
+                    },
+                    "body": {
+                      "en": "桌子 is 'table' and 椅子 is 'chair'. 住 is 'live' or 'stay': 我住在北京. The place phrase with 在 can go before 住 or after it; this lesson uses 住在.",
+                      "es": "桌子 es 'mesa' y 椅子 es 'silla'. 住 es 'vivir' o 'alojarse': 我住在北京. La frase con 在 puede ir antes o después de 住; esta lección usa 住在."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u10-l3-s01",
+                    "hsk1-u10-l3-s02",
+                    "hsk1-u10-l3-s03",
+                    "hsk1-u10-l3-s04",
+                    "hsk1-u10-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u10-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Where things are",
+                  "es": "Dónde están las cosas"
+                },
+                "body": {
+                  "en": "在 plus a place answers 'where'. Smaller location words come after the place: 在桌子上 (on the table), 在学校里 (at school, inside the school), 在椅子下面 (under the chair). Addresses in Chinese are written big to small — country, city, street, number — the same habit as dates. 哪儿 is the question word you will actually hear.",
+                  "es": "在 más un lugar responde a 'dónde'. Las palabras de sitio más pequeñas van después del lugar: 在桌子上 (sobre la mesa), 在学校里 (en la escuela), 在椅子下面 (debajo de la silla). Las direcciones en chino se escriben de mayor a menor — país, ciudad, calle, número — el mismo hábito que las fechas. 哪儿 es la palabra de pregunta que de verdad vas a oír."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u10-tt-c1",
+                    "prompt": {
+                      "en": "How do you say 'on the table'?",
+                      "es": "¿Cómo se dice 'sobre la mesa'?"
+                    },
+                    "answer": "在桌子上"
+                  },
+                  {
+                    "id": "hsk1-u10-tt-c2",
+                    "prompt": {
+                      "en": "Which word asks 'where'?",
+                      "es": "¿Qué palabra pregunta 'dónde'?"
+                    },
+                    "answer": "哪儿"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u10-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u10-l1-s01",
+                  "hsk1-u10-l1-s02",
+                  "hsk1-u10-l1-s03",
+                  "hsk1-u10-l1-s04",
+                  "hsk1-u10-l1-s05",
+                  "hsk1-u10-l2-s01",
+                  "hsk1-u10-l2-s02",
+                  "hsk1-u10-l2-s03",
+                  "hsk1-u10-l2-s04",
+                  "hsk1-u10-l2-s05",
+                  "hsk1-u10-l2-s06",
+                  "hsk1-u10-l3-s01",
+                  "hsk1-u10-l3-s02",
+                  "hsk1-u10-l3-s03",
+                  "hsk1-u10-l3-s04",
+                  "hsk1-u10-l3-s05"
+                ],
+                "dialogueId": "hsk1-u10-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u11",
+              "slug": "getting-around",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 11,
+              "title": {
+                "en": "Getting Around",
+                "es": "Moverse por la ciudad"
+              },
+              "icon": "🚕",
+              "color": "#3E6B89",
+              "requiresUnitId": "hsk1-u10",
+              "lessons": [
+                {
+                  "id": "hsk1-u11-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Taking a vehicle",
+                    "es": "Ir en un vehículo"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w149",
+                    "hsk1-w012",
+                    "hsk1-w029"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u11-l1",
+                    "pattern": "坐 + 交通工具",
+                    "title": {
+                      "en": "Taking a vehicle",
+                      "es": "Ir en un vehículo"
+                    },
+                    "body": {
+                      "en": "坐 plus a vehicle means you travel by it: 坐出租车, 坐飞机. 坐 also means 'sit': 坐在椅子上. Context tells you which.",
+                      "es": "坐 más un vehículo significa viajar en él: 坐出租车, 坐飞机. 坐 también significa 'sentarse': 坐在椅子上. El contexto dice cuál es."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u11-l1-s01",
+                    "hsk1-u11-l1-s02",
+                    "hsk1-u11-l1-s03",
+                    "hsk1-u11-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u11-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "And, all, how",
+                    "es": "Y, todos, cómo"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w048",
+                    "hsk1-w038",
+                    "hsk1-w021",
+                    "hsk1-w140"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u11-l2",
+                    "pattern": "和 / 都 / 怎么",
+                    "title": {
+                      "en": "And, all, how",
+                      "es": "Y, todos, cómo"
+                    },
+                    "body": {
+                      "en": "和 joins nouns, not whole sentences: 爸爸和妈妈. 都 means 'all' or 'both' and goes before the verb: 我们都是学生. 怎么 asks 'how': 你怎么去？ 开 is 'drive'.",
+                      "es": "和 une sustantivos, no frases enteras: 爸爸和妈妈. 都 significa 'todos' o 'ambos' y va antes del verbo: 我们都是学生. 怎么 pregunta 'cómo': 你怎么去？ 开 es 'conducir'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u11-l2-s01",
+                    "hsk1-u11-l2-s02",
+                    "hsk1-u11-l2-s03",
+                    "hsk1-u11-l2-s04",
+                    "hsk1-u11-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u11-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Places in town",
+                    "es": "Lugares de la ciudad"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w028",
+                    "hsk1-w129",
+                    "hsk1-w134",
+                    "hsk1-w005"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u11-l3",
+                    "pattern": "北京 / 学校 / 医院 / 饭店",
+                    "title": {
+                      "en": "Places in town",
+                      "es": "Lugares de la ciudad"
+                    },
+                    "body": {
+                      "en": "北京 is Beijing. 学校 is 'school', 医院 is 'hospital', and 饭店 in HSK 1 is a restaurant or a hotel. 在北京住 and 去学校 reuse 在 and 去.",
+                      "es": "北京 es Pekín. 学校 es 'escuela', 医院 es 'hospital' y 饭店 en HSK 1 es un restaurante o un hotel. 在北京住 y 去学校 reutilizan 在 y 去."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u11-l3-s01",
+                    "hsk1-u11-l3-s02",
+                    "hsk1-u11-l3-s03",
+                    "hsk1-u11-l3-s04",
+                    "hsk1-u11-l3-s05",
+                    "hsk1-u11-l3-s06"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u11-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Sitting into a vehicle",
+                  "es": "Sentarse en el vehículo"
+                },
+                "body": {
+                  "en": "坐 plus a vehicle is the normal way to say you take it: 坐飞机, 坐出租车. You 'sit' the plane rather than 'take' it. 出租车 is the textbook word for taxi. In many cities people say 的士 or just book a car in an app; 出租车 is still the word HSK 1 expects. 饭店 can be a restaurant or a hotel, so lean on context.",
+                  "es": "坐 más un vehículo es la forma normal de decir que lo tomas: 坐飞机, 坐出租车. No se 'toma' el avión: te 'sientas' en él. 出租车 es la palabra de manual para el taxi. En muchas ciudades se dice 的士 o se pide un coche en una app; 出租车 sigue siendo la palabra que espera HSK 1. 饭店 puede ser un restaurante o un hotel; el contexto lo aclara."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u11-tt-c1",
+                    "prompt": {
+                      "en": "How do you say you go by plane?",
+                      "es": "¿Cómo se dice que vas en avión?"
+                    },
+                    "answer": "坐飞机"
+                  },
+                  {
+                    "id": "hsk1-u11-tt-c2",
+                    "prompt": {
+                      "en": "What is the HSK 1 word for taxi?",
+                      "es": "¿Cuál es la palabra de HSK 1 para taxi?"
+                    },
+                    "answer": "出租车"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u11-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u11-l1-s01",
+                  "hsk1-u11-l1-s02",
+                  "hsk1-u11-l1-s03",
+                  "hsk1-u11-l1-s04",
+                  "hsk1-u11-l2-s01",
+                  "hsk1-u11-l2-s02",
+                  "hsk1-u11-l2-s03",
+                  "hsk1-u11-l2-s04",
+                  "hsk1-u11-l2-s05",
+                  "hsk1-u11-l3-s01",
+                  "hsk1-u11-l3-s02",
+                  "hsk1-u11-l3-s03",
+                  "hsk1-u11-l3-s04",
+                  "hsk1-u11-l3-s05",
+                  "hsk1-u11-l3-s06"
+                ],
+                "dialogueId": "hsk1-u11-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u12",
+              "slug": "phone",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 12,
+              "title": {
+                "en": "On the Phone",
+                "es": "Al teléfono"
+              },
+              "icon": "📞",
+              "color": "#B86B3D",
+              "requiresUnitId": "hsk1-u11",
+              "lessons": [
+                {
+                  "id": "hsk1-u12-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "On the phone",
+                    "es": "Al teléfono"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w013",
+                    "hsk1-w110",
+                    "hsk1-w100",
+                    "hsk1-w101"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u12-l1",
+                    "pattern": "喂 / 打电话",
+                    "title": {
+                      "en": "On the phone",
+                      "es": "Al teléfono"
+                    },
+                    "body": {
+                      "en": "喂 is how you answer the phone. 打电话 is 'make a phone call'. 说 is 'say' and takes the words after it. 说话 is 'talk' or 'speak', with no object required: 他们在说话.",
+                      "es": "喂 es como se contesta el teléfono. 打电话 es 'llamar por teléfono'. 说 es 'decir' y lleva las palabras después. 说话 es 'hablar', sin objeto obligatorio: 他们在说话."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u12-l1-s01",
+                    "hsk1-u12-l1-s02",
+                    "hsk1-u12-l1-s03",
+                    "hsk1-u12-l1-s04",
+                    "hsk1-u12-l1-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u12-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Sorry and please",
+                    "es": "Perdón y por favor"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w023",
+                    "hsk1-w062",
+                    "hsk1-w081"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u12-l2",
+                    "pattern": "对不起 / 请",
+                    "title": {
+                      "en": "Sorry and please",
+                      "es": "Perdón y por favor"
+                    },
+                    "body": {
+                      "en": "对不起 apologizes. The reply is 没关系. 请 before a verb is 'please': 请坐, 请喝茶.",
+                      "es": "对不起 pide perdón. La respuesta es 没关系. 请 antes de un verbo es 'por favor': 请坐, 请喝茶."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u12-l2-s01",
+                    "hsk1-u12-l2-s02",
+                    "hsk1-u12-l2-s03",
+                    "hsk1-u12-l2-s04",
+                    "hsk1-u12-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u12-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Can: skill and possibility",
+                    "es": "Poder: habilidad y posibilidad"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w108",
+                    "hsk1-w071",
+                    "hsk1-w042"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u12-l3",
+                    "pattern": "会 / 能",
+                    "title": {
+                      "en": "Can: skill and possibility",
+                      "es": "Poder: habilidad y posibilidad"
+                    },
+                    "body": {
+                      "en": "会 plus a verb is a learned skill: 我会说汉语, 我不会开车. 能 is possibility or permission: 我能坐这儿吗？ 听 is 'listen'.",
+                      "es": "会 más un verbo es una habilidad aprendida: 我会说汉语, 我不会开车. 能 es posibilidad o permiso: 我能坐这儿吗？ 听 es 'escuchar'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u12-l3-s01",
+                    "hsk1-u12-l3-s02",
+                    "hsk1-u12-l3-s03",
+                    "hsk1-u12-l3-s04",
+                    "hsk1-u12-l3-s05",
+                    "hsk1-u12-l3-s06"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u12-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Hello on the phone",
+                  "es": "Aló al teléfono"
+                },
+                "body": {
+                  "en": "Answer the phone with 喂, not 你好. 喂 is only for the phone (and for trying to get a stranger's attention, which can sound blunt). On a call, 你是王老师吗？ is a normal way to check who you reached. 对不起 plus 没关系 repairs a small mistake. 请 is polite and common; it is not as optional as 'please' feels in English.",
+                  "es": "Se contesta el teléfono con 喂, no con 你好. 喂 es solo para el teléfono (y para llamar la atención de un desconocido, lo que puede sonar seco). En una llamada, 你是王老师吗？ es una forma normal de comprobar con quién hablas. 对不起 más 没关系 arregla un error pequeño. 请 es cortés y frecuente; no es tan opcional como 'por favor' en español."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u12-tt-c1",
+                    "prompt": {
+                      "en": "How do you answer the phone?",
+                      "es": "¿Cómo se contesta el teléfono?"
+                    },
+                    "answer": "喂"
+                  },
+                  {
+                    "id": "hsk1-u12-tt-c2",
+                    "prompt": {
+                      "en": "What answers 对不起?",
+                      "es": "¿Qué responde a 对不起?"
+                    },
+                    "answer": "没关系"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u12-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u12-l1-s01",
+                  "hsk1-u12-l1-s02",
+                  "hsk1-u12-l1-s03",
+                  "hsk1-u12-l1-s04",
+                  "hsk1-u12-l1-s05",
+                  "hsk1-u12-l2-s01",
+                  "hsk1-u12-l2-s02",
+                  "hsk1-u12-l2-s03",
+                  "hsk1-u12-l2-s04",
+                  "hsk1-u12-l2-s05",
+                  "hsk1-u12-l3-s01",
+                  "hsk1-u12-l3-s02",
+                  "hsk1-u12-l3-s03",
+                  "hsk1-u12-l3-s04",
+                  "hsk1-u12-l3-s05",
+                  "hsk1-u12-l3-s06"
+                ],
+                "dialogueId": "hsk1-u12-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u13",
+              "slug": "free-time",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 13,
+              "title": {
+                "en": "Free Time",
+                "es": "Tiempo libre"
+              },
+              "icon": "🎬",
+              "color": "#7A5EA7",
+              "requiresUnitId": "hsk1-u12",
+              "lessons": [
+                {
+                  "id": "hsk1-u13-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Look and see",
+                    "es": "Mirar y ver"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w049",
+                    "hsk1-w050",
+                    "hsk1-w018",
+                    "hsk1-w019"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u13-l1",
+                    "pattern": "看 / 看见",
+                    "title": {
+                      "en": "Look and see",
+                      "es": "Mirar y ver"
+                    },
+                    "body": {
+                      "en": "看 is 'look', 'watch', or 'read': 看书, 看电影, 看电视. 看见 is 'see' as in actually perceiving: 我没看见他. If you didn't see it, 看见 is the verb that takes 没.",
+                      "es": "看 es 'mirar', 'ver' una película o 'leer': 看书, 看电影, 看电视. 看见 es 'ver' en el sentido de percibir: 我没看见他. Si no lo viste, el verbo que lleva 没 es 看见."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u13-l1-s01",
+                    "hsk1-u13-l1-s02",
+                    "hsk1-u13-l1-s03",
+                    "hsk1-u13-l1-s04",
+                    "hsk1-u13-l1-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u13-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Books and computers",
+                    "es": "Libros y computadoras"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w017",
+                    "hsk1-w096",
+                    "hsk1-w006",
+                    "hsk1-w022"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u13-l2",
+                    "pattern": "本 + 书",
+                    "title": {
+                      "en": "Books and computers",
+                      "es": "Libros y computadoras"
+                    },
+                    "body": {
+                      "en": "书 is 'book' and 读 is 'read aloud'. 本 is the measure word for books: 三本书, not 三个书. 电脑 is 'computer'.",
+                      "es": "书 es 'libro' y 读 es 'leer en voz alta'. 本 es el clasificador de los libros: 三本书, no 三个书. 电脑 es 'computadora'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u13-l2-s01",
+                    "hsk1-u13-l2-s02",
+                    "hsk1-u13-l2-s03",
+                    "hsk1-u13-l2-s04",
+                    "hsk1-u13-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u13-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Write, study, do",
+                    "es": "Escribir, estudiar, hacer"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w124",
+                    "hsk1-w147",
+                    "hsk1-w128",
+                    "hsk1-w150"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u13-l3",
+                    "pattern": "写字 / 学习 / 做",
+                    "title": {
+                      "en": "Write, study, do",
+                      "es": "Escribir, estudiar, hacer"
+                    },
+                    "body": {
+                      "en": "写 is 'write'. 字 is a Chinese character. 学习 is 'study'. 做 is 'do' or 'make': 做什么, 做菜. 你在做什么？ asks what someone is doing right now.",
+                      "es": "写 es 'escribir'. 字 es un carácter chino. 学习 es 'estudiar'. 做 es 'hacer': 做什么, 做菜. 你在做什么？ pregunta qué está haciendo alguien ahora."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u13-l3-s01",
+                    "hsk1-u13-l3-s02",
+                    "hsk1-u13-l3-s03",
+                    "hsk1-u13-l3-s04",
+                    "hsk1-u13-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u13-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Reading, watching, looking",
+                  "es": "Leer, ver, mirar"
+                },
+                "body": {
+                  "en": "看 covers watching a film, watching TV, and reading silently: 看电影, 看电视, 看书. 读 is reading aloud. 看见 is different again: it means your eyes actually landed on something. A book takes the measure word 本, so three books are 三本书. 字 means a character, and people do comment on handwriting: 你写的字很漂亮.",
+                  "es": "看 cubre ver una película, ver la tele y leer en silencio: 看电影, 看电视, 看书. 读 es leer en voz alta. 看见 es otra cosa: significa que tus ojos realmente vieron algo. Un libro lleva el clasificador 本, así que tres libros son 三本书. 字 es un carácter, y la gente sí comenta la letra: 你写的字很漂亮."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u13-tt-c1",
+                    "prompt": {
+                      "en": "Which verb means you actually saw someone?",
+                      "es": "¿Qué verbo significa que de verdad viste a alguien?"
+                    },
+                    "answer": "看见"
+                  },
+                  {
+                    "id": "hsk1-u13-tt-c2",
+                    "prompt": {
+                      "en": "What is the measure word for 书?",
+                      "es": "¿Cuál es el clasificador de 书?"
+                    },
+                    "answer": "本"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u13-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u13-l1-s01",
+                  "hsk1-u13-l1-s02",
+                  "hsk1-u13-l1-s03",
+                  "hsk1-u13-l1-s04",
+                  "hsk1-u13-l1-s05",
+                  "hsk1-u13-l2-s01",
+                  "hsk1-u13-l2-s02",
+                  "hsk1-u13-l2-s03",
+                  "hsk1-u13-l2-s04",
+                  "hsk1-u13-l2-s05",
+                  "hsk1-u13-l3-s01",
+                  "hsk1-u13-l3-s02",
+                  "hsk1-u13-l3-s03",
+                  "hsk1-u13-l3-s04",
+                  "hsk1-u13-l3-s05"
+                ],
+                "dialogueId": "hsk1-u13-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "hsk1-u14",
+              "slug": "weather",
+              "trackId": "hsk",
+              "levelId": "hsk1",
+              "order": 14,
+              "title": {
+                "en": "Weather & Plans",
+                "es": "El tiempo y los planes"
+              },
+              "icon": "🌦️",
+              "color": "#3F7CAC",
+              "requiresUnitId": "hsk1-u13",
+              "lessons": [
+                {
+                  "id": "hsk1-u14-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Weather words",
+                    "es": "Palabras del tiempo"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w107",
+                    "hsk1-w055",
+                    "hsk1-w083"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u14-l1",
+                    "pattern": "天气 / 冷 / 热",
+                    "title": {
+                      "en": "Weather words",
+                      "es": "Palabras del tiempo"
+                    },
+                    "body": {
+                      "en": "天气 is 'weather'. 冷 is 'cold' and 热 is 'hot'. A simple weather sentence is 今天很冷 or 今天天气很好.",
+                      "es": "天气 es 'el tiempo' atmosférico. 冷 es 'frío' y 热 es 'calor'. Una frase simple es 今天很冷 o 今天天气很好."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u14-l1-s01",
+                    "hsk1-u14-l1-s02",
+                    "hsk1-u14-l1-s03",
+                    "hsk1-u14-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u14-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Too, and 了",
+                    "es": "Demasiado, y 了"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w117",
+                    "hsk1-w106",
+                    "hsk1-w054"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u14-l2",
+                    "pattern": "太…了 / 了",
+                    "title": {
+                      "en": "Too, and 了",
+                      "es": "Demasiado, y 了"
+                    },
+                    "body": {
+                      "en": "太 + adjective + 了 means 'too' or 'so': 太冷了, 太热了. 了 after a verb marks a change or a completed event: 下雨了 (it has started raining), 他回家了. 下雨 is the verb 'to rain'.",
+                      "es": "太 + adjetivo + 了 significa 'demasiado' o 'muy': 太冷了, 太热了. 了 después de un verbo marca un cambio o un hecho terminado: 下雨了 (se puso a llover), 他回家了. 下雨 es el verbo 'llover'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u14-l2-s01",
+                    "hsk1-u14-l2-s02",
+                    "hsk1-u14-l2-s03",
+                    "hsk1-u14-l2-s04",
+                    "hsk1-u14-l2-s05",
+                    "hsk1-u14-l2-s06"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "hsk1-u14-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Suggestions and when",
+                    "es": "Propuestas y cuando"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w141",
+                    "hsk1-w094"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-hsk1-u14-l3",
+                    "pattern": "怎么样 / …的时候",
+                    "title": {
+                      "en": "Suggestions and when",
+                      "es": "Propuestas y cuando"
+                    },
+                    "body": {
+                      "en": "怎么样 asks for an opinion or makes a suggestion: 我们去看电影，怎么样？ …的时候 means 'when': 下雨的时候, 我在家看书. The event with 的时候 comes first.",
+                      "es": "怎么样 pide una opinión o propone algo: 我们去看电影，怎么样？ …的时候 significa 'cuando': 下雨的时候, 我在家看书. El evento con 的时候 va primero."
+                    }
+                  },
+                  "sentenceIds": [
+                    "hsk1-u14-l3-s01",
+                    "hsk1-u14-l3-s02",
+                    "hsk1-u14-l3-s03",
+                    "hsk1-u14-l3-s04",
+                    "hsk1-u14-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "hsk1-u14-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Weather, then a plan",
+                  "es": "El tiempo, y luego un plan"
+                },
+                "body": {
+                  "en": "Weather is ordinary small talk: 今天天气怎么样？ 太冷了 and 太热了 are enough to answer. 了 in 下雨了 means the situation changed — it wasn't raining, and now it is. When you want to propose something, state it and add 怎么样？ People accept with 好. …的时候 lets you tie the plan to the weather: 下雨的时候，我在家看书.",
+                  "es": "El tiempo es una conversación normal: 今天天气怎么样？ 太冷了 y 太热了 bastan para responder. 了 en 下雨了 significa que la situación cambió: no llovía, y ahora llueve. Para proponer algo, dilo y añade 怎么样？ Se acepta con 好. …的时候 permite atar el plan al tiempo: 下雨的时候，我在家看书."
+                },
+                "checks": [
+                  {
+                    "id": "hsk1-u14-tt-c1",
+                    "prompt": {
+                      "en": "How do you say it has started raining?",
+                      "es": "¿Cómo se dice que se puso a llover?"
+                    },
+                    "answer": "下雨了"
+                  },
+                  {
+                    "id": "hsk1-u14-tt-c2",
+                    "prompt": {
+                      "en": "Which word turns a plan into a suggestion?",
+                      "es": "¿Qué palabra convierte un plan en una propuesta?"
+                    },
+                    "answer": "怎么样"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "hsk1-u14-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "hsk1-u14-l1-s01",
+                  "hsk1-u14-l1-s02",
+                  "hsk1-u14-l1-s03",
+                  "hsk1-u14-l1-s04",
+                  "hsk1-u14-l2-s01",
+                  "hsk1-u14-l2-s02",
+                  "hsk1-u14-l2-s03",
+                  "hsk1-u14-l2-s04",
+                  "hsk1-u14-l2-s05",
+                  "hsk1-u14-l2-s06",
+                  "hsk1-u14-l3-s01",
+                  "hsk1-u14-l3-s02",
+                  "hsk1-u14-l3-s03",
+                  "hsk1-u14-l3-s04",
+                  "hsk1-u14-l3-s05"
+                ],
+                "dialogueId": "hsk1-u14-d01",
+                "estimatedMinutes": 6
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "everyday",
+      "title": {
+        "en": "Everyday",
+        "es": "Día a día"
+      },
+      "description": {
+        "en": "Sentence patterns and grammar with a subset of HSK 1 words. Not a second copy of all 150 words.",
+        "es": "Patrones de frase y gramática con una parte de las palabras HSK 1. No es una segunda copia de las 150."
+      },
+      "levels": [
+        {
+          "id": "everyday-1",
+          "hskLevel": null,
+          "title": {
+            "en": "First steps",
+            "es": "Primeros pasos"
+          },
+          "units": [
+            {
+              "id": "ev-u01",
+              "slug": "first-meeting",
+              "trackId": "everyday",
+              "levelId": "everyday-1",
+              "order": 1,
+              "title": {
+                "en": "First Meeting",
+                "es": "El primer encuentro"
+              },
+              "icon": "👋",
+              "color": "#E25B45",
+              "requiresUnitId": null,
+              "lessons": [
+                {
+                  "id": "ev-u01-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "To be",
+                    "es": "El verbo ser"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w072",
+                    "hsk1-w035",
+                    "hsk1-w111",
+                    "hsk1-w095"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u01-l1",
+                    "pattern": "A 是 B",
+                    "title": {
+                      "en": "To be",
+                      "es": "El verbo ser"
+                    },
+                    "body": {
+                      "en": "是 links who you are to a name or a role: 我是李明. 你好 is a chunk — learn it as one greeting, even though it is two characters.",
+                      "es": "是 une quién eres con un nombre o un rol: 我是李明. 你好 es un bloque: apréndelo como un saludo, aunque sean dos caracteres."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u01-l1-s01",
+                    "ev-u01-l1-s02",
+                    "ev-u01-l1-s03",
+                    "ev-u01-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u01-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Asking and saying no",
+                    "es": "Preguntar y negar"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w008",
+                    "hsk1-w060",
+                    "hsk1-w104",
+                    "hsk1-w105"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u01-l2",
+                    "pattern": "…吗？ / 不是",
+                    "title": {
+                      "en": "Asking and saying no",
+                      "es": "Preguntar y negar"
+                    },
+                    "body": {
+                      "en": "吗 makes a yes/no question without moving any word. Negate 是 by putting 不 directly in front of it: 不是. 他 and 她 sound the same.",
+                      "es": "吗 hace una pregunta de sí o no sin mover ninguna palabra. No se dice 不是: 不 va pegado delante de 是, y queda 不是. 他 y 她 suenan igual."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u01-l2-s01",
+                    "ev-u01-l2-s02",
+                    "ev-u01-l2-s03",
+                    "ev-u01-l2-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u01-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Fixed polite phrases",
+                    "es": "Frases de cortesía"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w125",
+                    "hsk1-w007",
+                    "hsk1-w138"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u01-l3",
+                    "pattern": "谢谢 / 再见",
+                    "title": {
+                      "en": "Fixed polite phrases",
+                      "es": "Frases de cortesía"
+                    },
+                    "body": {
+                      "en": "谢谢, 不客气, and 再见 are chunks. Do not take them apart in conversation. 谢谢你 adds 'you'.",
+                      "es": "谢谢, 不客气 y 再见 son bloques. No los separes en la conversación. 谢谢你 añade 'tú'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u01-l3-s01",
+                    "ev-u01-l3-s02",
+                    "ev-u01-l3-s03",
+                    "ev-u01-l3-s04"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "ev-u01-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Chunks before grammar",
+                  "es": "Bloques antes que gramática"
+                },
+                "body": {
+                  "en": "你好, 谢谢, 不客气, and 再见 are chunks. Say them as wholes. 是 is the first real grammar: it glues two nouns, and it does not change for I, you, he, or she. Chinese does not mark 'a' or 'the', and it does not mark singular or plural on the noun.",
+                  "es": "你好, 谢谢, 不客气 y 再见 son bloques. Dílos enteros. 是 es la primera gramática de verdad: pega dos sustantivos y no cambia para yo, tú, él o ella. El chino no marca 'un' ni 'el', y no marca singular o plural en el sustantivo."
+                },
+                "checks": [
+                  {
+                    "id": "ev-u01-tt-c1",
+                    "prompt": {
+                      "en": "Which word means 'to be'?",
+                      "es": "¿Qué palabra significa 'ser'?"
+                    },
+                    "answer": "是"
+                  },
+                  {
+                    "id": "ev-u01-tt-c2",
+                    "prompt": {
+                      "en": "What replies to 谢谢?",
+                      "es": "¿Qué responde a 谢谢?"
+                    },
+                    "answer": "不客气"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "ev-u01-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "ev-u01-l1-s01",
+                  "ev-u01-l1-s02",
+                  "ev-u01-l1-s03",
+                  "ev-u01-l1-s04",
+                  "ev-u01-l2-s01",
+                  "ev-u01-l2-s02",
+                  "ev-u01-l2-s03",
+                  "ev-u01-l2-s04",
+                  "ev-u01-l3-s01",
+                  "ev-u01-l3-s02",
+                  "ev-u01-l3-s03",
+                  "ev-u01-l3-s04"
+                ],
+                "dialogueId": "ev-u01-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "ev-u02",
+              "slug": "who-and-where",
+              "trackId": "everyday",
+              "levelId": "everyday-1",
+              "order": 2,
+              "title": {
+                "en": "Who and Where From",
+                "es": "Quién y de dónde"
+              },
+              "icon": "🪪",
+              "color": "#E09A2B",
+              "requiresUnitId": "ev-u01",
+              "lessons": [
+                {
+                  "id": "ev-u02-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "What, and you?",
+                    "es": "Qué, ¿y tú?"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w045",
+                    "hsk1-w092",
+                    "hsk1-w066",
+                    "hsk1-w070"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u02-l1",
+                    "pattern": "什么 / 呢",
+                    "title": {
+                      "en": "What, and you?",
+                      "es": "Qué, ¿y tú?"
+                    },
+                    "body": {
+                      "en": "什么 stands where the missing noun would be: 什么名字, 叫什么. 呢 is not 吗. 呢 returns a question you just answered: 我叫王兰，你呢？",
+                      "es": "什么 ocupa el lugar del sustantivo que falta: 什么名字, 叫什么. 呢 no es 吗. 呢 devuelve una pregunta que acabas de contestar: 我叫王兰，你呢？"
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u02-l1-s01",
+                    "ev-u02-l1-s02",
+                    "ev-u02-l1-s03",
+                    "ev-u02-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u02-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Pointing at people",
+                    "es": "Señalar a personas"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w142",
+                    "hsk1-w069",
+                    "hsk1-w091",
+                    "hsk1-w053",
+                    "hsk1-w127"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u02-l2",
+                    "pattern": "这是 / 那是 / 谁",
+                    "title": {
+                      "en": "Pointing at people",
+                      "es": "Señalar a personas"
+                    },
+                    "body": {
+                      "en": "这是 + noun introduces someone near you. 那是 introduces someone farther away. 谁 replaces the person when you don't know them: 这是谁？",
+                      "es": "这是 + sustantivo presenta a alguien cerca de ti. 那是 presenta a alguien más lejos. 谁 sustituye a la persona cuando no la conoces: 这是谁？"
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u02-l2-s01",
+                    "ev-u02-l2-s02",
+                    "ev-u02-l2-s03",
+                    "ev-u02-l2-s04",
+                    "ev-u02-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u02-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Mine, and where from",
+                    "es": "Mío, y de dónde"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w015",
+                    "hsk1-w068",
+                    "hsk1-w067",
+                    "hsk1-w143",
+                    "hsk1-w084"
+                  ],
+                  "supportTargetIds": [
+                    "sup-guo"
+                  ],
+                  "grammar": {
+                    "id": "g-ev-u02-l3",
+                    "pattern": "的 / 哪儿人 / 哪国人",
+                    "title": {
+                      "en": "Mine, and where from",
+                      "es": "Mío, y de dónde"
+                    },
+                    "body": {
+                      "en": "的 marks possession: 我的老师. 你是哪儿人？ and 你是哪国人？ both ask where someone is from. 哪儿人 is the more common spoken question. 国 is 'country'.",
+                      "es": "的 marca la posesión: 我的老师. 你是哪儿人？ y 你是哪国人？ preguntan de dónde es alguien. 哪儿人 es la pregunta más habitual al hablar. 国 es 'país'."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u02-l3-s01",
+                    "ev-u02-l3-s02",
+                    "ev-u02-l3-s03",
+                    "ev-u02-l3-s04",
+                    "ev-u02-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "ev-u02-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Questions that don't move words",
+                  "es": "Preguntas que no mueven palabras"
+                },
+                "body": {
+                  "en": "Chinese questions mostly keep the word order of the answer. 吗 is a yes/no tag. 什么, 谁, and 哪儿 sit in the slot of the thing you are asking about, so 你去哪儿？ has 哪儿 where 中国 would be in the answer 我去中国. 的 is doing possession, like 's in English.",
+                  "es": "Las preguntas en chino casi siempre conservan el orden de la respuesta. 吗 es la marca de sí o no. 什么, 谁 y 哪儿 ocupan el hueco de lo que preguntas, así que 你去哪儿？ lleva 哪儿 donde 中国 estaría en la respuesta 我去中国. 的 marca la posesión."
+                },
+                "checks": [
+                  {
+                    "id": "ev-u02-tt-c1",
+                    "prompt": {
+                      "en": "Where does 哪儿 go in 'where are you going'?",
+                      "es": "¿Dónde va 哪儿 en 'adónde vas'?"
+                    },
+                    "answer": "你去哪儿"
+                  },
+                  {
+                    "id": "ev-u02-tt-c2",
+                    "prompt": {
+                      "en": "Which particle makes a yes/no question?",
+                      "es": "¿Qué partícula hace una pregunta de sí o no?"
+                    },
+                    "answer": "吗"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "ev-u02-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "ev-u02-l1-s01",
+                  "ev-u02-l1-s02",
+                  "ev-u02-l1-s03",
+                  "ev-u02-l1-s04",
+                  "ev-u02-l2-s01",
+                  "ev-u02-l2-s02",
+                  "ev-u02-l2-s03",
+                  "ev-u02-l2-s04",
+                  "ev-u02-l2-s05",
+                  "ev-u02-l3-s01",
+                  "ev-u02-l3-s02",
+                  "ev-u02-l3-s03",
+                  "ev-u02-l3-s04",
+                  "ev-u02-l3-s05"
+                ],
+                "dialogueId": "ev-u02-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "ev-u03",
+              "slug": "how-many",
+              "trackId": "everyday",
+              "levelId": "everyday-1",
+              "order": 3,
+              "title": {
+                "en": "How Many",
+                "es": "Cuántos"
+              },
+              "icon": "🔢",
+              "color": "#1F8A70",
+              "requiresUnitId": "ev-u02",
+              "lessons": [
+                {
+                  "id": "ev-u03-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "set",
+                  "title": {
+                    "en": "Building bigger numbers",
+                    "es": "Formar números mayores"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w130",
+                    "hsk1-w027",
+                    "hsk1-w086",
+                    "hsk1-w102",
+                    "hsk1-w113",
+                    "hsk1-w058",
+                    "hsk1-w078",
+                    "hsk1-w002",
+                    "hsk1-w047",
+                    "hsk1-w093"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u03-l1",
+                    "pattern": "十一 / 二十 / 三十五",
+                    "title": {
+                      "en": "Building bigger numbers",
+                      "es": "Formar números mayores"
+                    },
+                    "body": {
+                      "en": "Once you know 1–10, bigger numbers are sums. 十一 = 10+1, 二十 = 2×10, 三十五 = 3×10+5. Read them left to right.",
+                      "es": "Cuando sabes 1–10, los números mayores son sumas. 十一 = 10+1, 二十 = 2×10, 三十五 = 3×10+5. Se leen de izquierda a derecha."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u03-l1-s01",
+                    "ev-u03-l1-s02",
+                    "ev-u03-l1-s03",
+                    "ev-u03-l1-s04",
+                    "ev-u03-l1-s05"
+                  ],
+                  "estimatedMinutes": 7
+                },
+                {
+                  "id": "ev-u03-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Measure word 个",
+                    "es": "El clasificador 个"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w032",
+                    "hsk1-w043"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u03-l2",
+                    "pattern": "数字 + 个 + 名词",
+                    "title": {
+                      "en": "Measure word 个",
+                      "es": "El clasificador 个"
+                    },
+                    "body": {
+                      "en": "几个人？ asks a small quantity. The pattern is number + 个 + noun: 一个学生, 五个老师. Skipping 个 is a mistake.",
+                      "es": "几个人？ pregunta una cantidad pequeña. El patrón es número + 个 + sustantivo: 一个学生, 五个老师. Saltarse 个 es un error."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u03-l2-s01",
+                    "ev-u03-l2-s02",
+                    "ev-u03-l2-s03",
+                    "ev-u03-l2-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u03-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "I have, two, how many",
+                    "es": "Tengo, dos, cuántos"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w136",
+                    "hsk1-w075",
+                    "hsk1-w025",
+                    "hsk1-w112"
+                  ],
+                  "supportTargetIds": [
+                    "sup-liang"
+                  ],
+                  "grammar": {
+                    "id": "g-ev-u03-l3",
+                    "pattern": "有 / 两 / 多少",
+                    "title": {
+                      "en": "I have, two, how many",
+                      "es": "Tengo, dos, cuántos"
+                    },
+                    "body": {
+                      "en": "有 means 'have'. 没有 would negate it. Before a measure word, 'two' is 两, not 二: 两个朋友. 几 expects a small answer; 多少 is the open 'how many'.",
+                      "es": "有 significa 'tener'. 没有 lo niega. Antes de un clasificador, 'dos' es 两, no 二: 两个朋友. 几 espera una respuesta pequeña; 多少 es un 'cuántos' abierto."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u03-l3-s01",
+                    "ev-u03-l3-s02",
+                    "ev-u03-l3-s03",
+                    "ev-u03-l3-s04",
+                    "ev-u03-l3-s05"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "ev-u03-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "The measure word habit",
+                  "es": "El hábito del clasificador"
+                },
+                "body": {
+                  "en": "个 is the measure word you can use while you are still learning the specific ones (本 for books comes on the HSK track). The habit is number + measure + noun. 两, not 二, is 'two' in that slot. Friends and teachers are counted with 个: 两个朋友, 三个老师.",
+                  "es": "个 es el clasificador que puedes usar mientras aprendes los específicos (本 para libros llega en la vía HSK). El hábito es número + clasificador + sustantivo. 两, no 二, es 'dos' en ese hueco. Amigos y profesores se cuentan con 个: 两个朋友, 三个老师."
+                },
+                "checks": [
+                  {
+                    "id": "ev-u03-tt-c1",
+                    "prompt": {
+                      "en": "What sits between 三 and 老师?",
+                      "es": "¿Qué va entre 三 y 老师?"
+                    },
+                    "answer": "个"
+                  },
+                  {
+                    "id": "ev-u03-tt-c2",
+                    "prompt": {
+                      "en": "How do you say two friends?",
+                      "es": "¿Cómo se dice dos amigos?"
+                    },
+                    "answer": "两个朋友"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "ev-u03-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "ev-u03-l1-s01",
+                  "ev-u03-l1-s02",
+                  "ev-u03-l1-s03",
+                  "ev-u03-l1-s04",
+                  "ev-u03-l1-s05",
+                  "ev-u03-l2-s01",
+                  "ev-u03-l2-s02",
+                  "ev-u03-l2-s03",
+                  "ev-u03-l2-s04",
+                  "ev-u03-l3-s01",
+                  "ev-u03-l3-s02",
+                  "ev-u03-l3-s03",
+                  "ev-u03-l3-s04",
+                  "ev-u03-l3-s05"
+                ],
+                "dialogueId": "ev-u03-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "ev-u04",
+              "slug": "eat-and-drink",
+              "trackId": "everyday",
+              "levelId": "everyday-1",
+              "order": 4,
+              "title": {
+                "en": "Eat and Drink",
+                "es": "Comer y beber"
+              },
+              "icon": "🍵",
+              "color": "#C45B86",
+              "requiresUnitId": "ev-u03",
+              "lessons": [
+                {
+                  "id": "ev-u04-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Eat and drink",
+                    "es": "Comer y beber"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w011",
+                    "hsk1-w037",
+                    "hsk1-w010",
+                    "hsk1-w097"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u04-l1",
+                    "pattern": "吃 / 喝 + 名词",
+                    "title": {
+                      "en": "Eat and drink",
+                      "es": "Comer y beber"
+                    },
+                    "body": {
+                      "en": "The object follows the verb: 喝茶, 吃米饭. 不 comes before the verb, not before the object: 不喝茶, never 喝不茶.",
+                      "es": "El objeto va después del verbo: 喝茶, 吃米饭. 不 va antes del verbo, no antes del objeto: 不喝茶, nunca 喝不茶."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u04-l1-s01",
+                    "ev-u04-l1-s02",
+                    "ev-u04-l1-s03",
+                    "ev-u04-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u04-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Want and like",
+                    "es": "Querer y gustar"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w064",
+                    "hsk1-w120",
+                    "hsk1-w114",
+                    "hsk1-w039"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u04-l2",
+                    "pattern": "想 / 喜欢 / 很",
+                    "title": {
+                      "en": "Want and like",
+                      "es": "Querer y gustar"
+                    },
+                    "body": {
+                      "en": "想 + verb is 'want to'. 喜欢 + verb or noun is 'like'. 很 before 喜欢 or an adjective is the normal unstressed 'pretty, quite', not a strong 'very': 茶很好, 我很喜欢茶.",
+                      "es": "想 + verbo es 'querer'. 喜欢 + verbo o sustantivo es 'gustar'. 很 antes de 喜欢 o de un adjetivo es el 'bastante' normal, no un 'muy' fuerte: 茶很好, 我很喜欢茶."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u04-l2-s01",
+                    "ev-u04-l2-s02",
+                    "ev-u04-l2-s03",
+                    "ev-u04-l2-s04",
+                    "ev-u04-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u04-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Love versus like",
+                    "es": "Encantar y gustar"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w077",
+                    "hsk1-w098",
+                    "hsk1-w001"
+                  ],
+                  "supportTargetIds": [
+                    "sup-haochi"
+                  ],
+                  "grammar": {
+                    "id": "g-ev-u04-l3",
+                    "pattern": "爱 vs 喜欢",
+                    "title": {
+                      "en": "Love versus like",
+                      "es": "Encantar y gustar"
+                    },
+                    "body": {
+                      "en": "爱 is stronger than 喜欢. 我爱吃苹果 means you really love eating apples. 好吃 is 'delicious' and describes food, not people.",
+                      "es": "爱 es más fuerte que 喜欢. 我爱吃苹果 significa que te encanta comer manzanas. 好吃 es 'rico' y describe comida, no personas."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u04-l3-s01",
+                    "ev-u04-l3-s02",
+                    "ev-u04-l3-s03",
+                    "ev-u04-l3-s04"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "ev-u04-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Verbs don't change",
+                  "es": "Los verbos no cambian"
+                },
+                "body": {
+                  "en": "吃, 喝, 想, and 喜欢 do not conjugate. Person and number stay on the pronoun. 不 is the switch that turns a verb off, and it always stands immediately in front of that verb. 很 in 茶很好 is the ordinary way to complete an adjective sentence; a bare 茶好 sounds incomplete.",
+                  "es": "吃, 喝, 想 y 喜欢 no se conjugan. La persona y el número se quedan en el pronombre. 不 es el interruptor que apaga un verbo, y va siempre justo delante de ese verbo. 很 en 茶很好 es la forma normal de completar una frase con adjetivo; un 茶好 a secas suena incompleto."
+                },
+                "checks": [
+                  {
+                    "id": "ev-u04-tt-c1",
+                    "prompt": {
+                      "en": "Where does 不 go in 'he doesn't drink tea'?",
+                      "es": "¿Dónde va 不 en 'él no bebe té'?"
+                    },
+                    "answer": "他不喝茶"
+                  },
+                  {
+                    "id": "ev-u04-tt-c2",
+                    "prompt": {
+                      "en": "Which word means 'want to' before a verb?",
+                      "es": "¿Qué palabra significa 'querer' antes de un verbo?"
+                    },
+                    "answer": "想"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "ev-u04-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "ev-u04-l1-s01",
+                  "ev-u04-l1-s02",
+                  "ev-u04-l1-s03",
+                  "ev-u04-l1-s04",
+                  "ev-u04-l2-s01",
+                  "ev-u04-l2-s02",
+                  "ev-u04-l2-s03",
+                  "ev-u04-l2-s04",
+                  "ev-u04-l2-s05",
+                  "ev-u04-l3-s01",
+                  "ev-u04-l3-s02",
+                  "ev-u04-l3-s03",
+                  "ev-u04-l3-s04"
+                ],
+                "dialogueId": "ev-u04-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "ev-u05",
+              "slug": "time-and-place",
+              "trackId": "everyday",
+              "levelId": "everyday-1",
+              "order": 5,
+              "title": {
+                "en": "Time and Place",
+                "es": "Tiempo y lugar"
+              },
+              "icon": "⏰",
+              "color": "#3D7A9C",
+              "requiresUnitId": "ev-u04",
+              "lessons": [
+                {
+                  "id": "ev-u05-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Asking the time",
+                    "es": "Preguntar la hora"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w046",
+                    "hsk1-w065",
+                    "hsk1-w119",
+                    "hsk1-w016"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u05-l1",
+                    "pattern": "现在几点？",
+                    "title": {
+                      "en": "Asking the time",
+                      "es": "Preguntar la hora"
+                    },
+                    "body": {
+                      "en": "现在几点？ is 'what time is it now?' Answer with a number plus 点: 三点. 今天 and 明天 go before the verb: 明天我吃米饭.",
+                      "es": "现在几点？ es '¿qué hora es?' Responde con un número más 点: 三点. 今天 y 明天 van antes del verbo: 明天我吃米饭."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u05-l1-s01",
+                    "ev-u05-l1-s02",
+                    "ev-u05-l1-s03",
+                    "ev-u05-l1-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u05-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Where you are, where you go",
+                    "es": "Dónde estás, adónde vas"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w139",
+                    "hsk1-w044",
+                    "hsk1-w082"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u05-l2",
+                    "pattern": "在 / 去",
+                    "title": {
+                      "en": "Where you are, where you go",
+                      "es": "Dónde estás, adónde vas"
+                    },
+                    "body": {
+                      "en": "在 + place says where something is: 我在家, 你在哪儿？ 去 + place says where you are going: 我去中国, 你去哪儿？",
+                      "es": "在 + lugar dice dónde está algo: 我在家, 你在哪儿？ 去 + lugar dice adónde vas: 我去中国, 你去哪儿？"
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u05-l2-s01",
+                    "ev-u05-l2-s02",
+                    "ev-u05-l2-s03",
+                    "ev-u05-l2-s04",
+                    "ev-u05-l2-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u05-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Past negative 没",
+                    "es": "La negación 没"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w089",
+                    "hsk1-w116",
+                    "hsk1-w148"
+                  ],
+                  "supportTargetIds": [
+                    "sup-mei"
+                  ],
+                  "grammar": {
+                    "id": "g-ev-u05-l3",
+                    "pattern": "没 + 动词",
+                    "title": {
+                      "en": "Past negative 没",
+                      "es": "La negación 没"
+                    },
+                    "body": {
+                      "en": "没 + verb denies that something happened: 昨天我没去. Do not add 了 to a 没 sentence. 不 is for habits and the present (不喝茶); 没 is for 'did not'. 上午 and 下午 sit before the verb like 今天.",
+                      "es": "没 + verbo niega que algo ocurrió: 昨天我没去. No añadas 了 a una frase con 没. 不 es para hábitos y el presente (不喝茶); 没 es 'no lo hice'. 上午 y 下午 van antes del verbo, como 今天."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u05-l3-s01",
+                    "ev-u05-l3-s02",
+                    "ev-u05-l3-s03",
+                    "ev-u05-l3-s04"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "ev-u05-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "没 is not 不",
+                  "es": "没 no es 不"
+                },
+                "body": {
+                  "en": "不 negates what is generally true or what you don't want: 不喝茶. 没 negates an event: 昨天我没去. Mixing them is the classic beginner error. Time words (今天, 上午, 三点) prefer a slot before the verb, and 在 + place answers where, while 去 + place answers where to.",
+                  "es": "不 niega lo que es verdad en general o lo que no quieres: 不喝茶. 没 niega un hecho: 昨天我没去. Mezclarlos es el error clásico del principiante. Las palabras de tiempo (今天, 上午, 三点) prefieren un hueco antes del verbo, y 在 + lugar responde dónde, mientras 去 + lugar responde adónde."
+                },
+                "checks": [
+                  {
+                    "id": "ev-u05-tt-c1",
+                    "prompt": {
+                      "en": "How do you say you did not go yesterday?",
+                      "es": "¿Cómo se dice que ayer no fuiste?"
+                    },
+                    "answer": "昨天我没去"
+                  },
+                  {
+                    "id": "ev-u05-tt-c2",
+                    "prompt": {
+                      "en": "Which word says where you are?",
+                      "es": "¿Qué palabra dice dónde estás?"
+                    },
+                    "answer": "在"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "ev-u05-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "ev-u05-l1-s01",
+                  "ev-u05-l1-s02",
+                  "ev-u05-l1-s03",
+                  "ev-u05-l1-s04",
+                  "ev-u05-l2-s01",
+                  "ev-u05-l2-s02",
+                  "ev-u05-l2-s03",
+                  "ev-u05-l2-s04",
+                  "ev-u05-l2-s05",
+                  "ev-u05-l3-s01",
+                  "ev-u05-l3-s02",
+                  "ev-u05-l3-s03",
+                  "ev-u05-l3-s04"
+                ],
+                "dialogueId": "ev-u05-d01",
+                "estimatedMinutes": 6
+              }
+            },
+            {
+              "id": "ev-u06",
+              "slug": "out-and-about",
+              "trackId": "everyday",
+              "levelId": "everyday-1",
+              "order": 6,
+              "title": {
+                "en": "Out and About",
+                "es": "En la calle"
+              },
+              "icon": "🚕",
+              "color": "#D4722C",
+              "requiresUnitId": "ev-u05",
+              "lessons": [
+                {
+                  "id": "ev-u06-l1",
+                  "kind": "lesson",
+                  "order": 1,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "How much",
+                    "es": "Cuánto cuesta"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w061",
+                    "hsk1-w079",
+                    "hsk1-w051",
+                    "hsk1-w087"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u06-l1",
+                    "pattern": "多少钱 / 块",
+                    "title": {
+                      "en": "How much",
+                      "es": "Cuánto cuesta"
+                    },
+                    "body": {
+                      "en": "这个多少钱？ asks the price of something you can point at. The answer is a number + 块 + 钱: 三块钱. 两块 uses 两, not 二.",
+                      "es": "这个多少钱？ pregunta el precio de algo que puedes señalar. La respuesta es número + 块 + 钱: 三块钱. 两块 usa 两, no 二."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u06-l1-s01",
+                    "ev-u06-l1-s02",
+                    "ev-u06-l1-s03",
+                    "ev-u06-l1-s04",
+                    "ev-u06-l1-s05"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u06-l2",
+                  "kind": "lesson",
+                  "order": 2,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Getting there, please",
+                    "es": "Cómo ir, por favor"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w149",
+                    "hsk1-w012",
+                    "hsk1-w140",
+                    "hsk1-w081"
+                  ],
+                  "supportTargetIds": [],
+                  "grammar": {
+                    "id": "g-ev-u06-l2",
+                    "pattern": "怎么去 / 坐 / 请",
+                    "title": {
+                      "en": "Getting there, please",
+                      "es": "Cómo ir, por favor"
+                    },
+                    "body": {
+                      "en": "怎么去 asks how someone gets somewhere. 坐 + vehicle is the answer: 坐出租车去. 请 before a verb softens a request: 请坐, 请喝茶.",
+                      "es": "怎么去 pregunta cómo se llega. 坐 + vehículo es la respuesta: 坐出租车去. 请 antes de un verbo suaviza una petición: 请坐, 请喝茶."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u06-l2-s01",
+                    "ev-u06-l2-s02",
+                    "ev-u06-l2-s03",
+                    "ev-u06-l2-s04"
+                  ],
+                  "estimatedMinutes": 5
+                },
+                {
+                  "id": "ev-u06-l3",
+                  "kind": "lesson",
+                  "order": 3,
+                  "presentation": "standard",
+                  "title": {
+                    "en": "Suggestions",
+                    "es": "Propuestas"
+                  },
+                  "targetWordIds": [
+                    "hsk1-w049",
+                    "hsk1-w019",
+                    "hsk1-w141"
+                  ],
+                  "supportTargetIds": [
+                    "sup-ba",
+                    "sup-ye"
+                  ],
+                  "grammar": {
+                    "id": "g-ev-u06-l3",
+                    "pattern": "…，怎么样？ / 吧 / 也",
+                    "title": {
+                      "en": "Suggestions",
+                      "es": "Propuestas"
+                    },
+                    "body": {
+                      "en": "A suggestion plus 怎么样？ asks 'how about it?' 吧 at the end softens 我们去 into 'let's go'. 也 means 'also' and goes before the verb: 我也去.",
+                      "es": "Una propuesta más 怎么样？ pregunta '¿qué te parece?' 吧 al final suaviza 我们去 y lo vuelve 'vamos'. 也 significa 'también' y va antes del verbo: 我也去."
+                    }
+                  },
+                  "sentenceIds": [
+                    "ev-u06-l3-s01",
+                    "ev-u06-l3-s02",
+                    "ev-u06-l3-s03",
+                    "ev-u06-l3-s04"
+                  ],
+                  "estimatedMinutes": 5
+                }
+              ],
+              "teacherTalk": {
+                "id": "ev-u06-tt",
+                "kind": "teacherTalk",
+                "title": {
+                  "en": "Getting what you need",
+                  "es": "Conseguir lo que necesitas"
+                },
+                "body": {
+                  "en": "With 多少钱, 坐出租车, 请, and 怎么样 you can shop, move, and propose a plan. 吧 is the softener on suggestions: 我们去吧 is gentler than a bare 我们去. 也 adds 'too' and must go before the verb, so 我也去, not 我去也.",
+                  "es": "Con 多少钱, 坐出租车, 请 y 怎么样 puedes comprar, moverte y proponer un plan. 吧 suaviza las propuestas: 我们去吧 es más suave que un 我们去 seco. 也 añade 'también' y debe ir antes del verbo: 我也去, no 我去也."
+                },
+                "checks": [
+                  {
+                    "id": "ev-u06-tt-c1",
+                    "prompt": {
+                      "en": "How do you soften 'let's go'?",
+                      "es": "¿Cómo se suaviza 'vamos'?"
+                    },
+                    "answer": "我们去吧"
+                  },
+                  {
+                    "id": "ev-u06-tt-c2",
+                    "prompt": {
+                      "en": "Where does 也 go in 'I'm going too'?",
+                      "es": "¿Dónde va 也 en 'yo también voy'?"
+                    },
+                    "answer": "我也去"
+                  }
+                ],
+                "estimatedMinutes": 3
+              },
+              "review": {
+                "id": "ev-u06-rv",
+                "kind": "review",
+                "title": {
+                  "en": "Review",
+                  "es": "Repaso"
+                },
+                "sentenceIds": [
+                  "ev-u06-l1-s01",
+                  "ev-u06-l1-s02",
+                  "ev-u06-l1-s03",
+                  "ev-u06-l1-s04",
+                  "ev-u06-l1-s05",
+                  "ev-u06-l2-s01",
+                  "ev-u06-l2-s02",
+                  "ev-u06-l2-s03",
+                  "ev-u06-l2-s04",
+                  "ev-u06-l3-s01",
+                  "ev-u06-l3-s02",
+                  "ev-u06-l3-s03",
+                  "ev-u06-l3-s04"
+                ],
+                "dialogueId": "ev-u06-d01",
+                "estimatedMinutes": 6
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

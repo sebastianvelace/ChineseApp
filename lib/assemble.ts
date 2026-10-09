@@ -1,0 +1,158 @@
+import { allLearnableIds, contentTokens, getDialogue, getLearnable, getSentence } from "./content";
+import { shuffle } from "./shuffle";
+import type { ExerciseItem, Lesson, Review, Unit } from "./types";
+
+function padIds(correct: string, pool: string[], seed: string): string[] {
+  const options = [correct];
+  for (const id of pool) {
+    if (!options.includes(id)) options.push(id);
+    if (options.length === 4) break;
+  }
+  if (options.length < 4) {
+    for (const id of allLearnableIds()) {
+      if (!options.includes(id)) options.push(id);
+      if (options.length === 4) break;
+    }
+  }
+  return shuffle(options, seed);
+}
+
+function padPinyin(correct: string, pool: string[], seed: string): string[] {
+  const options = [correct];
+  for (const py of pool) {
+    if (py && !options.includes(py)) options.push(py);
+    if (options.length === 4) break;
+  }
+  return shuffle(options, seed);
+}
+
+function meaningItem(itemId: string, pool: string[], seed: string): ExerciseItem {
+  return { type: "meaning", itemId, options: padIds(itemId, pool, seed) };
+}
+
+function pinyinItem(itemId: string, poolIds: string[], seed: string): ExerciseItem {
+  const correct = getLearnable(itemId)?.pinyin ?? itemId;
+  const pool = poolIds.map((id) => getLearnable(id)?.pinyin ?? "").filter(Boolean);
+  return { type: "pinyin", itemId, options: padPinyin(correct, pool, seed) };
+}
+
+function sentenceWithTarget(ids: string[], sentenceIds: string[], preferLater = false) {
+  const list = preferLater ? [...sentenceIds].reverse() : sentenceIds;
+  for (const id of list) {
+    const sentence = getSentence(id);
+    if (!sentence) continue;
+    const hit = contentTokens(sentence).some((t) => {
+      const tokenId = t.wordId ?? t.supportId;
+      return tokenId ? ids.includes(tokenId) : false;
+    });
+    if (hit) return sentence;
+  }
+  return getSentence(sentenceIds[0] ?? "");
+}
+
+function buildItem(sentenceId: string, seed: string): ExerciseItem | null {
+  const sentence = getSentence(sentenceId);
+  if (!sentence) return null;
+  const indexes = contentTokens(sentence).map((_, i) => i);
+  if (indexes.length === 0) return null;
+  return { type: "build", sentenceId, order: shuffle(indexes, seed) };
+}
+
+function blankItem(sentenceId: string, targetIds: string[], seed: string): ExerciseItem | null {
+  const sentence = getSentence(sentenceId);
+  if (!sentence) return null;
+  const tokens = contentTokens(sentence);
+  let blankAt = tokens.findIndex((t) => {
+    const id = t.wordId ?? t.supportId;
+    return id ? targetIds.includes(id) : false;
+  });
+  if (blankAt < 0) blankAt = 0;
+  const correct = tokens[blankAt]?.text;
+  if (!correct) return null;
+  const options = [correct];
+  for (const id of targetIds) {
+    const hanzi = getLearnable(id)?.hanzi;
+    if (hanzi && !options.includes(hanzi)) options.push(hanzi);
+    if (options.length === 4) break;
+  }
+  for (const token of tokens) {
+    if (!options.includes(token.text)) options.push(token.text);
+    if (options.length === 4) break;
+  }
+  return { type: "blank", sentenceId, blankAt, options: shuffle(options.slice(0, 4), seed) };
+}
+
+export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): ExerciseItem[] {
+  const targets = [...lesson.targetWordIds, ...lesson.supportTargetIds];
+  const items: ExerciseItem[] = [];
+  const pool = targets.length >= 4 ? targets : [...targets, ...allLearnableIds()];
+
+  if (lesson.presentation === "set") {
+    items.push({ type: "teach-set", itemIds: targets, showGrammar: true });
+    targets.forEach((id, index) => {
+      items.push(meaningItem(id, pool, `${lesson.id}:meaning:${id}`));
+      if ([0, 2, 4, targets.length - 1].includes(index)) {
+        items.push(pinyinItem(id, pool, `${lesson.id}:pinyin:${id}`));
+      }
+    });
+  } else {
+    let grammarShown = false;
+    for (const id of targets) {
+      if (!seen.has(id)) {
+        items.push({ type: "teach", itemId: id, showGrammar: !grammarShown });
+        grammarShown = true;
+      }
+    }
+    for (const id of targets) {
+      items.push(meaningItem(id, pool, `${lesson.id}:meaning:${id}`));
+      if (!seen.has(id)) items.push(pinyinItem(id, pool, `${lesson.id}:pinyin:${id}`));
+    }
+  }
+
+  const buildSentence = sentenceWithTarget(targets, lesson.sentenceIds);
+  const blankSentence =
+    lesson.sentenceIds.map((id) => getSentence(id)).find((s) => s && s.id !== buildSentence?.id) ??
+    buildSentence;
+  if (buildSentence) {
+    const built = buildItem(buildSentence.id, `${lesson.id}:build:${buildSentence.id}`);
+    if (built) items.push(built);
+  }
+  if (blankSentence) {
+    const blank = blankItem(blankSentence.id, targets, `${lesson.id}:blank:${blankSentence.id}`);
+    if (blank) items.push(blank);
+  }
+  return items;
+}
+
+export function assembleReview(unit: Unit, review: Review): ExerciseItem[] {
+  const targets = unit.lessons.flatMap((l) => [...l.targetWordIds, ...l.supportTargetIds]);
+  const unique = [...new Set(targets)];
+  const items: ExerciseItem[] = [];
+  const dialogue = getDialogue(review.dialogueId);
+  for (const line of dialogue?.lines ?? []) {
+    items.push({ type: "line", sentenceId: line.id });
+  }
+  const quizIds = unique.slice(0, 8);
+  for (const id of quizIds) {
+    items.push(meaningItem(id, unique, `${review.id}:meaning:${id}`));
+  }
+  const first = review.sentenceIds[0];
+  const second = review.sentenceIds[1] ?? first;
+  if (first) {
+    const built = buildItem(first, `${review.id}:build:${first}`);
+    if (built) items.push(built);
+  }
+  if (second) {
+    const blank = blankItem(second, unique, `${review.id}:blank:${second}`);
+    if (blank) items.push(blank);
+  }
+  return items;
+}
+
+export function lessonTargets(lesson: Lesson): string[] {
+  return [...lesson.targetWordIds, ...lesson.supportTargetIds];
+}
+
+export function unitTargets(unit: Unit): string[] {
+  return [...new Set(unit.lessons.flatMap((l) => lessonTargets(l)))];
+}
