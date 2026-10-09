@@ -37,6 +37,17 @@ button {
   font-weight: 700;
 }
 
+@keyframes hanlu-shake {
+  0%,
+  100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.shake {
+  animation: hanlu-shake 0.35s ease;
+}
+
 .tile {
   min-height: 44px;
   border-radius: 12px;

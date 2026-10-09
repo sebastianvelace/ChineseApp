@@ -446,6 +446,7 @@ function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; 
   const [picked, setPicked] = useState<string | null>(null);
   const [matched, setMatched] = useState<string[]>([]);
   const [missed, setMissed] = useState(false);
+  const [shake, setShake] = useState(false);
   const done = useRef(false);
 
   function chooseGloss(id: string) {
@@ -461,11 +462,13 @@ function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; 
       return;
     }
     setMissed(true);
+    setShake(true);
     setPicked(null);
+    window.setTimeout(() => setShake(false), 350);
   }
 
   return (
-    <div>
+    <div className={shake ? "shake" : undefined}>
       <p className="mb-3 text-sm text-[#57534E]">{t("match.prompt")}</p>
       <div className="grid grid-cols-2 gap-2">
         <div className="flex flex-col gap-2">

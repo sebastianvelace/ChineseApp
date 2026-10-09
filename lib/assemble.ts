@@ -40,6 +40,14 @@ function pinyinItem(itemId: string, poolIds: string[], seed: string): ExerciseIt
   return { type: "pinyin", itemId, options: padPinyin(correct, pool, seed) };
 }
 
+function setBuildSentence(sentenceIds: string[]) {
+  for (const id of sentenceIds) {
+    const sentence = getSentence(id);
+    if (sentence && (sentence.hanzi.includes("十一") || sentence.hanzi.includes("三十五"))) return sentence;
+  }
+  return getSentence(sentenceIds[0] ?? "");
+}
+
 function sentenceWithTarget(ids: string[], sentenceIds: string[], preferLater = false) {
   const list = preferLater ? [...sentenceIds].reverse() : sentenceIds;
   for (const id of list) {
@@ -93,12 +101,19 @@ export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): Exerc
 
   if (lesson.presentation === "set") {
     items.push({ type: "teach-set", itemIds: targets, showGrammar: true });
+    for (const id of targets) items.push(meaningItem(id, pool, `${lesson.id}:meaning:${id}`));
     targets.forEach((id, index) => {
-      items.push(meaningItem(id, pool, `${lesson.id}:meaning:${id}`));
       if ([0, 2, 4, targets.length - 1].includes(index)) {
         items.push(pinyinItem(id, pool, `${lesson.id}:pinyin:${id}`));
       }
     });
+    const buildSentence = setBuildSentence(lesson.sentenceIds);
+    if (buildSentence) {
+      const built = buildItem(buildSentence.id, `${lesson.id}:build:${buildSentence.id}`);
+      if (built) items.push(built);
+    }
+    items.push(...toneItems(targets, true));
+    return items;
   } else {
     let grammarShown = false;
     for (const id of targets) {
@@ -125,7 +140,7 @@ export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): Exerc
     const blank = blankItem(blankSentence.id, targets, `${lesson.id}:blank:${blankSentence.id}`);
     if (blank) items.push(blank);
   }
-  items.push(...toneItems(targets, lesson.presentation === "set"));
+  items.push(...toneItems(targets, false));
   items.push(...radicalItems(lesson.id, targets));
   const stroke = strokeChar(targets);
   if (stroke) items.push({ type: "stroke", char: stroke });
