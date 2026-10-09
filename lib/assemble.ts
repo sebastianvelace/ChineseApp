@@ -66,20 +66,6 @@ function setBuildSentence(sentenceIds: string[]) {
   return getSentence(sentenceIds[0] ?? "");
 }
 
-function sentenceWithTarget(ids: string[], sentenceIds: string[], preferLater = false) {
-  const list = preferLater ? [...sentenceIds].reverse() : sentenceIds;
-  for (const id of list) {
-    const sentence = getSentence(id);
-    if (!sentence) continue;
-    const hit = contentTokens(sentence).some((t) => {
-      const tokenId = t.wordId ?? t.supportId;
-      return tokenId ? ids.includes(tokenId) : false;
-    });
-    if (hit) return sentence;
-  }
-  return getSentence(sentenceIds[0] ?? "");
-}
-
 function buildItem(sentenceId: string, seed: string): ExerciseItem | null {
   const sentence = getSentence(sentenceId);
   if (!sentence) return null;
@@ -88,28 +74,44 @@ function buildItem(sentenceId: string, seed: string): ExerciseItem | null {
   return { type: "build", sentenceId, order: shuffle(indexes, seed) };
 }
 
-function blankItem(sentenceId: string, targetIds: string[], seed: string): ExerciseItem | null {
+function blankItem(sentenceId: string, sentenceIds: string[], targetWordIds: string[], seed: string): ExerciseItem | null {
   const sentence = getSentence(sentenceId);
   if (!sentence) return null;
   const tokens = contentTokens(sentence);
-  let blankAt = tokens.findIndex((t) => {
-    const id = t.wordId ?? t.supportId;
-    return id ? targetIds.includes(id) : false;
-  });
+  let blankAt = tokens.findIndex((token) => (token.wordId ? targetWordIds.includes(token.wordId) : false));
   if (blankAt < 0) blankAt = 0;
   const correct = tokens[blankAt]?.text;
   if (!correct) return null;
   const options = [correct];
-  for (const id of targetIds) {
+  for (const id of sentenceIds) {
+    for (const token of contentTokens(getSentence(id) ?? sentence)) {
+      if (!options.includes(token.text)) options.push(token.text);
+      if (options.length === 4) break;
+    }
+    if (options.length === 4) break;
+  }
+  for (const id of targetWordIds) {
     const hanzi = getLearnable(id)?.hanzi;
     if (hanzi && !options.includes(hanzi)) options.push(hanzi);
     if (options.length === 4) break;
   }
-  for (const token of tokens) {
-    if (!options.includes(token.text)) options.push(token.text);
-    if (options.length === 4) break;
-  }
   return { type: "blank", sentenceId, blankAt, options: shuffle(options.slice(0, 4), seed) };
+}
+
+function firstUnseenSentence(sentenceIds: string[], targets: string[], seen: ReadonlySet<string>) {
+  const unseen = targets.find((id) => !seen.has(id));
+  if (unseen) {
+    for (const id of sentenceIds) {
+      const sentence = getSentence(id);
+      if (sentence && contentTokens(sentence).some((token) => (token.wordId ?? token.supportId) === unseen)) return sentence;
+    }
+  }
+  return getSentence(sentenceIds[0] ?? "");
+}
+
+function nextSentence(sentenceIds: string[], currentId: string) {
+  const index = Math.max(0, sentenceIds.indexOf(currentId));
+  return getSentence(sentenceIds[(index + 1) % sentenceIds.length] ?? currentId);
 }
 
 export function assembleLesson(lessonId: string, seenWordIds: readonly string[] = [], contentVersion = "1.0.0"): ExerciseItem[] {
@@ -150,16 +152,14 @@ export function assembleLesson(lessonId: string, seenWordIds: readonly string[] 
   }
 
   items.push(...toneItems(targets, false));
-  const buildSentence = sentenceWithTarget(targets, lesson.sentenceIds);
-  const blankSentence =
-    lesson.sentenceIds.map((id) => getSentence(id)).find((s) => s && s.id !== buildSentence?.id) ??
-    buildSentence;
+  const buildSentence = firstUnseenSentence(lesson.sentenceIds, targets, seen);
+  const blankSentence = buildSentence ? nextSentence(lesson.sentenceIds, buildSentence.id) : undefined;
   if (buildSentence) {
     const built = buildItem(buildSentence.id, `${lesson.id}:build:${buildSentence.id}`);
     if (built) items.push(built);
   }
   if (blankSentence) {
-    const blank = blankItem(blankSentence.id, targets, `${lesson.id}:blank:${blankSentence.id}`);
+    const blank = blankItem(blankSentence.id, lesson.sentenceIds, lesson.targetWordIds, `${lesson.id}:blank:${blankSentence.id}`);
     if (blank) items.push(blank);
   }
   items.push(...radicalItems(lesson.id, targets));
@@ -230,7 +230,7 @@ export function assembleReview(unit: Unit, review: Review): ExerciseItem[] {
     if (built) items.push(built);
   }
   if (second) {
-    const blank = blankItem(second, targetIds, `${review.id}:blank:${second}`);
+    const blank = blankItem(second, review.sentenceIds, targetIds, `${review.id}:blank:${second}`);
     if (blank) items.push(blank);
   }
   return items;

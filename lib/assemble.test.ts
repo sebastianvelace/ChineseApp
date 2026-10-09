@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { assembleLesson } from "./assemble";
-import { findLesson, getLearnable } from "./content";
+import { findLesson, getLearnable, getSentence } from "./content";
 
 function hanzi(id: string): string {
   return getLearnable(id)?.hanzi ?? id;
@@ -65,6 +65,31 @@ test("a seen word skips its teach card and its pinyin question", () => {
   assert.equal(items.some((item) => item.type === "teach" && item.itemId === seenId), false);
   assert.equal(items.some((item) => item.type === "pinyin" && item.itemId === seenId), false);
   assert.equal(items.some((item) => item.type === "meaning" && item.itemId === seenId), true);
+});
+
+test("the blank is the next sentence and its choices come from the lesson", () => {
+  const lesson = findLesson("hsk1-u01-l1")?.lesson;
+  assert.ok(lesson);
+  const items = assembleLesson("hsk1-u01-l1", [], "1.0.0");
+  const build = items.find((item) => item.type === "build");
+  const blank = items.find((item) => item.type === "blank");
+  assert.ok(build && build.type === "build");
+  assert.ok(blank && blank.type === "blank");
+  const buildIndex = lesson.sentenceIds.indexOf(build.sentenceId);
+  const expectedBlank = lesson.sentenceIds[(buildIndex + 1) % lesson.sentenceIds.length];
+  assert.equal(blank.sentenceId, expectedBlank);
+  const sentence = getSentence(blank.sentenceId);
+  assert.ok(sentence);
+  const answer = sentence.tokens.filter((token) => token.kind !== "punct")[blank.blankAt]?.text;
+  assert.ok(answer && blank.options.includes(answer));
+  const pool = new Set<string>();
+  for (const id of lesson.sentenceIds) {
+    for (const token of getSentence(id)?.tokens ?? []) {
+      if (token.kind !== "punct") pool.add(token.text);
+    }
+  }
+  for (const id of lesson.targetWordIds) pool.add(getLearnable(id)?.hanzi ?? "");
+  for (const option of blank.options) assert.ok(pool.has(option), option);
 });
 
 test("a number set is one teach card, with pinyin on 1, 3, 5, and the last", () => {
