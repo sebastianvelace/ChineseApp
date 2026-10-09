@@ -295,24 +295,46 @@ function Card({
   onResolved: (ok: boolean, answer: string) => void;
 }) {
   const t = useT();
-  if (item.type === "teach" || item.type === "teach-set") {
-    const ids = item.type === "teach" ? [item.itemId] : item.itemIds;
+  if (item.type === "teach-set") {
     return (
       <div>
         {item.showGrammar && grammar ? (
-          item.type === "teach-set" ? (
-            <div className="mb-4 rounded-2xl bg-white p-4">
-              <p className="font-[family-name:var(--font-hanzi)] text-xl">{grammar.pattern}</p>
-              <p className="mt-2 text-base leading-6 text-[#57534E]">{grammar.body[locale]}</p>
-            </div>
-          ) : (
-            <p className="mb-4 inline-block rounded-full bg-white px-4 py-2 font-[family-name:var(--font-hanzi)] text-base">{grammar.pattern}</p>
-          )
+          <div className="mb-4 rounded-2xl bg-white p-4">
+            <p className="font-[family-name:var(--font-hanzi)] text-xl">{grammar.pattern}</p>
+            <p className="mt-2 text-base leading-6 text-[#57534E]">{grammar.body[locale]}</p>
+          </div>
+        ) : null}
+        <div className="grid grid-cols-3 gap-3">
+          {item.itemIds.map((id) => {
+            const row = getLearnable(id);
+            if (!row) return null;
+            return (
+              <article key={id} className="rounded-2xl bg-white px-2 py-4 text-center">
+                <p className="font-[family-name:var(--font-hanzi)] text-[64px] font-medium leading-none">{row.hanzi}</p>
+                {showPinyin ? <p className="mt-2 text-lg text-[#57534E]">{row.pinyin}</p> : null}
+                <p className="mt-1 text-sm text-[#57534E]">{row.gloss[locale]}</p>
+              </article>
+            );
+          })}
+        </div>
+        {!showPinyin ? (
+          <button className="mt-3 text-sm font-semibold text-[#E25B45]" onClick={onReveal}>{t("lesson.showPinyin")}</button>
+        ) : null}
+      </div>
+    );
+  }
+
+  if (item.type === "teach") {
+    const ids = [item.itemId];
+    return (
+      <div>
+        {item.showGrammar && grammar ? (
+          <p className="mb-4 inline-block rounded-full bg-white px-4 py-2 font-[family-name:var(--font-hanzi)] text-base">{grammar.pattern}</p>
         ) : null}
         <div className="flex flex-col gap-3">
           {ids.map((id) => {
             const row = getLearnable(id);
-            const exampleId = item.type === "teach" ? item.exampleId : item.exampleIds[id];
+            const exampleId = item.exampleId;
             const example = exampleId ? getSentence(exampleId) : undefined;
             if (!row) return null;
             return (
