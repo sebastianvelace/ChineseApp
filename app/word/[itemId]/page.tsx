@@ -51,14 +51,16 @@ export default function WordPage() {
         </article>
       ) : null}
       {dictionary ? (
-        <article className="mt-3 rounded-2xl bg-white p-4">
-          <p className="text-xs font-semibold uppercase text-[#57534E]">{t("word.dictionary")}</p>
+        <article className="mt-3 rounded-2xl border border-[#E7E0D6] bg-[#F3EFE8] px-4 py-3 text-sm text-[#57534E]">
+          <p className="text-xs font-semibold uppercase tracking-wide">{t("word.dictionary")}</p>
           {dictionary.lines.map((line, i) => (
             <div key={i} className="mt-2">
-              {line.tokens ? <TokenLine tokens={line.tokens} /> : <p className="font-[family-name:var(--font-hanzi)]">{line.hanzi}</p>}
+              {line.speaker ? <p className="text-xs font-semibold">{line.speaker}</p> : null}
+              {line.tokens ? <TokenLine tokens={line.tokens} /> : <p className="font-[family-name:var(--font-hanzi)] text-[22px]">{line.hanzi}</p>}
+              {pinyin && line.pinyin ? <p>{line.pinyin}</p> : null}
             </div>
           ))}
-          <p className="mt-2 text-[#57534E]">{dictionary.translation[locale]}</p>
+          <p className="mt-2">{dictionary.translation[locale]}</p>
         </article>
       ) : null}
       <Link href={`/practice/session?item=${item.id}`} className="btn-primary mt-6 inline-flex items-center justify-center">{t("word.practice")}</Link>
