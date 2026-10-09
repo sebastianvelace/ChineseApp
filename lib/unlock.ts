@@ -33,19 +33,25 @@ function hanziList(ids: string[]): string {
   return ids.map((id) => getLearnable(id)?.hanzi).filter(Boolean).join("、");
 }
 
+function lessonResume(unit: Unit, lesson: Lesson): Resume {
+  return {
+    href: `/lesson/${lesson.id}`,
+    kind: "lesson",
+    order: lesson.order,
+    hanzi: hanziList([...lesson.targetWordIds, ...lesson.supportTargetIds]),
+  };
+}
+
 export function resumeTarget(units: Unit[], passed: Record<string, unknown>): Resume | null {
+  const open: Unit[] = [];
   for (const unit of units) {
-    if (!unitUnlocked(unit, passed)) return null;
+    if (!unitUnlocked(unit, passed)) break;
+    open.push(unit);
     for (const lesson of unit.lessons) {
-      if (lessonStatus(unit, lesson, passed) === "available") {
-        return {
-          href: `/lesson/${lesson.id}`,
-          kind: "lesson",
-          order: lesson.order,
-          hanzi: hanziList([...lesson.targetWordIds, ...lesson.supportTargetIds]),
-        };
-      }
+      if (lessonStatus(unit, lesson, passed) === "available") return lessonResume(unit, lesson);
     }
+  }
+  for (const unit of open) {
     if (extraStatus(unit, unit.teacherTalk.id, passed) === "available") {
       return { href: `/talk/${unit.teacherTalk.id}`, kind: "talk", hanzi: "" };
     }
