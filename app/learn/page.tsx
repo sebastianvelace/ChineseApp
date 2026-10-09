@@ -4,7 +4,7 @@ import Link from "next/link";
 import { trackById } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
-import { unitState } from "@/lib/unlock";
+import { resumeTarget, unitState } from "@/lib/unlock";
 
 export default function LearnPage() {
   const { ready, track, setTrack, streak, xpToday, dailyGoal, locale, passed } = useProgress();
@@ -31,6 +31,18 @@ export default function LearnPage() {
           {t("track.everyday")}
         </button>
       </div>
+      {(() => {
+        const next = resumeTarget(units, passed);
+        if (!next) return null;
+        const label = next.kind === "lesson" ? t("unit.lesson", { order: next.order ?? 1 }) : next.kind === "talk" ? t("unit.talk") : t("unit.review");
+        return (
+          <Link href={next.href} className="mt-4 block rounded-2xl bg-[#E25B45] px-4 py-4 text-white">
+            <span className="text-sm font-semibold">{t("practice.continue")}</span>
+            <span className="mt-1 block text-lg font-bold">{label}</span>
+            {next.hanzi ? <span className="mt-1 block font-[family-name:var(--font-hanzi)] text-base">{next.hanzi}</span> : null}
+          </Link>
+        );
+      })()}
       <ol className="mx-auto mt-8 flex w-full max-w-xs flex-col items-center">
         {units.map((unit, index) => {
           const state = unitState(unit, passed);

@@ -1,5 +1,12 @@
-import { getUnit } from "./content";
+import { getLearnable, getUnit } from "./content";
 import type { Lesson, Unit } from "./types";
+
+export type Resume = {
+  href: string;
+  kind: "lesson" | "talk" | "review";
+  order?: number;
+  hanzi: string;
+};
 
 export function unitUnlocked(unit: Unit, passed: Record<string, unknown>): boolean {
   if (!unit.requiresUnitId) return true;
@@ -22,16 +29,35 @@ export function extraStatus(unit: Unit, nodeId: string, passed: Record<string, u
   return last && passed[last.id] ? "available" : "locked";
 }
 
-export function resumeHref(units: Unit[], passed: Record<string, unknown>): string | null {
+function hanziList(ids: string[]): string {
+  return ids.map((id) => getLearnable(id)?.hanzi).filter(Boolean).join("、");
+}
+
+export function resumeTarget(units: Unit[], passed: Record<string, unknown>): Resume | null {
   for (const unit of units) {
     if (!unitUnlocked(unit, passed)) return null;
     for (const lesson of unit.lessons) {
-      if (lessonStatus(unit, lesson, passed) === "available") return `/lesson/${lesson.id}`;
+      if (lessonStatus(unit, lesson, passed) === "available") {
+        return {
+          href: `/lesson/${lesson.id}`,
+          kind: "lesson",
+          order: lesson.order,
+          hanzi: hanziList([...lesson.targetWordIds, ...lesson.supportTargetIds]),
+        };
+      }
     }
-    if (extraStatus(unit, unit.teacherTalk.id, passed) === "available") return `/talk/${unit.teacherTalk.id}`;
-    if (extraStatus(unit, unit.review.id, passed) === "available") return `/lesson/${unit.review.id}`;
+    if (extraStatus(unit, unit.teacherTalk.id, passed) === "available") {
+      return { href: `/talk/${unit.teacherTalk.id}`, kind: "talk", hanzi: "" };
+    }
+    if (extraStatus(unit, unit.review.id, passed) === "available") {
+      return { href: `/lesson/${unit.review.id}`, kind: "review", hanzi: "" };
+    }
   }
   return null;
+}
+
+export function resumeHref(units: Unit[], passed: Record<string, unknown>): string | null {
+  return resumeTarget(units, passed)?.href ?? null;
 }
 
 export function unitState(unit: Unit, passed: Record<string, unknown>): "locked" | "current" | "done" {
