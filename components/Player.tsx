@@ -281,7 +281,7 @@ function Card({
         {item.showGrammar && grammar ? (
           <div className="mb-4 rounded-2xl bg-white p-4">
             <p className="font-[family-name:var(--font-hanzi)] text-xl">{grammar.pattern}</p>
-            <p className="mt-2 text-[15px] leading-6 text-[#57534E]">{grammar.body[locale]}</p>
+            <p className="mt-2 text-base leading-6 text-[#57534E]">{grammar.body[locale]}</p>
           </div>
         ) : null}
         <div className="flex flex-col gap-3">
@@ -300,7 +300,7 @@ function Card({
                 {example ? (
                   <div className="mt-4 text-left">
                     <TokenLine tokens={example.tokens} />
-                    <p className="mt-1 text-[15px] text-[#57534E]">{example.translation[locale]}</p>
+                    <p className="mt-1 text-base text-[#57534E]">{example.translation[locale]}</p>
                   </div>
                 ) : null}
               </article>
@@ -330,7 +330,7 @@ function Card({
       <div>
         <p className="text-center font-[family-name:var(--font-hanzi)] text-6xl font-medium">{row?.hanzi}</p>
         {item.type === "meaning" && showPinyin ? <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p> : null}
-        <div className="mt-6 flex flex-col gap-3">
+        <div className="choice-grid">
           {item.options.map((option) => {
             const label = item.type === "meaning" ? gloss(option, locale) : option;
             const value = item.type === "meaning" ? option : option;
@@ -352,7 +352,7 @@ function Card({
         <p className="mt-4 font-[family-name:var(--font-hanzi)] text-2xl leading-9">
           {tokens.map((token, i) => (i === item.blankAt ? " ____ " : token.text)).join("")}
         </p>
-        <div className="mt-6 flex flex-col gap-3">
+        <div className="choice-grid">
           {item.options.map((option) => (
             <Choice key={option} label={option} selected={selected === option} disabled={!!checked} onClick={() => onSelect(option)} />
           ))}
@@ -368,7 +368,7 @@ function Card({
         <p className="text-center text-sm text-[#57534E]">{t("tone.prompt")}</p>
         <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-6xl">{row?.hanzi}</p>
         <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p>
-        <div className="mt-6 flex flex-col gap-3">
+        <div className="choice-grid">
           {[1, 2, 3, 4, 5].map((tone) => (
             <Choice key={tone} label={t(`tone.${tone}`)} selected={selected === String(tone)} disabled={!!checked} onClick={() => onSelect(String(tone))} />
           ))}
@@ -382,7 +382,7 @@ function Card({
       <div>
         <p className="text-center text-sm text-[#57534E]">{t("radical.prompt")}</p>
         <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-6xl">{item.char}</p>
-        <div className="mt-6 flex flex-col gap-3">
+        <div className="choice-grid">
           {item.options.map((id) => {
             const radical = allRadicals().find((row) => row.id === id);
             const label = radical ? `${radical.variant} · ${radical.gloss[locale]}` : id;
