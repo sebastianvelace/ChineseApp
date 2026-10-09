@@ -1,5 +1,6 @@
 "use client";
 
+import { Flame } from "lucide-react";
 import { levelFor, useT } from "@/lib/i18n";
 import { useProgress, type Locale } from "@/lib/progress";
 
@@ -12,7 +13,7 @@ export default function MePage() {
     <main className="px-5 py-6">
       <h1 className="text-3xl font-bold">{t("nav.me")}</h1>
       <p className="mt-4 text-lg font-semibold">{t("me.level", { level: level.level, title: level.title })}</p>
-      <p className="mt-1 text-[#57534E]">🔥 {streak} · {xpToday} XP · {t("me.words", { count: seen.size })}</p>
+      <p className="mt-1 inline-flex items-center gap-1 text-[#57534E]"><Flame size={16} className="text-[#E25B45]" aria-hidden /> {streak} · {xpToday} XP · {t("me.words", { count: seen.size })}</p>
       <p className="text-sm text-[#57534E]">{t("streak.freezes", { count: freezes })}</p>
       <ol className="mt-4 flex justify-between gap-1">
         {weekDates.map((date) => {

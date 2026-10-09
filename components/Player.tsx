@@ -1,5 +1,6 @@
 "use client";
 
+import { Flame, X } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
@@ -65,7 +66,7 @@ export function Player({
         <h1 className="font-[family-name:var(--font-hanzi)] text-4xl">{passed ? t("lesson.passTitle") : t("lesson.failTitle")}</h1>
         <p className="mt-3 text-lg text-[#57534E]">{Math.round(ratio * 100)}%</p>
         {passed ? <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: xpFor(finalCorrect) })}</p> : null}
-        {passed && streakBurst ? <p className="mt-2 font-semibold">🔥 {t("lesson.streak", { count: streakBurst })}</p> : null}
+        {passed && streakBurst ? <p className="mt-2 inline-flex items-center gap-1 font-semibold"><Flame size={18} className="text-[#E25B45]" aria-hidden /> {t("lesson.streak", { count: streakBurst })}</p> : null}
         {passed && learned && learned.length > 0 ? (
           <p className="mt-4 font-[family-name:var(--font-hanzi)] text-2xl leading-9">{learned.join("  ")}</p>
         ) : null}
@@ -206,12 +207,13 @@ export function Player({
       </div>
       <div className="mb-4 flex items-center justify-between gap-3">
         <button
-          className="text-sm font-semibold text-[#57534E]"
+          className="flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]"
+          aria-label={t("lesson.leave")}
           onClick={() => {
             if (window.confirm(`${t("lesson.leaveTitle")}\n${t("lesson.leaveBody")}`)) onExit();
           }}
         >
-          {t("lesson.leave")}
+          <X size={22} aria-hidden />
         </button>
         <p className="text-sm text-[#57534E]">{title}</p>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, Flame } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { LoadingRows } from "@/components/LoadingRows";
@@ -22,7 +23,7 @@ export default function LearnPage() {
       <header className="flex items-baseline justify-between">
         <h1 className="font-[family-name:var(--font-hanzi)] text-3xl">汉路</h1>
         <p className="text-sm font-semibold text-[#57534E]">
-          {streak > 0 ? `🔥 ${streak}` : ""} {xpToday}/{dailyGoal} XP
+          {streak > 0 ? <span className="inline-flex items-center gap-1"><Flame size={16} className="text-[#E25B45]" aria-hidden /> {streak}</span> : null} {xpToday}/{dailyGoal} XP
         </p>
       </header>
       <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#E7E0D6]">
@@ -68,7 +69,7 @@ export default function LearnPage() {
           const state = unitState(unit, passed);
           const locked = state === "locked";
           const done = unit.lessons.filter((lesson) => passed[lesson.id]).length;
-          const size = state === "current" ? 112 : 88;
+          const size = state === "current" ? 96 : 80;
           const node = (
             <span
               className="flex items-center justify-center rounded-full text-3xl shadow-[0_8px_24px_rgb(28_25_23/6%)]"
@@ -81,7 +82,7 @@ export default function LearnPage() {
                 boxShadow: state === "current" ? `0 0 0 6px ${unit.color}` : undefined,
               }}
             >
-              {state === "done" ? "✓" : unit.icon}
+              {state === "done" ? <Check size={32} aria-hidden /> : unit.icon}
             </span>
           );
           return (

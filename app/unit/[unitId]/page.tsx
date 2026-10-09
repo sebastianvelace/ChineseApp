@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, ChevronRight, Lock } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -53,7 +54,7 @@ function Row({ href, title, subtitle, detail, status, onNavigate }: { href?: str
         <span className="mt-1 block text-sm text-[#57534E]">{subtitle}</span>
         {detail ? <span className="mt-1 block font-[family-name:var(--font-hanzi)] text-sm">{detail}</span> : null}
       </span>
-      <span className="text-[#57534E]">{status === "passed" ? "✓" : status === "locked" ? "🔒" : "›"}</span>
+      <span className="text-[#57534E]">{status === "passed" ? <Check size={20} aria-hidden /> : status === "locked" ? <Lock size={20} aria-hidden /> : <ChevronRight size={20} aria-hidden />}</span>
     </span>
   );
   if (!href) return <li>{body}</li>;

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { GraduationCap, Layers, User, type LucideIcon } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { useOnline } from "@/lib/online";
 import { useProgress } from "@/lib/progress";
@@ -30,9 +31,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
       {hide ? null : (
         <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-[#E7E0D6] bg-white pb-[env(safe-area-inset-bottom)] lg:inset-y-0 lg:right-auto lg:w-56 lg:border-r lg:border-t-0 lg:pb-0">
           <div className="mx-auto flex max-w-[480px] lg:max-w-none lg:flex-col lg:gap-2 lg:p-4">
-            <NavLink href="/learn" label={t("nav.learn")} active={path.startsWith("/learn") || path.startsWith("/unit")} />
-            <NavLink href="/practice" label={t("nav.practice")} active={path.startsWith("/practice") || path.startsWith("/word")} />
-            <NavLink href="/me" label={t("nav.me")} active={path.startsWith("/me")} />
+            <NavLink href="/learn" label={t("nav.learn")} icon={GraduationCap} active={path.startsWith("/learn") || path.startsWith("/unit")} />
+            <NavLink href="/practice" label={t("nav.practice")} icon={Layers} active={path.startsWith("/practice") || path.startsWith("/word")} />
+            <NavLink href="/me" label={t("nav.me")} icon={User} active={path.startsWith("/me")} />
           </div>
         </nav>
       )}
@@ -40,9 +41,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function NavLink({ href, label, active }: { href: string; label: string; active: boolean }) {
+function NavLink({ href, label, active, icon: Icon }: { href: string; label: string; active: boolean; icon: LucideIcon }) {
   return (
-    <Link href={href} className={`flex min-h-16 flex-1 items-center justify-center text-sm font-semibold ${active ? "text-[#E25B45]" : "text-[#57534E]"}`}>
+    <Link href={href} className={`flex min-h-16 flex-1 flex-col items-center justify-center gap-1 text-sm font-semibold lg:flex-row lg:justify-start lg:gap-3 lg:px-3 ${active ? "text-[#E25B45]" : "text-[#57534E]"}`}>
+      <Icon size={22} aria-hidden />
       {label}
     </Link>
   );
