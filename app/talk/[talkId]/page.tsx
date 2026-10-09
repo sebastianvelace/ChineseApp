@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { OfflineLesson } from "@/components/OfflineLesson";
 import { findTalk, getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -19,7 +19,9 @@ export default function TalkPage() {
   const saved = useSavedHere(params.talkId);
   const [step, setStep] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
+  const replay = useRef<boolean | null>(null);
   const hit = findTalk(params.talkId);
+  if (hit && replay.current === null) replay.current = !!passed[hit.talk.id];
   if (!ready || saved === "loading") return <p className="p-6">{t("loading")}</p>;
   if (saved === "missing") return <OfflineLesson />;
   if (!hit) return <p className="p-6">Missing talk.</p>;
@@ -37,7 +39,7 @@ export default function TalkPage() {
     return (
       <main className="px-6 py-16">
         <h1 className="text-3xl font-bold">{t("talk.done")}</h1>
-        <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: passed[hit.talk.id] ? 0 : 10 })}</p>
+        <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: replay.current ? 0 : 10 })}</p>
         <button className="btn-primary mt-8" onClick={() => router.push(`/unit/${hit.unit.id}`)}>{t("lesson.back")}</button>
       </main>
     );

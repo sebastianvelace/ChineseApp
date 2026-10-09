@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Player } from "@/components/Player";
 import { OfflineLesson } from "@/components/OfflineLesson";
 import { assembleLesson, assembleReview, lessonTargets, unitTargets } from "@/lib/assemble";
@@ -19,6 +19,7 @@ export default function LessonPage() {
   const { ready, seen, passed, passNode } = useProgress();
   const saved = useSavedHere(params.lessonId);
   const [blocked, setBlocked] = useState(false);
+  const firstLook = useRef<Record<string, boolean>>({});
   function go(href: string) {
     const guarded = href.startsWith("/lesson/") || href.startsWith("/talk/");
     const id = href.split("/").filter(Boolean).pop() ?? "";
@@ -40,13 +41,14 @@ export default function LessonPage() {
     const status = lessonStatus(lessonHit.unit, lessonHit.lesson, passed);
     if (status === "locked") return <Locked back={`/unit/${lessonHit.unit.id}`} />;
     const items = assembleLesson(lessonHit.lesson.id, [...seen]);
+    if (firstLook.current[lessonHit.lesson.id] === undefined) firstLook.current[lessonHit.lesson.id] = !!passed[lessonHit.lesson.id];
     return (
       <Player
         key={lessonHit.lesson.id}
         title={t("unit.lesson", { order: lessonHit.lesson.order })}
         items={items}
         grammar={lessonHit.lesson.grammar}
-        xpFor={(correct) => (passed[lessonHit.lesson.id] ? 5 : 20 + 2 * correct)}
+        xpFor={(correct) => (firstLook.current[lessonHit.lesson.id] ? 5 : 20 + 2 * correct)}
         onPass={(result) => passNode(lessonHit.lesson.id, "lesson", { ...result, itemIds: lessonTargets(lessonHit.lesson) })}
         onExit={() => go(`/unit/${lessonHit.unit.id}`)}
         onNext={() => go(nextAfterLesson(lessonHit.unit, lessonHit.lesson.order))}
@@ -59,12 +61,13 @@ export default function LessonPage() {
 
   const status = extraStatus(reviewHit!.unit, reviewHit!.review.id, passed);
   if (status === "locked") return <Locked back={`/unit/${reviewHit!.unit.id}`} />;
+  if (firstLook.current[reviewHit!.review.id] === undefined) firstLook.current[reviewHit!.review.id] = !!passed[reviewHit!.review.id];
   return (
     <Player
       key={reviewHit!.review.id}
       title={t("unit.review")}
       items={assembleReview(reviewHit!.unit, reviewHit!.review)}
-      xpFor={() => 15}
+      xpFor={() => (firstLook.current[reviewHit!.review.id] ? 0 : 15)}
       onPass={(result) => passNode(reviewHit!.review.id, "review", { ...result, itemIds: unitTargets(reviewHit!.unit) })}
       onExit={() => go(`/unit/${reviewHit!.unit.id}`)}
       onNext={nextUnitHref(reviewHit!.unit.id) ? () => go(nextUnitHref(reviewHit!.unit.id)!) : undefined}
