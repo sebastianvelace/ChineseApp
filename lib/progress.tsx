@@ -1,10 +1,9 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { loadDeviceProgress, saveDeviceProgress } from "./device-store";
 import { applyLessonRatings, cardKey, freshCard, isDue, rateCard, type CardType, type LessonRating, type SavedCard } from "./srs";
 import { type Grade } from "ts-fsrs";
-
-const KEY = "hanlu-progress-v1";
 
 export type Locale = "en" | "es";
 
@@ -134,16 +133,21 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setDay(today());
-    try {
-      const raw = localStorage.getItem(KEY);
-      setData(raw ? { ...empty(), ...JSON.parse(raw) } : empty());
-    } catch {
-      setData(empty());
-    }
+    let cancelled = false;
+    loadDeviceProgress<Persisted>()
+      .then((saved) => {
+        if (!cancelled) setData(saved ? { ...empty(), ...saved } : empty());
+      })
+      .catch(() => {
+        if (!cancelled) setData(empty());
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
-    if (data) localStorage.setItem(KEY, JSON.stringify(data));
+    if (data) void saveDeviceProgress(data);
   }, [data]);
 
   const api = useMemo<ProgressApi>(() => {
