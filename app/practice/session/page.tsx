@@ -2,15 +2,14 @@
 
 import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useLayoutEffect, useState } from "react";
 import { pinyinChoices } from "@/lib/assemble";
 import { getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { practiceQueue } from "@/lib/practice-queue";
 import { shuffle } from "@/lib/shuffle";
-import type { SavedCard } from "@/lib/srs";
-import { Rating } from "ts-fsrs";
+import { practiceRating, type SavedCard } from "@/lib/srs";
 
 export default function SessionPage() {
   return (
@@ -39,7 +38,7 @@ function Deck() {
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [shownAt, setShownAt] = useState(0);
-  useEffect(() => {
+  useLayoutEffect(() => {
     setShownAt(Date.now());
   }, [index]);
   const [remembered, setRemembered] = useState(0);
@@ -71,11 +70,8 @@ function Deck() {
   function grade() {
     if (!selected || !item) return;
     const ok = selected === (card.cardType === "pinyin" ? item.pinyin : card.itemId);
-    const seconds = (Date.now() - shownAt) / 1000;
-    let rating = Rating.Again;
-    if (ok && seconds < 4 && card.reps >= 2) rating = Rating.Easy;
-    else if (ok && seconds < 8) rating = Rating.Good;
-    else if (ok) rating = Rating.Hard;
+    const seconds = shownAt ? (Date.now() - shownAt) / 1000 : 0;
+    const rating = practiceRating(ok, seconds, card.reps);
     answerCard(card, rating, { id: crypto.randomUUID(), sessionId });
     if (ok) setRemembered((n) => n + 1);
     else setMissed((n) => n + 1);

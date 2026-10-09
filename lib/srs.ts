@@ -1,4 +1,4 @@
-import { createEmptyCard, fsrs, type Card, type Grade } from "ts-fsrs";
+import { createEmptyCard, fsrs, Rating, type Card, type Grade } from "ts-fsrs";
 
 export type CardType = "meaning" | "pinyin" | "hanzi";
 
@@ -59,6 +59,13 @@ export function freshCard(itemId: string, cardType: CardType, introducedOn: stri
   const card = createEmptyCard(due);
   card.due = due;
   return fromCard({ itemId, cardType, introducedOn, due: due.toISOString(), stability: 0, difficulty: 0, elapsed_days: 0, scheduled_days: 0, learning_steps: 0, reps: 0, lapses: 0, state: 0, last_review: null }, card);
+}
+
+export function practiceRating(ok: boolean, seconds: number, reps: number): Grade {
+  if (!ok) return Rating.Again;
+  if (seconds < 4 && reps >= 2) return Rating.Easy;
+  if (seconds < 8) return Rating.Good;
+  return Rating.Hard;
 }
 
 export function rateCard(saved: SavedCard, rating: Grade, now = new Date()): SavedCard {
