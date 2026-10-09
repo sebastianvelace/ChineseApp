@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { assembleLesson, assembleReview, lessonTargets, unitTargets } from "@/lib/assemble";
-import { findLesson, findReview } from "@/lib/content";
+import { allUnits, findLesson, findReview } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { extraStatus, lessonStatus } from "@/lib/unlock";
@@ -33,6 +33,8 @@ export default function LessonPage() {
         xpFor={(correct) => (passed[lessonHit.lesson.id] ? 5 : 20 + 2 * correct)}
         onPass={(result) => passNode(lessonHit.lesson.id, "lesson", { ...result, itemIds: lessonTargets(lessonHit.lesson) })}
         onExit={() => router.push(`/unit/${lessonHit.unit.id}`)}
+        onNext={() => router.push(nextAfterLesson(lessonHit.unit, lessonHit.lesson.order))}
+        nextLabel={lessonHit.unit.lessons.some((lesson) => lesson.order === lessonHit.lesson.order + 1) ? t("lesson.next") : t("unit.talk")}
       />
     );
   }
@@ -47,8 +49,20 @@ export default function LessonPage() {
       xpFor={() => 15}
       onPass={(result) => passNode(reviewHit!.review.id, "review", { ...result, itemIds: unitTargets(reviewHit!.unit) })}
       onExit={() => router.push(`/unit/${reviewHit!.unit.id}`)}
+      onNext={nextUnitHref(reviewHit!.unit.id) ? () => router.push(nextUnitHref(reviewHit!.unit.id)!) : undefined}
+      nextLabel={t("lesson.nextUnit")}
     />
   );
+}
+
+function nextAfterLesson(unit: { id: string; lessons: { id: string; order: number }[]; teacherTalk: { id: string } }, order: number): string {
+  const following = unit.lessons.find((lesson) => lesson.order === order + 1);
+  return following ? `/lesson/${following.id}` : `/talk/${unit.teacherTalk.id}`;
+}
+
+function nextUnitHref(unitId: string): string | null {
+  const next = allUnits().find((unit) => unit.requiresUnitId === unitId);
+  return next ? `/unit/${next.id}` : null;
 }
 
 function Locked({ back }: { back: string }) {

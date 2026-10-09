@@ -17,7 +17,8 @@ The dev server listens on port **4317**.
 
 - Onboarding: English or Spanish, pinyin shown or hidden
 - HSK path and Everyday path, units unlocking in order
-- Lessons: teach cards, meaning choice, pinyin choice, sentence building, fill-in
+- Lessons: teach cards, meaning, pinyin, tones, radicals, stroke order, sentence building, fill-in
+- After a pass, continue to the next lesson or the culture note
 - Teacher talks and unit reviews
 - Practice with FSRS (`ts-fsrs`) for words you have already passed
 - Daily goal, XP, and streak, saved in `localStorage`

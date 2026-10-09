@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { exampleSentence, getLearnable } from "@/lib/content";
+import { exampleSentence, getLearnable, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 
@@ -27,6 +27,11 @@ export default function WordPage() {
       <p className="mt-4 text-center font-[family-name:var(--font-hanzi)] text-7xl">{item.hanzi}</p>
       {pinyin ? <p className="mt-2 text-center text-xl text-[#57534E]">{item.pinyin}</p> : null}
       <p className="mt-3 text-center text-lg">{item.gloss[locale]}</p>
+      {[...item.hanzi].map((char) => radicalFor(char)).filter(Boolean).slice(0, 1).map((radical) => (
+        <p key={radical!.id} className="mx-auto mt-4 max-w-sm text-sm leading-5 text-[#57534E]">
+          <span className="font-[family-name:var(--font-hanzi)] text-base text-[#1C1917]">{radical!.variant}</span> · {radical!.gloss[locale]}. {radical!.hint[locale]}
+        </p>
+      ))}
       {item.senses.slice(1).map((sense) => (
         <p key={sense.id} className="mt-2 text-center text-[#57534E]">{t("word.also")}: {sense.gloss[locale]}</p>
       ))}

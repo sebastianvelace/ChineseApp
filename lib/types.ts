@@ -115,6 +115,10 @@ export type PinyinItem = { type: "pinyin"; itemId: string; options: string[] };
 export type BuildItem = { type: "build"; sentenceId: string; order: number[] };
 export type BlankItem = { type: "blank"; sentenceId: string; blankAt: number; options: string[] };
 export type LineItem = { type: "line"; sentenceId: string };
+export type ToneItem = { type: "tone"; itemId: string; tone: number };
+export type RadicalItem = { type: "radical"; char: string; radicalId: string; options: string[] };
+export type StrokeItem = { type: "stroke"; char: string };
+export type MatchItem = { type: "match"; itemIds: string[] };
 
 export type ExerciseItem =
   | TeachItem
@@ -123,8 +127,21 @@ export type ExerciseItem =
   | PinyinItem
   | BuildItem
   | BlankItem
-  | LineItem;
+  | LineItem
+  | ToneItem
+  | RadicalItem
+  | StrokeItem
+  | MatchItem;
 
 export function isGraded(item: ExerciseItem): boolean {
-  return item.type === "meaning" || item.type === "pinyin" || item.type === "build" || item.type === "blank";
+  return (
+    item.type === "meaning" ||
+    item.type === "pinyin" ||
+    item.type === "build" ||
+    item.type === "blank" ||
+    item.type === "tone" ||
+    item.type === "radical" ||
+    item.type === "stroke" ||
+    item.type === "match"
+  );
 }

@@ -1,4 +1,4 @@
-import { allLearnableIds, contentTokens, getDialogue, getLearnable, getSentence } from "./content";
+import { allLearnableIds, allRadicals, contentTokens, firstTone, getDialogue, getLearnable, getSentence, radicalFor } from "./content";
 import { shuffle } from "./shuffle";
 import type { ExerciseItem, Lesson, Review, Unit } from "./types";
 
@@ -121,7 +121,54 @@ export function assembleLesson(lesson: Lesson, seen: ReadonlySet<string>): Exerc
     const blank = blankItem(blankSentence.id, targets, `${lesson.id}:blank:${blankSentence.id}`);
     if (blank) items.push(blank);
   }
+  items.push(...toneItems(targets, lesson.presentation === "set"));
+  items.push(...radicalItems(lesson.id, targets));
+  const stroke = strokeChar(targets);
+  if (stroke) items.push({ type: "stroke", char: stroke });
   return items;
+}
+
+function toneItems(targets: string[], setLesson: boolean): ExerciseItem[] {
+  const picked: { id: string; tone: number }[] = [];
+  for (const id of targets) {
+    const item = getLearnable(id);
+    const tone = firstTone(id);
+    if (!item || !tone) continue;
+    const special = setLesson ? ["一", "四", "十"].includes(item.hanzi) : ["一", "不", "四"].includes(item.hanzi) || tone === 2 || tone === 3;
+    if (special) picked.push({ id, tone });
+  }
+  const cap = setLesson ? picked.length : 2;
+  return picked.slice(0, cap).map((row) => ({ type: "tone" as const, itemId: row.id, tone: row.tone }));
+}
+
+function radicalItems(lessonId: string, targets: string[]): ExerciseItem[] {
+  const found: { char: string; radicalId: string }[] = [];
+  for (const id of targets) {
+    const hanzi = getLearnable(id)?.hanzi ?? "";
+    const chars = [...hanzi];
+    const look = chars.length === 1 ? chars : chars.slice(0, 1);
+    for (const char of look) {
+      const radical = radicalFor(char);
+      if (radical && !found.some((row) => row.char === char)) found.push({ char, radicalId: radical.id });
+    }
+  }
+  return found.slice(0, 2).map((row) => {
+    const options = [row.radicalId];
+    for (const radical of allRadicals()) {
+      if (!options.includes(radical.id)) options.push(radical.id);
+      if (options.length === 4) break;
+    }
+    return { type: "radical" as const, char: row.char, radicalId: row.radicalId, options: shuffle(options, `${lessonId}:rad:${row.char}`) };
+  });
+}
+
+function strokeChar(targets: string[]): string | null {
+  for (const id of targets) {
+    const hanzi = getLearnable(id)?.hanzi ?? "";
+    if ([...hanzi].length === 1) return hanzi;
+  }
+  const first = getLearnable(targets[0] ?? "")?.hanzi;
+  return first ? [...first][0] ?? null : null;
 }
 
 export function assembleReview(unit: Unit, review: Review): ExerciseItem[] {
@@ -133,6 +180,8 @@ export function assembleReview(unit: Unit, review: Review): ExerciseItem[] {
     items.push({ type: "line", sentenceId: line.id });
   }
   const quizIds = unique.slice(0, 8);
+  const matchIds = unique.slice(0, 4);
+  if (matchIds.length >= 2) items.push({ type: "match", itemIds: matchIds });
   for (const id of quizIds) {
     items.push(meaningItem(id, unique, `${review.id}:meaning:${id}`));
   }

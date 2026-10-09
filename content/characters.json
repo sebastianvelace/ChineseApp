@@ -1,0 +1,1061 @@
+{
+  "contentVersion": "1.0.0",
+  "characters": [
+    {
+      "id": "ch-7231",
+      "hanzi": "爱",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-516b",
+      "hanzi": "八",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-7238",
+      "hanzi": "爸",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-676f",
+      "hanzi": "杯",
+      "radicalId": "rad-mu",
+      "role": "target"
+    },
+    {
+      "id": "ch-5b50",
+      "hanzi": "子",
+      "radicalId": "rad-zi",
+      "role": "target"
+    },
+    {
+      "id": "ch-5317",
+      "hanzi": "北",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4eac",
+      "hanzi": "京",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-672c",
+      "hanzi": "本",
+      "radicalId": "rad-mu",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e0d",
+      "hanzi": "不",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5ba2",
+      "hanzi": "客",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6c14",
+      "hanzi": "气",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-83dc",
+      "hanzi": "菜",
+      "radicalId": "rad-cao",
+      "role": "target"
+    },
+    {
+      "id": "ch-8336",
+      "hanzi": "茶",
+      "radicalId": "rad-cao",
+      "role": "target"
+    },
+    {
+      "id": "ch-5403",
+      "hanzi": "吃",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-51fa",
+      "hanzi": "出",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-79df",
+      "hanzi": "租",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8f66",
+      "hanzi": "车",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6253",
+      "hanzi": "打",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-7535",
+      "hanzi": "电",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8bdd",
+      "hanzi": "话",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-5927",
+      "hanzi": "大",
+      "radicalId": "rad-da",
+      "role": "target"
+    },
+    {
+      "id": "ch-7684",
+      "hanzi": "的",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-70b9",
+      "hanzi": "点",
+      "radicalId": "rad-huo",
+      "role": "target"
+    },
+    {
+      "id": "ch-8111",
+      "hanzi": "脑",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-89c6",
+      "hanzi": "视",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5f71",
+      "hanzi": "影",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e1c",
+      "hanzi": "东",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-897f",
+      "hanzi": "西",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-90fd",
+      "hanzi": "都",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8bfb",
+      "hanzi": "读",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-5bf9",
+      "hanzi": "对",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8d77",
+      "hanzi": "起",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-591a",
+      "hanzi": "多",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5c11",
+      "hanzi": "少",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-513f",
+      "hanzi": "儿",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e8c",
+      "hanzi": "二",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-996d",
+      "hanzi": "饭",
+      "radicalId": "rad-shi",
+      "role": "target"
+    },
+    {
+      "id": "ch-5e97",
+      "hanzi": "店",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-98de",
+      "hanzi": "飞",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-673a",
+      "hanzi": "机",
+      "radicalId": "rad-mu",
+      "role": "target"
+    },
+    {
+      "id": "ch-5206",
+      "hanzi": "分",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-949f",
+      "hanzi": "钟",
+      "radicalId": "rad-jin",
+      "role": "target"
+    },
+    {
+      "id": "ch-9ad8",
+      "hanzi": "高",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5174",
+      "hanzi": "兴",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e2a",
+      "hanzi": "个",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5de5",
+      "hanzi": "工",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4f5c",
+      "hanzi": "作",
+      "radicalId": "rad-ren",
+      "role": "target"
+    },
+    {
+      "id": "ch-6c49",
+      "hanzi": "汉",
+      "radicalId": "rad-shui",
+      "role": "target"
+    },
+    {
+      "id": "ch-8bed",
+      "hanzi": "语",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-597d",
+      "hanzi": "好",
+      "radicalId": "rad-nv",
+      "role": "target"
+    },
+    {
+      "id": "ch-53f7",
+      "hanzi": "号",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-559d",
+      "hanzi": "喝",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-548c",
+      "hanzi": "和",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-5f88",
+      "hanzi": "很",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-540e",
+      "hanzi": "后",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-9762",
+      "hanzi": "面",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-56de",
+      "hanzi": "回",
+      "radicalId": "rad-wei",
+      "role": "target"
+    },
+    {
+      "id": "ch-4f1a",
+      "hanzi": "会",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-51e0",
+      "hanzi": "几",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5bb6",
+      "hanzi": "家",
+      "radicalId": "rad-mian",
+      "role": "target"
+    },
+    {
+      "id": "ch-53eb",
+      "hanzi": "叫",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-4eca",
+      "hanzi": "今",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5929",
+      "hanzi": "天",
+      "radicalId": "rad-da",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e5d",
+      "hanzi": "九",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5f00",
+      "hanzi": "开",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-770b",
+      "hanzi": "看",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-89c1",
+      "hanzi": "见",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5757",
+      "hanzi": "块",
+      "radicalId": "rad-tu",
+      "role": "target"
+    },
+    {
+      "id": "ch-6765",
+      "hanzi": "来",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8001",
+      "hanzi": "老",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5e08",
+      "hanzi": "师",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e86",
+      "hanzi": "了",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-51b7",
+      "hanzi": "冷",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-91cc",
+      "hanzi": "里",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-96f6",
+      "hanzi": "零",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-516d",
+      "hanzi": "六",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5988",
+      "hanzi": "妈",
+      "radicalId": "rad-nv",
+      "role": "target"
+    },
+    {
+      "id": "ch-5417",
+      "hanzi": "吗",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e70",
+      "hanzi": "买",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6ca1",
+      "hanzi": "没",
+      "radicalId": "rad-shui",
+      "role": "target"
+    },
+    {
+      "id": "ch-5173",
+      "hanzi": "关",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-7cfb",
+      "hanzi": "系",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6709",
+      "hanzi": "有",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-7c73",
+      "hanzi": "米",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-660e",
+      "hanzi": "明",
+      "radicalId": "rad-ri",
+      "role": "target"
+    },
+    {
+      "id": "ch-540d",
+      "hanzi": "名",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-5b57",
+      "hanzi": "字",
+      "radicalId": "rad-zi",
+      "role": "target"
+    },
+    {
+      "id": "ch-54ea",
+      "hanzi": "哪",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-90a3",
+      "hanzi": "那",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5462",
+      "hanzi": "呢",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-80fd",
+      "hanzi": "能",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4f60",
+      "hanzi": "你",
+      "radicalId": "rad-ren",
+      "role": "target"
+    },
+    {
+      "id": "ch-5e74",
+      "hanzi": "年",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5973",
+      "hanzi": "女",
+      "radicalId": "rad-nv",
+      "role": "target"
+    },
+    {
+      "id": "ch-670b",
+      "hanzi": "朋",
+      "radicalId": "rad-yue",
+      "role": "target"
+    },
+    {
+      "id": "ch-53cb",
+      "hanzi": "友",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6f02",
+      "hanzi": "漂",
+      "radicalId": "rad-shui",
+      "role": "target"
+    },
+    {
+      "id": "ch-4eae",
+      "hanzi": "亮",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-82f9",
+      "hanzi": "苹",
+      "radicalId": "rad-cao",
+      "role": "target"
+    },
+    {
+      "id": "ch-679c",
+      "hanzi": "果",
+      "radicalId": "rad-mu",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e03",
+      "hanzi": "七",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-94b1",
+      "hanzi": "钱",
+      "radicalId": "rad-jin",
+      "role": "target"
+    },
+    {
+      "id": "ch-524d",
+      "hanzi": "前",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8bf7",
+      "hanzi": "请",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-53bb",
+      "hanzi": "去",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-70ed",
+      "hanzi": "热",
+      "radicalId": "rad-huo",
+      "role": "target"
+    },
+    {
+      "id": "ch-4eba",
+      "hanzi": "人",
+      "radicalId": "rad-ren",
+      "role": "target"
+    },
+    {
+      "id": "ch-8ba4",
+      "hanzi": "认",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-8bc6",
+      "hanzi": "识",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e09",
+      "hanzi": "三",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5546",
+      "hanzi": "商",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e0a",
+      "hanzi": "上",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5348",
+      "hanzi": "午",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8c01",
+      "hanzi": "谁",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-4ec0",
+      "hanzi": "什",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e48",
+      "hanzi": "么",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5341",
+      "hanzi": "十",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-65f6",
+      "hanzi": "时",
+      "radicalId": "rad-ri",
+      "role": "target"
+    },
+    {
+      "id": "ch-5019",
+      "hanzi": "候",
+      "radicalId": "rad-ren",
+      "role": "target"
+    },
+    {
+      "id": "ch-662f",
+      "hanzi": "是",
+      "radicalId": "rad-ri",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e66",
+      "hanzi": "书",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6c34",
+      "hanzi": "水",
+      "radicalId": "rad-shui",
+      "role": "target"
+    },
+    {
+      "id": "ch-7761",
+      "hanzi": "睡",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-89c9",
+      "hanzi": "觉",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8bf4",
+      "hanzi": "说",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-56db",
+      "hanzi": "四",
+      "radicalId": "rad-wei",
+      "role": "target"
+    },
+    {
+      "id": "ch-5c81",
+      "hanzi": "岁",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4ed6",
+      "hanzi": "他",
+      "radicalId": "rad-ren",
+      "role": "target"
+    },
+    {
+      "id": "ch-5979",
+      "hanzi": "她",
+      "radicalId": "rad-nv",
+      "role": "target"
+    },
+    {
+      "id": "ch-592a",
+      "hanzi": "太",
+      "radicalId": "rad-da",
+      "role": "target"
+    },
+    {
+      "id": "ch-542c",
+      "hanzi": "听",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-540c",
+      "hanzi": "同",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5b66",
+      "hanzi": "学",
+      "radicalId": "rad-zi",
+      "role": "target"
+    },
+    {
+      "id": "ch-5582",
+      "hanzi": "喂",
+      "radicalId": "rad-kou",
+      "role": "target"
+    },
+    {
+      "id": "ch-6211",
+      "hanzi": "我",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4eec",
+      "hanzi": "们",
+      "radicalId": "rad-ren",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e94",
+      "hanzi": "五",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-559c",
+      "hanzi": "喜",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6b22",
+      "hanzi": "欢",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e0b",
+      "hanzi": "下",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-96e8",
+      "hanzi": "雨",
+      "radicalId": "rad-yu",
+      "role": "target"
+    },
+    {
+      "id": "ch-5148",
+      "hanzi": "先",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-751f",
+      "hanzi": "生",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-73b0",
+      "hanzi": "现",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5728",
+      "hanzi": "在",
+      "radicalId": "rad-tu",
+      "role": "target"
+    },
+    {
+      "id": "ch-60f3",
+      "hanzi": "想",
+      "radicalId": "rad-xin",
+      "role": "target"
+    },
+    {
+      "id": "ch-5c0f",
+      "hanzi": "小",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-59d0",
+      "hanzi": "姐",
+      "radicalId": "rad-nv",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e9b",
+      "hanzi": "些",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-5199",
+      "hanzi": "写",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8c22",
+      "hanzi": "谢",
+      "radicalId": "rad-yan",
+      "role": "target"
+    },
+    {
+      "id": "ch-661f",
+      "hanzi": "星",
+      "radicalId": "rad-ri",
+      "role": "target"
+    },
+    {
+      "id": "ch-671f",
+      "hanzi": "期",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e60",
+      "hanzi": "习",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6821",
+      "hanzi": "校",
+      "radicalId": "rad-mu",
+      "role": "target"
+    },
+    {
+      "id": "ch-4e00",
+      "hanzi": "一",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8863",
+      "hanzi": "衣",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-670d",
+      "hanzi": "服",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-533b",
+      "hanzi": "医",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-9662",
+      "hanzi": "院",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-6905",
+      "hanzi": "椅",
+      "radicalId": "rad-mu",
+      "role": "target"
+    },
+    {
+      "id": "ch-6708",
+      "hanzi": "月",
+      "radicalId": "rad-yue",
+      "role": "target"
+    },
+    {
+      "id": "ch-518d",
+      "hanzi": "再",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-600e",
+      "hanzi": "怎",
+      "radicalId": "rad-xin",
+      "role": "target"
+    },
+    {
+      "id": "ch-6837",
+      "hanzi": "样",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-8fd9",
+      "hanzi": "这",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e2d",
+      "hanzi": "中",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-56fd",
+      "hanzi": "国",
+      "radicalId": "rad-wei",
+      "role": "target"
+    },
+    {
+      "id": "ch-4f4f",
+      "hanzi": "住",
+      "radicalId": "rad-ren",
+      "role": "target"
+    },
+    {
+      "id": "ch-684c",
+      "hanzi": "桌",
+      "radicalId": "rad-mu",
+      "role": "target"
+    },
+    {
+      "id": "ch-6628",
+      "hanzi": "昨",
+      "radicalId": "rad-ri",
+      "role": "target"
+    },
+    {
+      "id": "ch-5750",
+      "hanzi": "坐",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-505a",
+      "hanzi": "做",
+      "radicalId": "rad-ren",
+      "role": "target"
+    },
+    {
+      "id": "ch-5427",
+      "hanzi": "吧",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e24",
+      "hanzi": "两",
+      "radicalId": null,
+      "role": "target"
+    },
+    {
+      "id": "ch-4e5f",
+      "hanzi": "也",
+      "radicalId": null,
+      "role": "target"
+    }
+  ]
+}

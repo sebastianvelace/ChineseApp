@@ -1,13 +1,29 @@
+import charactersJson from "@/content/characters.json";
 import curriculumJson from "@/content/curriculum.json";
+import radicalsJson from "@/content/radicals.json";
 import sentencesJson from "@/content/hsk1-sentences.json";
 import wordsJson from "@/content/hsk1-words.json";
-import type { Learnable, Lesson, Review, Sentence, Support, Talk, Track, Unit, Word } from "./types";
+import type { Learnable, Lesson, Localized, Review, Sentence, Support, Talk, Track, Unit, Word } from "./types";
+
+export type Radical = {
+  id: string;
+  hanzi: string;
+  variant: string;
+  pinyin: string;
+  gloss: Localized;
+  hint: Localized;
+};
 
 const tracks = (curriculumJson as { tracks: Track[] }).tracks;
 const words = (wordsJson as { words: Word[] }).words;
 const support = (wordsJson as { support: Support[] }).support;
 const sentences = (sentencesJson as { sentences: Sentence[] }).sentences;
 const dialogues = (sentencesJson as { dialogues: { id: string; unitId: string; lines: Sentence[] }[] }).dialogues;
+
+const radicals = (radicalsJson as { radicals: Radical[] }).radicals;
+const characters = (charactersJson as { characters: { hanzi: string; radicalId: string | null }[] }).characters;
+const radicalById = new Map(radicals.map((r) => [r.id, r]));
+const radicalIdByChar = new Map(characters.filter((c) => c.radicalId).map((c) => [c.hanzi, c.radicalId as string]));
 
 const wordById = new Map(words.map((w) => [w.id, w]));
 const supportById = new Map(support.map((s) => [s.id, s]));
@@ -94,6 +110,22 @@ export function findTalk(id: string): { unit: Unit; talk: Talk } | undefined {
 
 export function contentTokens(sentence: Sentence) {
   return sentence.tokens.filter((t) => t.kind !== "punct");
+}
+
+export function radicalFor(char: string): Radical | undefined {
+  const id = radicalIdByChar.get(char);
+  return id ? radicalById.get(id) : undefined;
+}
+
+export function allRadicals(): Radical[] {
+  return radicals;
+}
+
+export function firstTone(id: string): number | null {
+  const word = wordById.get(id) as (Word & { syllables?: { tone: number }[] }) | undefined;
+  const extra = supportById.get(id) as (Support & { syllables?: { tone: number }[] }) | undefined;
+  const tone = word?.syllables?.[0]?.tone ?? extra?.syllables?.[0]?.tone;
+  return typeof tone === "number" ? tone : null;
 }
 
 export function exampleSentence(item: Learnable): Sentence | undefined {

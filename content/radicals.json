@@ -1,0 +1,383 @@
+{
+  "contentVersion": "1.0.0",
+  "licenseNote": "Radical teaching set written for Hanlu. Stroke-order graphics are not included; see ADR-018.",
+  "radicals": [
+    {
+      "id": "rad-ren",
+      "hanzi": "人",
+      "variant": "亻",
+      "pinyin": "rén",
+      "gloss": {
+        "en": "person",
+        "es": "persona"
+      },
+      "hint": {
+        "en": "A person at the left of a character often marks a word about people.",
+        "es": "Una persona a la izquierda suele marcar palabras de gente."
+      },
+      "exampleCharacters": [
+        "作",
+        "你",
+        "人",
+        "候",
+        "他",
+        "们",
+        "住",
+        "做"
+      ]
+    },
+    {
+      "id": "rad-kou",
+      "hanzi": "口",
+      "variant": "口",
+      "pinyin": "kǒu",
+      "gloss": {
+        "en": "mouth",
+        "es": "boca"
+      },
+      "hint": {
+        "en": "A mouth box often marks speech, eating, or an opening.",
+        "es": "La boca suele marcar habla, comida o una abertura."
+      },
+      "exampleCharacters": [
+        "吃",
+        "号",
+        "喝",
+        "和",
+        "叫",
+        "吗",
+        "名",
+        "呢",
+        "听",
+        "喂"
+      ]
+    },
+    {
+      "id": "rad-nv",
+      "hanzi": "女",
+      "variant": "女",
+      "pinyin": "nǚ",
+      "gloss": {
+        "en": "woman",
+        "es": "mujer"
+      },
+      "hint": {
+        "en": "Often marks people, especially women and family.",
+        "es": "Suele marcar personas, sobre todo mujeres y familia."
+      },
+      "exampleCharacters": [
+        "好",
+        "妈",
+        "女",
+        "她",
+        "姐"
+      ]
+    },
+    {
+      "id": "rad-shui",
+      "hanzi": "水",
+      "variant": "氵",
+      "pinyin": "shuǐ",
+      "gloss": {
+        "en": "water",
+        "es": "agua"
+      },
+      "hint": {
+        "en": "Three drops at the left often mark water, liquids, or washing.",
+        "es": "Tres gotas a la izquierda suelen marcar agua o líquidos."
+      },
+      "exampleCharacters": [
+        "汉",
+        "没",
+        "漂",
+        "水"
+      ]
+    },
+    {
+      "id": "rad-yan",
+      "hanzi": "言",
+      "variant": "讠",
+      "pinyin": "yán",
+      "gloss": {
+        "en": "speech",
+        "es": "habla"
+      },
+      "hint": {
+        "en": "The speech radical often marks language, saying, and asking.",
+        "es": "Suele marcar lengua, decir y preguntar."
+      },
+      "exampleCharacters": [
+        "话",
+        "读",
+        "语",
+        "请",
+        "认",
+        "识",
+        "谁",
+        "说",
+        "谢"
+      ]
+    },
+    {
+      "id": "rad-mu",
+      "hanzi": "木",
+      "variant": "木",
+      "pinyin": "mù",
+      "gloss": {
+        "en": "wood",
+        "es": "madera"
+      },
+      "hint": {
+        "en": "Often marks trees, wood, and wooden objects.",
+        "es": "Suele marcar árboles, madera y objetos de madera."
+      },
+      "exampleCharacters": [
+        "杯",
+        "本",
+        "机",
+        "果",
+        "校",
+        "椅",
+        "桌"
+      ]
+    },
+    {
+      "id": "rad-cao",
+      "hanzi": "艹",
+      "variant": "艹",
+      "pinyin": "cǎo",
+      "gloss": {
+        "en": "grass",
+        "es": "hierba"
+      },
+      "hint": {
+        "en": "A grass crown often marks plants.",
+        "es": "La corona de hierba suele marcar plantas."
+      },
+      "exampleCharacters": [
+        "菜",
+        "茶",
+        "苹"
+      ]
+    },
+    {
+      "id": "rad-ri",
+      "hanzi": "日",
+      "variant": "日",
+      "pinyin": "rì",
+      "gloss": {
+        "en": "sun",
+        "es": "sol"
+      },
+      "hint": {
+        "en": "Often marks time, the sun, or brightness.",
+        "es": "Suele marcar tiempo, sol o claridad."
+      },
+      "exampleCharacters": [
+        "明",
+        "时",
+        "是",
+        "星",
+        "昨"
+      ]
+    },
+    {
+      "id": "rad-yue",
+      "hanzi": "月",
+      "variant": "月",
+      "pinyin": "yuè",
+      "gloss": {
+        "en": "moon",
+        "es": "luna"
+      },
+      "hint": {
+        "en": "Often marks the moon, months, or the body.",
+        "es": "Suele marcar la luna, los meses o el cuerpo."
+      },
+      "exampleCharacters": [
+        "朋",
+        "月"
+      ]
+    },
+    {
+      "id": "rad-huo",
+      "hanzi": "火",
+      "variant": "灬",
+      "pinyin": "huǒ",
+      "gloss": {
+        "en": "fire",
+        "es": "fuego"
+      },
+      "hint": {
+        "en": "Four dots at the bottom often mark fire or heat.",
+        "es": "Cuatro puntos abajo suelen marcar fuego o calor."
+      },
+      "exampleCharacters": [
+        "点",
+        "热"
+      ]
+    },
+    {
+      "id": "rad-xin",
+      "hanzi": "心",
+      "variant": "忄",
+      "pinyin": "xīn",
+      "gloss": {
+        "en": "heart",
+        "es": "corazón"
+      },
+      "hint": {
+        "en": "Often marks feelings and thought.",
+        "es": "Suele marcar sentimientos y pensamiento."
+      },
+      "exampleCharacters": [
+        "想",
+        "怎"
+      ]
+    },
+    {
+      "id": "rad-jin",
+      "hanzi": "金",
+      "variant": "钅",
+      "pinyin": "jīn",
+      "gloss": {
+        "en": "metal",
+        "es": "metal"
+      },
+      "hint": {
+        "en": "Often marks metal and money.",
+        "es": "Suele marcar metal y dinero."
+      },
+      "exampleCharacters": [
+        "钟",
+        "钱"
+      ]
+    },
+    {
+      "id": "rad-shi",
+      "hanzi": "食",
+      "variant": "饣",
+      "pinyin": "shí",
+      "gloss": {
+        "en": "food",
+        "es": "comida"
+      },
+      "hint": {
+        "en": "Often marks eating and food.",
+        "es": "Suele marcar comida."
+      },
+      "exampleCharacters": [
+        "饭"
+      ]
+    },
+    {
+      "id": "rad-tu",
+      "hanzi": "土",
+      "variant": "土",
+      "pinyin": "tǔ",
+      "gloss": {
+        "en": "earth",
+        "es": "tierra"
+      },
+      "hint": {
+        "en": "Often marks ground, place, or dust.",
+        "es": "Suele marcar suelo, lugar o polvo."
+      },
+      "exampleCharacters": [
+        "块",
+        "在"
+      ]
+    },
+    {
+      "id": "rad-da",
+      "hanzi": "大",
+      "variant": "大",
+      "pinyin": "dà",
+      "gloss": {
+        "en": "big",
+        "es": "grande"
+      },
+      "hint": {
+        "en": "A person with arms stretched. Often marks size.",
+        "es": "Una persona con los brazos abiertos. Suele marcar tamaño."
+      },
+      "exampleCharacters": [
+        "大",
+        "天",
+        "太"
+      ]
+    },
+    {
+      "id": "rad-zi",
+      "hanzi": "子",
+      "variant": "子",
+      "pinyin": "zǐ",
+      "gloss": {
+        "en": "child",
+        "es": "hijo"
+      },
+      "hint": {
+        "en": "Often marks children or small things. It is also a noun suffix.",
+        "es": "Suele marcar niños o cosas pequeñas. También es un sufijo."
+      },
+      "exampleCharacters": [
+        "子",
+        "字",
+        "学"
+      ]
+    },
+    {
+      "id": "rad-mian",
+      "hanzi": "宀",
+      "variant": "宀",
+      "pinyin": "mián",
+      "gloss": {
+        "en": "roof",
+        "es": "techo"
+      },
+      "hint": {
+        "en": "A roof over a character often marks buildings and home.",
+        "es": "Un techo suele marcar edificios y casa."
+      },
+      "exampleCharacters": [
+        "家"
+      ]
+    },
+    {
+      "id": "rad-wei",
+      "hanzi": "囗",
+      "variant": "囗",
+      "pinyin": "wéi",
+      "gloss": {
+        "en": "enclosure",
+        "es": "recinto"
+      },
+      "hint": {
+        "en": "A box around a character often marks an enclosed area.",
+        "es": "Un recuadro suele marcar un espacio cerrado."
+      },
+      "exampleCharacters": [
+        "回",
+        "四",
+        "国"
+      ]
+    },
+    {
+      "id": "rad-yu",
+      "hanzi": "雨",
+      "variant": "雨",
+      "pinyin": "yǔ",
+      "gloss": {
+        "en": "rain",
+        "es": "lluvia"
+      },
+      "hint": {
+        "en": "Marks weather that falls from the sky.",
+        "es": "Marca el tiempo que cae del cielo."
+      },
+      "exampleCharacters": [
+        "雨"
+      ]
+    }
+  ]
+}

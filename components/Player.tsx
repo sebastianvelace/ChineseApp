@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { contentTokens, exampleSentence, getLearnable, getSentence } from "@/lib/content";
+import { StrokePad } from "@/components/StrokePad";
+import { allRadicals, contentTokens, exampleSentence, getLearnable, getSentence, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
+import { shuffle } from "@/lib/shuffle";
 import type { ExerciseItem, Lesson, Locale } from "@/lib/types";
 import { isGraded } from "@/lib/types";
 
@@ -19,6 +21,8 @@ export function Player({
   grammar,
   onPass,
   onExit,
+  onNext,
+  nextLabel,
   xpFor,
 }: {
   title: string;
@@ -26,6 +30,8 @@ export function Player({
   grammar?: Lesson["grammar"];
   onPass: (result: { ratio: number; correct: number; graded: number }) => void;
   onExit: () => void;
+  onNext?: () => void;
+  nextLabel?: string;
   xpFor: (correct: number) => number;
 }) {
   const t = useT();
@@ -42,6 +48,7 @@ export function Player({
   const [ratio, setRatio] = useState(0);
   const [finalCorrect, setFinalCorrect] = useState(0);
   const reported = useRef(false);
+  const answeredLock = useRef(false);
 
   const current = queue[index];
   if (phase === "end" || !current) {
@@ -52,11 +59,17 @@ export function Player({
         <p className="mt-3 text-lg text-[#57534E]">{Math.round(ratio * 100)}%</p>
         {passed ? <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: xpFor(finalCorrect) })}</p> : null}
         <div className="mt-8 flex flex-col gap-3">
+          {passed && onNext ? (
+            <button className="btn-primary" onClick={onNext}>
+              {nextLabel}
+            </button>
+          ) : null}
           {passed ? null : (
             <button
               className="btn-primary"
               onClick={() => {
                 reported.current = false;
+                answeredLock.current = false;
                 setQueue(items.map((item) => ({ item, recycle: false })));
                 setIndex(0);
                 setCorrectCount(0);
@@ -70,7 +83,7 @@ export function Player({
               {t("lesson.retry")}
             </button>
           )}
-          <button className={passed ? "btn-primary" : "btn-ghost"} onClick={onExit}>
+          <button className={passed && !onNext ? "btn-primary" : "btn-ghost"} onClick={onExit}>
             {t("lesson.back")}
           </button>
         </div>
@@ -82,11 +95,9 @@ export function Player({
   const bar = planned === 0 ? 1 : gradedSoFar / planned;
 
   function finish(ok: boolean, answer: string) {
-    if (current.recycle) {
-      setChecked({ ok, answer });
-      return;
-    }
-    if (ok) setCorrectCount((n) => n + 1);
+    if (answeredLock.current) return;
+    answeredLock.current = true;
+    if (!current.recycle && ok) setCorrectCount((n) => n + 1);
     setChecked({ ok, answer });
   }
 
@@ -113,6 +124,16 @@ export function Player({
       const tokens = sentence ? contentTokens(sentence) : [];
       const ok = placed.join("|") === tokens.map((_, i) => String(i)).join("|");
       finish(ok, sentence?.hanzi ?? "");
+      return;
+    }
+    if (item.type === "tone") {
+      finish(selected === String(item.tone), t(`tone.${item.tone}`));
+      return;
+    }
+    if (item.type === "radical") {
+      const radical = allRadicals().find((row) => row.id === item.radicalId);
+      const answer = radical ? `${radical.variant} · ${radical.gloss[locale]}` : item.char;
+      finish(selected === item.radicalId, answer);
     }
   }
 
@@ -139,6 +160,7 @@ export function Player({
     }
     setQueue(nextQueue);
     setIndex(nextIndex);
+    answeredLock.current = false;
     setSelected(null);
     setPlaced([]);
     setChecked(null);
@@ -148,7 +170,11 @@ export function Player({
   const canCheck =
     current.item.type === "build"
       ? placed.length === (getSentence(current.item.sentenceId) ? contentTokens(getSentence(current.item.sentenceId)!).length : 0)
-      : current.item.type === "line" || current.item.type === "teach" || current.item.type === "teach-set"
+      : current.item.type === "line" ||
+          current.item.type === "teach" ||
+          current.item.type === "teach-set" ||
+          current.item.type === "stroke" ||
+          current.item.type === "match"
         ? false
         : selected !== null;
 
@@ -157,7 +183,17 @@ export function Player({
       <div className="mb-5 h-1 overflow-hidden rounded-full bg-[#E7E0D6]">
         <div className="h-full bg-[#E25B45]" style={{ width: `${Math.min(100, bar * 100)}%` }} />
       </div>
-      <p className="mb-4 text-sm text-[#57534E]">{title}</p>
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <button
+          className="text-sm font-semibold text-[#57534E]"
+          onClick={() => {
+            if (window.confirm(`${t("lesson.leaveTitle")}\n${t("lesson.leaveBody")}`)) onExit();
+          }}
+        >
+          {t("lesson.leave")}
+        </button>
+        <p className="text-sm text-[#57534E]">{title}</p>
+      </div>
       <div className="flex-1">
         <Card
           item={current.item}
@@ -170,6 +206,7 @@ export function Player({
           onSelect={setSelected}
           onPlace={setPlaced}
           onReveal={() => setRevealPinyin(true)}
+          onResolved={(ok, answer) => finish(ok, answer)}
         />
       </div>
       <div className="sticky bottom-0 bg-[#F7F3EC] py-4">
@@ -181,11 +218,11 @@ export function Player({
             {checked.ok ? null : <p className="mt-1 font-[family-name:var(--font-hanzi)] text-lg">{checked.answer}</p>}
           </div>
         ) : null}
-        {current.item.type === "teach" || current.item.type === "teach-set" || current.item.type === "line" ? (
+        {current.item.type === "teach" || current.item.type === "teach-set" || current.item.type === "line" || ((current.item.type === "stroke" || current.item.type === "match") && checked) ? (
           <button className="btn-primary" onClick={onContinue}>
             {t("lesson.continue")}
           </button>
-        ) : checked ? (
+        ) : current.item.type === "stroke" || current.item.type === "match" ? null : checked ? (
           <button className="btn-primary" onClick={onContinue}>
             {t("lesson.continue")}
           </button>
@@ -210,6 +247,7 @@ function Card({
   onSelect,
   onPlace,
   onReveal,
+  onResolved,
 }: {
   item: ExerciseItem;
   grammar?: Lesson["grammar"];
@@ -221,6 +259,7 @@ function Card({
   onSelect: (id: string) => void;
   onPlace: (keys: string[]) => void;
   onReveal: () => void;
+  onResolved: (ok: boolean, answer: string) => void;
 }) {
   const t = useT();
   if (item.type === "teach" || item.type === "teach-set") {
@@ -245,6 +284,7 @@ function Card({
                   <button className="mt-2 text-sm font-semibold text-[#E25B45]" onClick={onReveal}>{t("lesson.showPinyin")}</button>
                 )}
                 <p className="mt-3 text-lg">{row.gloss[locale]}</p>
+                <RadicalHint hanzi={row.hanzi} locale={locale} />
                 {example ? (
                   <p className="mt-4 text-left text-[15px] leading-6">
                     <span className="font-[family-name:var(--font-hanzi)]">{example.hanzi}</span>
@@ -308,6 +348,48 @@ function Card({
     );
   }
 
+  if (item.type === "tone") {
+    const row = getLearnable(item.itemId);
+    return (
+      <div>
+        <p className="text-center text-sm text-[#57534E]">{t("tone.prompt")}</p>
+        <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-6xl">{row?.hanzi}</p>
+        <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p>
+        <div className="mt-6 flex flex-col gap-3">
+          {[1, 2, 3, 4, 5].map((tone) => (
+            <Choice key={tone} label={t(`tone.${tone}`)} selected={selected === String(tone)} disabled={!!checked} onClick={() => onSelect(String(tone))} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (item.type === "radical") {
+    return (
+      <div>
+        <p className="text-center text-sm text-[#57534E]">{t("radical.prompt")}</p>
+        <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-6xl">{item.char}</p>
+        <div className="mt-6 flex flex-col gap-3">
+          {item.options.map((id) => {
+            const radical = allRadicals().find((row) => row.id === id);
+            const label = radical ? `${radical.variant} · ${radical.gloss[locale]}` : id;
+            return <Choice key={id} label={label} selected={selected === id} disabled={!!checked} onClick={() => onSelect(id)} />;
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  if (item.type === "stroke") {
+    return <StrokePad char={item.char} disabled={!!checked} onResult={(ok) => onResolved(ok, item.char)} />;
+  }
+
+  if (item.type === "match") {
+    return <MatchBoard itemIds={item.itemIds} locale={locale} disabled={!!checked} onDone={(ok) => onResolved(ok, "")} />;
+  }
+
+  if (item.type !== "build") return null;
+
   const sentence = getSentence(item.sentenceId);
   const tokens = sentence ? contentTokens(sentence) : [];
   const tiles = tokens.map((token, i) => ({ key: String(i), text: token.text }));
@@ -329,6 +411,64 @@ function Card({
             {tile.text}
           </button>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function RadicalHint({ hanzi, locale }: { hanzi: string; locale: Locale }) {
+  const radical = [...hanzi].map((char) => radicalFor(char)).find(Boolean);
+  if (!radical) return null;
+  return (
+    <p className="mt-3 text-left text-sm leading-5 text-[#57534E]">
+      <span className="font-[family-name:var(--font-hanzi)] text-base text-[#1C1917]">{radical.variant}</span> · {radical.gloss[locale]}. {radical.hint[locale]}
+    </p>
+  );
+}
+
+function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; locale: Locale; disabled: boolean; onDone: (ok: boolean) => void }) {
+  const t = useT();
+  const hanzi = shuffle(itemIds, itemIds.join(":h"));
+  const glosses = shuffle(itemIds, itemIds.join(":g"));
+  const [picked, setPicked] = useState<string | null>(null);
+  const [matched, setMatched] = useState<string[]>([]);
+  const [missed, setMissed] = useState(false);
+  const done = useRef(false);
+
+  function chooseGloss(id: string) {
+    if (disabled || !picked || matched.includes(id)) return;
+    if (picked === id) {
+      const next = [...matched, id];
+      setMatched(next);
+      setPicked(null);
+      if (next.length === itemIds.length && !done.current) {
+        done.current = true;
+        onDone(!missed);
+      }
+      return;
+    }
+    setMissed(true);
+    setPicked(null);
+  }
+
+  return (
+    <div>
+      <p className="mb-3 text-sm text-[#57534E]">{t("match.prompt")}</p>
+      <div className="grid grid-cols-2 gap-2">
+        <div className="flex flex-col gap-2">
+          {hanzi.map((id) => (
+            <button key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border bg-white font-[family-name:var(--font-hanzi)] text-xl ${picked === id ? "border-[#1C1917]" : "border-[#E7E0D6]"} ${matched.includes(id) ? "opacity-40" : ""}`} onClick={() => setPicked(id)}>
+              {getLearnable(id)?.hanzi}
+            </button>
+          ))}
+        </div>
+        <div className="flex flex-col gap-2">
+          {glosses.map((id) => (
+            <button key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border border-[#E7E0D6] bg-white px-2 text-sm font-semibold ${matched.includes(id) ? "opacity-40" : ""}`} onClick={() => chooseGloss(id)}>
+              {gloss(id, locale)}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
