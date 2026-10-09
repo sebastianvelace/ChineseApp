@@ -2,6 +2,7 @@
 
 import { Flame, X } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
+import { Sheet } from "@/components/Sheet";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
 import { lessonPassed } from "@/lib/lesson-score";
@@ -53,6 +54,7 @@ export function Player({
   const [checked, setChecked] = useState<{ ok: boolean; answer: string; gloss: string } | null>(null);
   const correctRef = useRef(0);
   const [phase, setPhase] = useState<"play" | "end">("play");
+  const [leaving, setLeaving] = useState(false);
   const [ratio, setRatio] = useState(0);
   const [finalCorrect, setFinalCorrect] = useState(0);
   const reported = useRef(false);
@@ -213,9 +215,7 @@ export function Player({
         <button
           className="flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]"
           aria-label={t("lesson.leave")}
-          onClick={() => {
-            if (window.confirm(`${t("lesson.leaveTitle")}\n${t("lesson.leaveBody")}`)) onExit();
-          }}
+          onClick={() => setLeaving(true)}
         >
           <X size={22} aria-hidden />
         </button>
@@ -266,6 +266,14 @@ export function Player({
           </button>
         )}
       </div>
+      {leaving ? (
+        <Sheet title={t("lesson.leaveTitle")} closeLabel={t("sheet.close")} onClose={() => setLeaving(false)}>
+          <p className="text-base text-[#57534E]">{t("lesson.leaveBody")}</p>
+          <button type="button" className="btn-primary mt-6" onClick={onExit}>
+            {t("lesson.leave")}
+          </button>
+        </Sheet>
+      ) : null}
     </main>
   );
 }
