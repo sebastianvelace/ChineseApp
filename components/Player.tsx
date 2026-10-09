@@ -4,6 +4,7 @@ import { Flame, X } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
+import { lessonPassed } from "@/lib/lesson-score";
 import { lessonRatings } from "@/lib/srs";
 import { allRadicals, contentTokens, getLearnable, getSentence, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -50,7 +51,7 @@ export function Player({
   const [placed, setPlaced] = useState<string[]>([]);
   const [revealPinyin, setRevealPinyin] = useState(false);
   const [checked, setChecked] = useState<{ ok: boolean; answer: string; gloss: string } | null>(null);
-  const [correctCount, setCorrectCount] = useState(0);
+  const correctRef = useRef(0);
   const [phase, setPhase] = useState<"play" | "end">("play");
   const [ratio, setRatio] = useState(0);
   const [finalCorrect, setFinalCorrect] = useState(0);
@@ -82,9 +83,9 @@ export function Player({
                 reported.current = false;
                 answeredLock.current = false;
                 outcomes.current = [];
+                correctRef.current = 0;
                 setQueue(items.map((item) => ({ item, recycle: false })));
                 setIndex(0);
-                setCorrectCount(0);
                 setSelected(null);
                 setPlaced([]);
                 setChecked(null);
@@ -116,7 +117,7 @@ export function Player({
   function finish(ok: boolean, answer: string, glossText = "", itemId?: string) {
     if (answeredLock.current) return;
     answeredLock.current = true;
-    if (!current.recycle && ok) setCorrectCount((n) => n + 1);
+    if (!current.recycle && ok) correctRef.current += 1;
     if (!current.recycle && itemId) outcomes.current.push({ itemId, ok });
     setChecked({ ok, answer, gloss: glossText });
   }
@@ -166,7 +167,7 @@ export function Player({
     if (!ok && !current.recycle && isGraded(item)) nextQueue = [...queue, { item, recycle: true }];
     const nextIndex = index + 1;
     const firstTries = nextQueue.filter((row) => !row.recycle && isGraded(row.item));
-    const answeredCorrect = correctCount;
+    const answeredCorrect = correctRef.current;
     if (nextIndex >= nextQueue.length) {
       const graded = firstTries.length || planned;
       const nextRatio = graded === 0 ? 1 : answeredCorrect / graded;
@@ -174,7 +175,7 @@ export function Player({
       setRatio(nextRatio);
       setQueue(nextQueue);
       setPhase("end");
-      if (nextRatio >= 0.8 && !reported.current) {
+      if (lessonPassed(answeredCorrect, graded) && !reported.current) {
         reported.current = true;
         onPass({ ratio: nextRatio, correct: answeredCorrect, graded, ratings: lessonRatings(outcomes.current) });
       }
