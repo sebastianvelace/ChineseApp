@@ -38,14 +38,23 @@ function Deck() {
     setShownAt(Date.now());
   }, [index]);
   const [remembered, setRemembered] = useState(0);
-  const [feedback, setFeedback] = useState<string | null>(null);
+  const [missed, setMissed] = useState(0);
+  const [feedback, setFeedback] = useState<{ ok: boolean; answer: string } | null>(null);
   const card = deck[index];
 
   if (!card) {
+    const stillDue = dueCards(cards).length;
+    const nextTime = cards
+      .map((saved) => new Date(saved.due).getTime())
+      .filter((time) => time > Date.now())
+      .sort((a, b) => a - b)[0];
+    const when = nextTime ? new Date(nextTime).toLocaleDateString(locale === "es" ? "es" : "en", { month: "short", day: "numeric" }) : "";
     return (
       <main className="px-6 py-16">
         <h1 className="text-3xl font-bold">{t("practice.done")}</h1>
         <p className="mt-2">{t("practice.remembered", { count: remembered })}</p>
+        <p className="mt-1 text-[#57534E]">{t("practice.missed", { count: missed })}</p>
+        {stillDue === 0 && when ? <p className="mt-4 font-semibold">{t("practice.nextDue", { when })}</p> : null}
         <button className="btn-primary mt-8" onClick={() => router.push("/practice")}>{t("lesson.back")}</button>
       </main>
     );
@@ -63,7 +72,9 @@ function Deck() {
     else if (ok) rating = Rating.Hard;
     answerCard(card, rating);
     if (ok) setRemembered((n) => n + 1);
-    setFeedback(ok ? item.hanzi : `${item.hanzi} · ${item.gloss[locale]}`);
+    else setMissed((n) => n + 1);
+    const answer = card.cardType === "pinyin" ? item.pinyin : card.cardType === "hanzi" ? item.hanzi : `${item.hanzi} · ${item.gloss[locale]}`;
+    setFeedback({ ok, answer });
   }
 
   return (
@@ -73,12 +84,12 @@ function Deck() {
       {card.cardType === "meaning" && pinyin ? <p className="mt-2 text-center text-[#57534E]">{item?.pinyin}</p> : null}
       <div className="mt-6 flex flex-col gap-3">
         {options.map((option) => (
-          <button key={option.value} className={`min-h-12 rounded-xl border bg-white px-4 text-left font-semibold ${selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]"}`} onClick={() => setSelected(option.value)}>
+          <button key={option.value} disabled={!!feedback} className={`min-h-12 rounded-xl border bg-white px-4 text-left font-semibold ${selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]"}`} onClick={() => setSelected(option.value)}>
             {option.label}
           </button>
         ))}
       </div>
-      {feedback ? <p className="mt-4 font-[family-name:var(--font-hanzi)] text-lg">{feedback}</p> : null}
+      {feedback ? <p className={`mt-4 text-lg font-semibold ${feedback.ok ? "text-[#1F8A70]" : "text-[#9F1239]"}`}>{feedback.ok ? t("lesson.correct") : t("lesson.wrong")} · {feedback.answer}</p> : null}
       <button
         className="btn-primary mt-auto"
         disabled={!selected && !feedback}

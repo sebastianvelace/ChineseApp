@@ -17,7 +17,8 @@ export default function PracticePage() {
   const filtered = words.filter((item) => {
     const q = query.trim().toLowerCase();
     if (!q) return true;
-    return item.hanzi.includes(query.trim()) || item.pinyin.toLowerCase().includes(q) || item.gloss[locale].toLowerCase().includes(q);
+    const digits = item.pinyinNumbered.toLowerCase();
+    return item.hanzi.includes(query.trim()) || item.pinyin.toLowerCase().includes(q) || digits.includes(q) || item.gloss[locale].toLowerCase().includes(q);
   });
   return (
     <main className="px-5 py-6">

@@ -103,6 +103,7 @@ export type Learnable = {
   id: string;
   hanzi: string;
   pinyin: string;
+  pinyinNumbered: string;
   gloss: Localized;
   senses: Sense[];
   teachSentenceId: string | null;
