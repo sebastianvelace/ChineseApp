@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { OfflineLesson } from "@/components/OfflineLesson";
@@ -46,7 +47,9 @@ export default function TalkPage() {
   const options = talkChoices(check.answer, other, hanzi);
   return (
     <main className="px-5 py-6">
-      <button className="text-sm font-semibold text-[#57534E]" onClick={() => router.push(`/unit/${hit.unit.id}`)}>{t("lesson.leave")}</button>
+      <button className="flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]" aria-label={t("lesson.leave")} onClick={() => router.push(`/unit/${hit.unit.id}`)}>
+        <X size={22} aria-hidden />
+      </button>
       <h1 className="mt-3 text-2xl font-bold">{hit.talk.title[locale]}</h1>
       <p className="mt-4 whitespace-pre-wrap text-[17px] leading-7">{hit.talk.body[locale]}</p>
       <p className="mt-6 font-semibold">{check.prompt[locale]}</p>
