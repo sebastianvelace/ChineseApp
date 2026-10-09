@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { StrokePad } from "@/components/StrokePad";
+import { TokenLine } from "@/components/TokenLine";
 import { lessonRatings } from "@/lib/srs";
 import { allRadicals, contentTokens, exampleSentence, getLearnable, getSentence, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -297,10 +298,10 @@ function Card({
                 <p className="mt-3 text-lg">{row.gloss[locale]}</p>
                 <RadicalHint hanzi={row.hanzi} locale={locale} />
                 {example ? (
-                  <p className="mt-4 text-left text-[15px] leading-6">
-                    <span className="font-[family-name:var(--font-hanzi)]">{example.hanzi}</span>
-                    <span className="mt-1 block text-[#57534E]">{example.translation[locale]}</span>
-                  </p>
+                  <div className="mt-4 text-left">
+                    <TokenLine tokens={example.tokens} />
+                    <p className="mt-1 text-[15px] text-[#57534E]">{example.translation[locale]}</p>
+                  </div>
                 ) : null}
               </article>
             );

@@ -25,7 +25,7 @@ export type Sense = {
   gloss: Localized;
   dictionaryExample?: {
     translation: Localized;
-    lines: { hanzi: string; pinyin: string; speaker: string | null }[];
+    lines: { hanzi: string; pinyin: string; speaker: string | null; tokens?: Token[] }[];
   };
 };
 

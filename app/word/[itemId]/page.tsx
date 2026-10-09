@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { StrokeReplay } from "@/components/StrokePad";
+import { TokenLine } from "@/components/TokenLine";
 import { exampleSentence, getLearnable, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
@@ -44,7 +45,7 @@ export default function WordPage() {
       </div>
       {example ? (
         <article className="mt-6 rounded-2xl bg-white p-4">
-          <p className="font-[family-name:var(--font-hanzi)] text-xl">{example.hanzi}</p>
+          <TokenLine tokens={example.tokens} />
           {pinyin ? <p className="text-sm text-[#57534E]">{example.pinyin}</p> : null}
           <p className="mt-2">{example.translation[locale]}</p>
         </article>
@@ -53,7 +54,9 @@ export default function WordPage() {
         <article className="mt-3 rounded-2xl bg-white p-4">
           <p className="text-xs font-semibold uppercase text-[#57534E]">{t("word.dictionary")}</p>
           {dictionary.lines.map((line, i) => (
-            <p key={i} className="mt-2 font-[family-name:var(--font-hanzi)]">{line.hanzi}</p>
+            <div key={i} className="mt-2">
+              {line.tokens ? <TokenLine tokens={line.tokens} /> : <p className="font-[family-name:var(--font-hanzi)]">{line.hanzi}</p>}
+            </div>
           ))}
           <p className="mt-2 text-[#57534E]">{dictionary.translation[locale]}</p>
         </article>
