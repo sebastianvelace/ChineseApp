@@ -6,7 +6,7 @@ import { useProgress } from "@/lib/progress";
 import type { Token } from "@/lib/types";
 
 export function TokenLine({ tokens }: { tokens: Token[] }) {
-  const { locale } = useProgress();
+  const { locale, pinyin } = useProgress();
   const [open, setOpen] = useState<number | null>(null);
   const token = open === null ? undefined : tokens[open];
   const itemId = token?.wordId ?? token?.supportId;
@@ -32,7 +32,8 @@ export function TokenLine({ tokens }: { tokens: Token[] }) {
       </p>
       {item ? (
         <p className="mt-2 rounded-xl bg-[#F7F3EC] px-3 py-2 text-sm text-[#57534E]">
-          <span className="font-[family-name:var(--font-hanzi)] text-base text-[#1C1917]">{item.hanzi}</span> {item.pinyin} · {item.gloss[locale]}
+          <span className="font-[family-name:var(--font-hanzi)] text-base text-[#1C1917]">{item.hanzi}</span>
+          {pinyin ? ` ${item.pinyin}` : ""} · {item.gloss[locale]}
         </p>
       ) : null}
     </div>
