@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { LoadingRows } from "@/components/LoadingRows";
 import { getLearnable, trackById } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
@@ -13,7 +14,7 @@ export default function PracticePage() {
   const t = useT();
   const [query, setQuery] = useState("");
   const due = useMemo(() => practiceQueue(cards, seenItems), [cards, seenItems]);
-  if (!ready) return <p className="p-6">{t("loading")}</p>;
+  if (!ready) return <LoadingRows />;
   const words = [...seen].map((id) => getLearnable(id)).filter((item) => !!item);
   const filtered = words.filter((item) => {
     const q = query.trim().toLowerCase();

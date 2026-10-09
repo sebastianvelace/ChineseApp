@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { LoadingRows } from "@/components/LoadingRows";
 import { OfflineLesson } from "@/components/OfflineLesson";
 import { trackById } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -13,7 +14,7 @@ export default function LearnPage() {
   const { ready, track, setTrack, streak, xpToday, dailyGoal, locale, passed, freezeNotice, dismissFreezeNotice } = useProgress();
   const t = useT();
   const [blocked, setBlocked] = useState(false);
-  if (!ready) return <p className="p-6 text-[#57534E]">{t("loading")}</p>;
+  if (!ready) return <LoadingRows />;
   if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
   const units = trackById(track)?.levels[0]?.units ?? [];
   return (

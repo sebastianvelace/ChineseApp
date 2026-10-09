@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { LoadingRows } from "@/components/LoadingRows";
 import { OfflineLesson } from "@/components/OfflineLesson";
 import { getLearnable, getUnit } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -21,7 +22,7 @@ export default function UnitPage() {
     event.preventDefault();
     setBlocked(true);
   }
-  if (!ready) return <p className="p-6">{t("loading")}</p>;
+  if (!ready) return <LoadingRows />;
   if (!unit) return <p className="p-6">Missing unit.</p>;
   if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
   return (
