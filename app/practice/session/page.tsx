@@ -102,7 +102,7 @@ function Deck() {
       {card.cardType === "meaning" && pinyin ? <p className="mt-2 text-center text-[#57534E]">{item?.pinyin}</p> : null}
       <div className="choice-grid">
         {options.map((option) => (
-          <button key={option.value} disabled={!!feedback} className={`min-h-12 rounded-xl border bg-white px-4 text-left font-semibold ${selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]"}`} onClick={() => setSelected(option.value)}>
+          <button type="button" key={option.value} aria-pressed={selected === option.value} disabled={!!feedback} className={`min-h-12 rounded-xl border bg-white px-4 text-left font-semibold ${selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]"}`} onClick={() => setSelected(option.value)}>
             {option.label}
           </button>
         ))}

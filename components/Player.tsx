@@ -260,7 +260,7 @@ export function Player({
             {t("lesson.continue")}
           </button>
         ) : (
-          <button className="btn-primary" disabled={!canCheck} onClick={onCheck}>
+          <button type="button" className="btn-primary" disabled={!canCheck} onClick={onCheck}>
             {t("lesson.check")}
           </button>
         )}
@@ -519,6 +519,8 @@ function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; 
 function Choice({ label, selected, disabled, onClick }: { label: string; selected: boolean; disabled: boolean; onClick: () => void }) {
   return (
     <button
+      type="button"
+      aria-pressed={selected}
       className={`min-h-12 rounded-xl border px-4 py-3 text-left text-base font-semibold ${selected ? "border-[#1C1917] bg-white" : "border-[#E7E0D6] bg-white"}`}
       disabled={disabled}
       onClick={onClick}

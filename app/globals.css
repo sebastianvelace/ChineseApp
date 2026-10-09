@@ -16,6 +16,11 @@ button {
   cursor: pointer;
 }
 
+button:focus-visible {
+  outline: 2px solid #1c1917;
+  outline-offset: 2px;
+}
+
 .btn-primary {
   min-height: 48px;
   width: 100%;
