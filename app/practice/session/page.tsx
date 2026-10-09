@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { pinyinChoices } from "@/lib/assemble";
 import { getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
@@ -120,8 +121,7 @@ function optionsFor(card: SavedCard, locale: "en" | "es", seen: Set<string>): { 
   const pool = [...seen].filter((id) => id !== card.itemId);
   const picked = shuffle(pool, `${card.itemId}:${card.cardType}`).slice(0, 3);
   if (card.cardType === "pinyin") {
-    const options = [item.pinyin, ...picked.map((id) => getLearnable(id)?.pinyin ?? "")].filter(Boolean);
-    return shuffle([...new Set(options)], `${card.itemId}:py`).map((py) => ({ value: py, label: py }));
+    return pinyinChoices(card.itemId, [...seen], pool, `${card.itemId}:py`).map((py) => ({ value: py, label: py }));
   }
   const ids = shuffle([card.itemId, ...picked], `${card.itemId}:${card.cardType}`);
   return ids.map((id) => {

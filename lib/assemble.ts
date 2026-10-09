@@ -31,7 +31,7 @@ function meaningItem(itemId: string, pool: string[], seed: string): ExerciseItem
   return { type: "meaning", itemId, options: padIds(itemId, pool, seed) };
 }
 
-function pinyinChoices(itemId: string, lessonTargets: string[], pool: string[], seed: string): string[] {
+export function pinyinChoices(itemId: string, lessonTargets: string[], pool: string[], seed: string): string[] {
   const item = getLearnable(itemId);
   const correct = item?.pinyin ?? itemId;
   const options = [correct];

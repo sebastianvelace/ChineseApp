@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { assembleLesson } from "./assemble";
+import { assembleLesson, pinyinChoices } from "./assemble";
 import { findLesson, getLearnable, getSentence } from "./content";
 
 function hanzi(id: string): string {
@@ -54,6 +54,11 @@ test("lesson 1 is stable, teaches four words, and stays inside that set", () => 
       "stroke",
     ],
   );
+});
+
+test("a lone word still gets four tone choices", () => {
+  const options = pinyinChoices("hsk1-w072", ["hsk1-w072"], [], "practice");
+  assert.deepEqual([...options].sort(), ["nì", "ní", "nī", "nǐ"]);
 });
 
 test("a seen word skips its teach card and its pinyin question", () => {
