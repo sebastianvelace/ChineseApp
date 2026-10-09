@@ -19,7 +19,11 @@ function padIds(correct: string, pool: string[], seed: string): string[] {
 
 function padPinyin(correct: string, pool: string[], seed: string): string[] {
   const options = [correct];
-  for (const py of pool) {
+  const extras = [
+    ...pool,
+    ...allLearnableIds().map((id) => getLearnable(id)?.pinyin ?? ""),
+  ];
+  for (const py of extras) {
     if (py && !options.includes(py)) options.push(py);
     if (options.length === 4) break;
   }

@@ -41,15 +41,20 @@ export default function TalkPage() {
     <main className="px-5 py-6">
       <button className="text-sm font-semibold text-[#57534E]" onClick={() => router.push(`/unit/${hit.unit.id}`)}>{t("lesson.leave")}</button>
       <h1 className="mt-3 text-2xl font-bold">{hit.talk.title[locale]}</h1>
-      {step === 0 && picked === null ? <p className="mt-4 whitespace-pre-wrap text-[17px] leading-7">{hit.talk.body[locale]}</p> : null}
+      <p className="mt-4 whitespace-pre-wrap text-[17px] leading-7">{hit.talk.body[locale]}</p>
       <p className="mt-6 font-semibold">{check.prompt[locale]}</p>
       <div className="mt-3 flex flex-col gap-3">
         {options.map((option) => (
-          <button key={option} className="min-h-12 rounded-xl bg-white px-4 text-left font-[family-name:var(--font-hanzi)] text-lg font-semibold" onClick={() => setPicked(option)}>
+          <button key={option} disabled={picked !== null} className={`min-h-12 rounded-xl bg-white px-4 text-left font-[family-name:var(--font-hanzi)] text-lg font-semibold ${picked === option ? "border border-[#1C1917]" : ""}`} onClick={() => setPicked(option)}>
             {option}
           </button>
         ))}
       </div>
+      {picked ? (
+        <p className={`mt-4 font-semibold ${picked === check.answer ? "text-[#1F8A70]" : "text-[#9F1239]"}`}>
+          {picked === check.answer ? t("lesson.correct") : t("lesson.wrong")} · {check.answer}
+        </p>
+      ) : null}
       {picked ? (
         <button
           className="btn-primary mt-6"
