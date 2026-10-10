@@ -49,13 +49,18 @@ export default function UnitPage() {
 }
 
 function Row({ href, title, subtitle, status, onNavigate, hanzi = false }: { href?: string; title: string; subtitle: string; status: string; onNavigate?: (event: { preventDefault: () => void }) => void; hanzi?: boolean }) {
+  const t = useT();
+  const statusLabel = status === "passed" ? t("unit.done") : status === "locked" ? t("unit.locked") : "";
   const body = (
     <span className="flex items-center justify-between gap-3 rounded-2xl bg-white px-4 py-4">
       <span>
         <span className="block font-semibold">{title}</span>
         <span className={`mt-1 block text-[#57534E] ${hanzi ? "font-[family-name:var(--font-hanzi)] text-[22px]" : "text-sm"}`}>{subtitle}</span>
       </span>
-      <span className="text-[#57534E]">{status === "passed" ? <Check size={20} aria-hidden /> : status === "locked" ? <Lock size={20} aria-hidden /> : <ChevronRight size={20} aria-hidden />}</span>
+      <span className="text-[#57534E]">
+        {status === "passed" ? <Check size={20} aria-hidden /> : status === "locked" ? <Lock size={20} aria-hidden /> : <ChevronRight size={20} aria-hidden />}
+        {statusLabel ? <span className="sr-only">{statusLabel}</span> : null}
+      </span>
     </span>
   );
   if (!href) return <li>{body}</li>;
