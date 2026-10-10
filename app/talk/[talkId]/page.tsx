@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { withHanzi } from "@/components/Hanzi";
 import { OfflineLesson } from "@/components/OfflineLesson";
 import { Sheet } from "@/components/Sheet";
 import { findTalk, getLearnable } from "@/lib/content";
@@ -91,8 +92,8 @@ export default function TalkPage() {
           const wrong = picked === option && !talkAnswerMatches(option, check.answer);
           const border = correct ? "border-[#1F8A70]" : wrong ? "border-[#9F1239]" : "border-[#E7E0D6]";
           return (
-            <button type="button" key={option} aria-pressed={picked === option} disabled={picked !== null} className={`select-ease min-h-12 rounded-xl border-2 bg-white px-4 text-left font-[family-name:var(--font-hanzi)] text-lg font-semibold ${border}`} onClick={() => setPicked(option)}>
-              {option}
+            <button type="button" key={option} aria-pressed={picked === option} disabled={picked !== null} className={`select-ease min-h-12 rounded-xl border-2 bg-white px-4 text-left text-base font-semibold ${border}`} onClick={() => setPicked(option)}>
+              {withHanzi(option)}
             </button>
           );
         })}

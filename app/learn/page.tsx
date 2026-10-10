@@ -79,7 +79,7 @@ export default function LearnPage() {
           >
             <span className="text-sm font-semibold">{t("practice.continue")}</span>
             <span className="mt-1 block text-lg font-bold">{label}</span>
-            {next.hanzi ? <span className="mt-1 block font-[family-name:var(--font-hanzi)] text-base">{next.hanzi}</span> : null}
+            {next.hanzi ? <span className="mt-1 block font-[family-name:var(--font-hanzi)] text-[22px] font-medium">{next.hanzi}</span> : null}
           </Link>
         );
       })()}

@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useLayoutEffect, useState } from "react";
+import { withHanzi } from "@/components/Hanzi";
 import { pinyinChoices } from "@/lib/assemble";
 import { getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -119,12 +120,12 @@ function Deck() {
           const border = mark === "correct" ? "border-[#1F8A70]" : mark === "wrong" ? "border-[#9F1239]" : selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]";
           return (
             <button type="button" key={option.value} aria-pressed={selected === option.value} disabled={!!feedback} className={`select-ease min-h-12 rounded-xl border-2 bg-white px-4 text-left text-base font-semibold ${border}`} onClick={() => setSelected(option.value)}>
-              {option.label}
+              {withHanzi(option.label)}
             </button>
           );
         })}
       </div>
-      {feedback ? <p className={`mt-4 text-lg font-semibold ${feedback.ok ? "text-[#1F8A70]" : "text-[#9F1239]"}`} role="status" aria-live="polite">{feedback.ok ? t("lesson.correct") : t("lesson.wrong")} · {feedback.answer}</p> : null}
+      {feedback ? <p className={`mt-4 text-lg font-semibold ${feedback.ok ? "text-[#1F8A70]" : "text-[#9F1239]"}`} role="status" aria-live="polite">{feedback.ok ? t("lesson.correct") : t("lesson.wrong")} · {withHanzi(feedback.answer)}</p> : null}
       <button
         className="btn-primary mt-auto"
         disabled={!selected && !feedback}

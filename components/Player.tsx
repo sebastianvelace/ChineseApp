@@ -2,6 +2,7 @@
 
 import { Flame, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { withHanzi } from "@/components/Hanzi";
 import { Sheet } from "@/components/Sheet";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
@@ -533,7 +534,7 @@ function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; 
       <div className="grid grid-cols-2 gap-2">
         <div className="flex flex-col gap-2">
           {hanzi.map((id) => (
-            <button type="button" key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border bg-white font-[family-name:var(--font-hanzi)] text-xl ${picked === id ? "border-[#1C1917]" : "border-[#E7E0D6]"} ${matched.includes(id) ? "opacity-40" : ""} ${shake?.hanzi === id ? "shake" : ""}`} onClick={() => setPicked(id)}>
+            <button type="button" key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border bg-white font-[family-name:var(--font-hanzi)] text-[22px] font-medium ${picked === id ? "border-[#1C1917]" : "border-[#E7E0D6]"} ${matched.includes(id) ? "opacity-40" : ""} ${shake?.hanzi === id ? "shake" : ""}`} onClick={() => setPicked(id)}>
               {getLearnable(id)?.hanzi}
             </button>
           ))}
@@ -579,7 +580,7 @@ function Choice({
       disabled={disabled}
       onClick={onClick}
     >
-      {label}
+      {withHanzi(label)}
     </button>
   );
 }
