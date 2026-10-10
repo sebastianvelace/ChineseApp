@@ -6,7 +6,7 @@ export type Locale = "en" | "es";
 export type XpEvent = { id: string; amount: number; at: string };
 export type Passed = { ratio: number | null; at: string };
 export type ReviewRow = { id: string; itemId: string; cardType: CardType; rating: number; at: string; source: "lesson" | "practice" };
-export type Streak = { current: number; longest: number; lastActive: string | null; freezes: number; granted: number[]; freezeNotice: string | null };
+export type Streak = { current: number; longest: number; lastActive: string | null; freezes: number; granted: number[]; freezeNotice: string | null; activeDays: string[] };
 
 export type ProgressState = {
   onboarded: boolean;
@@ -56,7 +56,7 @@ export function emptyProgress(): ProgressState {
     xpEvents: [],
     cards: [],
     reviews: [],
-    streak: { current: 0, longest: 0, lastActive: null, freezes: 0, granted: [], freezeNotice: null },
+    streak: { current: 0, longest: 0, lastActive: null, freezes: 0, granted: [], freezeNotice: null, activeDays: [] },
     streakBurst: null,
   };
 }
@@ -65,8 +65,12 @@ export function xpOnDay(events: XpEvent[], day: string): number {
   return events.filter((event) => localDayFromIso(event.at) === day).reduce((sum, event) => sum + event.amount, 0);
 }
 
+function rememberDay(streak: Streak, day: string): string[] {
+  return streak.activeDays.includes(day) ? streak.activeDays : [...streak.activeDays, day];
+}
+
 function bumpStreak(streak: Streak, day: string): Streak {
-  if (streak.lastActive === day) return streak;
+  if (streak.lastActive === day) return { ...streak, activeDays: rememberDay(streak, day) };
   let current = 1;
   let freezes = streak.freezes;
   let freezeNotice = streak.freezeNotice;
@@ -84,7 +88,22 @@ function bumpStreak(streak: Streak, day: string): Streak {
       granted.push(mark);
     }
   }
-  return { current, longest: Math.max(streak.longest, current), lastActive: day, freezes, granted, freezeNotice };
+  return { current, longest: Math.max(streak.longest, current), lastActive: day, freezes, granted, freezeNotice, activeDays: rememberDay(streak, day) };
+}
+
+/** A day counts after a lesson, review, or talk, or once that day's XP reaches the goal. */
+export function daysThatCount(state: ProgressState): string[] {
+  const days = new Set(state.streak.activeDays);
+  const xpByDay = new Map<string, number>();
+  for (const event of state.xpEvents) {
+    const day = localDayFromIso(event.at);
+    xpByDay.set(day, (xpByDay.get(day) ?? 0) + event.amount);
+    if (/^(lesson|review|talk)(-replay)?:/.test(event.id)) days.add(day);
+  }
+  for (const [day, xp] of xpByDay) {
+    if (xp >= state.dailyGoal) days.add(day);
+  }
+  return [...days].sort();
 }
 
 function ensureCards(cards: SavedCard[], itemIds: string[], day: string, now: Date): SavedCard[] {

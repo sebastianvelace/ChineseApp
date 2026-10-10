@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { answerCard, emptyProgress, localDay, passNode, type ProgressState } from "./progress-rules";
+import { answerCard, daysThatCount, emptyProgress, localDay, passNode, type ProgressState } from "./progress-rules";
 import { freshCard } from "./srs";
 import { Rating } from "ts-fsrs";
 
@@ -92,7 +92,7 @@ test("freezes never go past 2", () => {
   let state = emptyProgress();
   state = {
     ...state,
-    streak: { current: 29, longest: 29, lastActive: localDay(on(1)), freezes: 2, granted: [7, 14], freezeNotice: null },
+    streak: { current: 29, longest: 29, lastActive: localDay(on(1)), freezes: 2, granted: [7, 14], freezeNotice: null, activeDays: [localDay(on(1))] },
   };
   state = passNode(state, "day-30", "talk", undefined, on(2));
   assert.equal(state.streak.current, 30);
@@ -113,4 +113,15 @@ test("practice counts toward the streak only after the daily goal", () => {
   }
   assert.equal(state.xpEvents.length, 10);
   assert.equal(state.streak.current, 1);
+  assert.deepEqual(daysThatCount(state), [localDay(now)]);
+});
+
+test("one practice point does not fill the week", () => {
+  const now = on(1);
+  const card = freshCard("hsk1-w072", "meaning", localDay(now), now);
+  const state = answerCard({ ...emptyProgress(), cards: [card] }, card, Rating.Good, { id: "review-1", sessionId: "session" }, now);
+  assert.equal(state.xpEvents[0]?.amount, 1);
+  assert.deepEqual(daysThatCount(state), []);
+  const passed = lesson(emptyProgress(), "hsk1-u01-l1", now);
+  assert.ok(daysThatCount(passed).includes(localDay(now)));
 });

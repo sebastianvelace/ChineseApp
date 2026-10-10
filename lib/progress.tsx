@@ -11,6 +11,7 @@ import {
   localDay,
   localDayFromIso,
   passNode as recordPass,
+  daysThatCount,
   xpOnDay,
   type Locale,
   type PassKind,
@@ -64,7 +65,7 @@ function normalize(saved: Partial<ProgressState> | null): ProgressState {
     xpEvents: saved.xpEvents ?? [],
     cards: saved.cards ?? [],
     reviews: saved.reviews ?? [],
-    streak: { ...base.streak, ...saved.streak, freezeNotice: saved.streak?.freezeNotice ?? null },
+    streak: { ...base.streak, ...saved.streak, freezeNotice: saved.streak?.freezeNotice ?? null, activeDays: saved.streak?.activeDays ?? [] },
     streakBurst: saved.streakBurst ?? null,
   };
 }
@@ -97,7 +98,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const seen = new Set(current.seen.map((row) => row.id));
     const xp = current.xpEvents.reduce((sum, event) => sum + event.amount, 0);
     const xpToday = xpOnDay(current.xpEvents, day);
-    const activeDays = [...new Set(current.xpEvents.map((event) => localDayFromIso(event.at)))];
+    const activeDays = daysThatCount(current);
     const weekDates = [6, 5, 4, 3, 2, 1, 0].map((offset) => addDays(day, -offset));
     return {
       ready: data !== null,
