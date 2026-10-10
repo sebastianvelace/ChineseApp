@@ -56,11 +56,16 @@ export default function TalkPage() {
       <p className="mt-4 whitespace-pre-wrap text-[17px] leading-7">{hit.talk.body[locale]}</p>
       <p className="mt-6 font-semibold">{check.prompt[locale]}</p>
       <div className="mt-3 flex flex-col gap-3">
-        {options.map((option) => (
-          <button key={option} disabled={picked !== null} className={`min-h-12 rounded-xl bg-white px-4 text-left font-[family-name:var(--font-hanzi)] text-lg font-semibold ${picked === option ? "border border-[#1C1917]" : ""}`} onClick={() => setPicked(option)}>
-            {option}
-          </button>
-        ))}
+        {options.map((option) => {
+          const correct = picked !== null && talkAnswerMatches(option, check.answer);
+          const wrong = picked === option && !talkAnswerMatches(option, check.answer);
+          const border = correct ? "border-[#1F8A70]" : wrong ? "border-[#9F1239]" : "border-[#E7E0D6]";
+          return (
+            <button type="button" key={option} disabled={picked !== null} className={`select-ease min-h-12 rounded-xl border-2 bg-white px-4 text-left font-[family-name:var(--font-hanzi)] text-lg font-semibold ${border}`} onClick={() => setPicked(option)}>
+              {option}
+            </button>
+          );
+        })}
       </div>
       {picked ? (
         <p className={`mt-4 font-semibold ${talkAnswerMatches(picked, check.answer) ? "text-[#1F8A70]" : "text-[#9F1239]"}`}>
