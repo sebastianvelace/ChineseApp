@@ -10,7 +10,7 @@ import { allUnits, findLesson, findReview, getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { canOpenOffline, useSavedHere } from "@/lib/saved-here";
-import { extraStatus, lessonStatus } from "@/lib/unlock";
+import { extraStatus, lessonStatus, nextLessonStep } from "@/lib/unlock";
 
 export default function LessonPage() {
   const params = useParams<{ lessonId: string }>();
@@ -51,8 +51,11 @@ export default function LessonPage() {
         xpFor={(correct) => (firstLook.current[lessonHit.lesson.id] ? 5 : 20 + 2 * correct)}
         onPass={(result) => passNode(lessonHit.lesson.id, "lesson", { ...result, itemIds: lessonTargets(lessonHit.lesson) })}
         onExit={() => go(`/unit/${lessonHit.unit.id}`)}
-        onNext={() => go(nextAfterLesson(lessonHit.unit, lessonHit.lesson.order))}
-        nextLabel={lessonHit.unit.lessons.some((lesson) => lesson.order === lessonHit.lesson.order + 1) ? t("lesson.next") : t("unit.talk")}
+        onNext={() => {
+          const step = nextLessonStep(lessonHit.unit, lessonHit.lesson.id, passed);
+          if (step) go(step.href);
+        }}
+        nextLabel={nextLessonStep(lessonHit.unit, lessonHit.lesson.id, passed)?.kind === "talk" ? t("unit.talk") : t("lesson.next")}
         learned={lessonTargets(lessonHit.lesson).map((id) => getLearnable(id)?.hanzi).filter((hanzi): hanzi is string => !!hanzi)}
         accent={lessonHit.unit.color}
       />
@@ -75,11 +78,6 @@ export default function LessonPage() {
       accent={reviewHit!.unit.color}
     />
   );
-}
-
-function nextAfterLesson(unit: { id: string; lessons: { id: string; order: number }[]; teacherTalk: { id: string } }, order: number): string {
-  const following = unit.lessons.find((lesson) => lesson.order === order + 1);
-  return following ? `/lesson/${following.id}` : `/talk/${unit.teacherTalk.id}`;
 }
 
 function nextUnitHref(unitId: string): string | null {

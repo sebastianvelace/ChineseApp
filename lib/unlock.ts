@@ -1,4 +1,4 @@
-import { getLearnable, getUnit } from "./content";
+import { allUnits, getLearnable, getUnit } from "./content";
 import type { Lesson, Unit } from "./types";
 
 export type Resume = {
@@ -21,6 +21,20 @@ export function lessonStatus(unit: Unit, lesson: Lesson, passed: Record<string, 
   if (lesson.order === 1) return "available";
   const previous = unit.lessons.find((item) => item.order === lesson.order - 1);
   return previous && passed[previous.id] ? "available" : "locked";
+}
+
+export function nextLessonStep(unit: Unit, lessonId: string, passed: Record<string, unknown>): { href: string; kind: "lesson" | "talk" } | null {
+  const lesson = unit.lessons.find((item) => item.id === lessonId);
+  if (!lesson) return null;
+  const following = unit.lessons.find((item) => item.order === lesson.order + 1);
+  if (following) return { href: `/lesson/${following.id}`, kind: "lesson" };
+  const withThis = { ...passed, [lesson.id]: passed[lesson.id] ?? true };
+  const nextUnit = allUnits().find((item) => item.requiresUnitId === unit.id);
+  const first = nextUnit?.lessons[0];
+  if (nextUnit && first && lessonStatus(nextUnit, first, withThis) === "available") {
+    return { href: `/lesson/${first.id}`, kind: "lesson" };
+  }
+  return { href: `/talk/${unit.teacherTalk.id}`, kind: "talk" };
 }
 
 export function extraStatus(unit: Unit, nodeId: string, passed: Record<string, unknown>): "locked" | "available" | "passed" {
