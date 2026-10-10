@@ -575,7 +575,7 @@ function Choice({
     <button
       type="button"
       aria-pressed={selected}
-      className={`min-h-12 rounded-xl border-2 bg-white px-4 py-3 text-left text-base font-semibold ${border}`}
+      className={`select-ease min-h-12 rounded-xl border-2 bg-white px-4 py-3 text-left text-base font-semibold ${border}`}
       disabled={disabled}
       onClick={onClick}
     >

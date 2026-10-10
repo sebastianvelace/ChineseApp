@@ -108,7 +108,7 @@ function Deck() {
           const mark = !feedback ? null : option.value === correctValue ? "correct" : selected === option.value ? "wrong" : null;
           const border = mark === "correct" ? "border-[#1F8A70]" : mark === "wrong" ? "border-[#9F1239]" : selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]";
           return (
-            <button type="button" key={option.value} aria-pressed={selected === option.value} disabled={!!feedback} className={`min-h-12 rounded-xl border-2 bg-white px-4 text-left text-base font-semibold ${border}`} onClick={() => setSelected(option.value)}>
+            <button type="button" key={option.value} aria-pressed={selected === option.value} disabled={!!feedback} className={`select-ease min-h-12 rounded-xl border-2 bg-white px-4 text-left text-base font-semibold ${border}`} onClick={() => setSelected(option.value)}>
               {option.label}
             </button>
           );
