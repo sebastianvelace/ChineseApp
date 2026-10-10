@@ -390,9 +390,9 @@ function Card({
         <div className="choice-grid">
           {item.options.map((option) => {
             const label = item.type === "meaning" ? gloss(option, locale) : option;
-            const value = item.type === "meaning" ? option : option;
+            const correctValue = item.type === "meaning" ? item.itemId : getLearnable(item.itemId)?.pinyin ?? "";
             return (
-              <Choice key={option} label={label} selected={selected === value} disabled={!!checked} onClick={() => onSelect(value)} />
+              <Choice key={option} label={label} selected={selected === option} verdict={verdict(checked, selected, option, correctValue)} disabled={!!checked} onClick={() => onSelect(option)} />
             );
           })}
         </div>
@@ -411,7 +411,7 @@ function Card({
         </p>
         <div className="choice-grid">
           {item.options.map((option) => (
-            <Choice key={option} label={option} selected={selected === option} disabled={!!checked} onClick={() => onSelect(option)} />
+            <Choice key={option} label={option} selected={selected === option} verdict={verdict(checked, selected, option, tokens[item.blankAt]?.text ?? "")} disabled={!!checked} onClick={() => onSelect(option)} />
           ))}
         </div>
       </div>
@@ -427,7 +427,7 @@ function Card({
         <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p>
         <div className="choice-grid">
           {[1, 2, 3, 4, 5].map((tone) => (
-            <Choice key={tone} label={t(`tone.${tone}`)} selected={selected === String(tone)} disabled={!!checked} onClick={() => onSelect(String(tone))} />
+            <Choice key={tone} label={t(`tone.${tone}`)} selected={selected === String(tone)} verdict={verdict(checked, selected, String(tone), String(item.tone))} disabled={!!checked} onClick={() => onSelect(String(tone))} />
           ))}
         </div>
       </div>
@@ -443,7 +443,7 @@ function Card({
           {item.options.map((id) => {
             const radical = allRadicals().find((row) => row.id === id);
             const label = radical ? `${radical.variant} · ${radical.gloss[locale]}` : id;
-            return <Choice key={id} label={label} selected={selected === id} disabled={!!checked} onClick={() => onSelect(id)} />;
+            return <Choice key={id} label={label} selected={selected === id} verdict={verdict(checked, selected, id, item.radicalId)} disabled={!!checked} onClick={() => onSelect(id)} />;
           })}
         </div>
       </div>
@@ -547,12 +547,32 @@ function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; 
   );
 }
 
-function Choice({ label, selected, disabled, onClick }: { label: string; selected: boolean; disabled: boolean; onClick: () => void }) {
+function verdict(checked: { ok: boolean } | null, selected: string | null, value: string, correct: string): "correct" | "wrong" | null {
+  if (!checked) return null;
+  if (value === correct) return "correct";
+  if (selected === value) return "wrong";
+  return null;
+}
+
+function Choice({
+  label,
+  selected,
+  verdict: mark,
+  disabled,
+  onClick,
+}: {
+  label: string;
+  selected: boolean;
+  verdict: "correct" | "wrong" | null;
+  disabled: boolean;
+  onClick: () => void;
+}) {
+  const border = mark === "correct" ? "border-[#1F8A70]" : mark === "wrong" ? "border-[#9F1239]" : selected ? "border-[#1C1917]" : "border-[#E7E0D6]";
   return (
     <button
       type="button"
       aria-pressed={selected}
-      className={`min-h-12 rounded-xl border px-4 py-3 text-left text-base font-semibold ${selected ? "border-[#1C1917] bg-white" : "border-[#E7E0D6] bg-white"}`}
+      className={`min-h-12 rounded-xl border-2 bg-white px-4 py-3 text-left text-base font-semibold ${border}`}
       disabled={disabled}
       onClick={onClick}
     >

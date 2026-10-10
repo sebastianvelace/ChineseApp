@@ -100,11 +100,16 @@ function Deck() {
       <p className={`mt-2 text-center text-[64px] font-medium leading-none ${card.cardType === "hanzi" ? "" : "font-[family-name:var(--font-hanzi)]"}`}>{card.cardType === "hanzi" ? item?.gloss[locale] : item?.hanzi}</p>
       {card.cardType === "meaning" && pinyin ? <p className="mt-2 text-center text-[#57534E]">{item?.pinyin}</p> : null}
       <div className="choice-grid">
-        {options.map((option) => (
-          <button type="button" key={option.value} aria-pressed={selected === option.value} disabled={!!feedback} className={`min-h-12 rounded-xl border bg-white px-4 text-left font-semibold ${selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]"}`} onClick={() => setSelected(option.value)}>
-            {option.label}
-          </button>
-        ))}
+        {options.map((option) => {
+          const correctValue = card.cardType === "pinyin" ? item?.pinyin ?? "" : card.itemId;
+          const mark = !feedback ? null : option.value === correctValue ? "correct" : selected === option.value ? "wrong" : null;
+          const border = mark === "correct" ? "border-[#1F8A70]" : mark === "wrong" ? "border-[#9F1239]" : selected === option.value ? "border-[#1C1917]" : "border-[#E7E0D6]";
+          return (
+            <button type="button" key={option.value} aria-pressed={selected === option.value} disabled={!!feedback} className={`min-h-12 rounded-xl border-2 bg-white px-4 text-left text-base font-semibold ${border}`} onClick={() => setSelected(option.value)}>
+              {option.label}
+            </button>
+          );
+        })}
       </div>
       {feedback ? <p className={`mt-4 text-lg font-semibold ${feedback.ok ? "text-[#1F8A70]" : "text-[#9F1239]"}`}>{feedback.ok ? t("lesson.correct") : t("lesson.wrong")} · {feedback.answer}</p> : null}
       <button
