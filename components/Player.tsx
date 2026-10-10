@@ -376,8 +376,8 @@ function Card({
     if (!sentence) return null;
     return (
       <article className="rounded-2xl bg-white p-5">
-        {sentence.speaker ? <p className="text-sm font-semibold text-[#E25B45]">{sentence.speaker}</p> : null}
-        <p className="font-[family-name:var(--font-hanzi)] text-2xl leading-9">{sentence.hanzi}</p>
+        {sentence.speaker ? <p className="text-base font-semibold text-[#57534E]">{sentence.speaker}</p> : null}
+        <p className="mt-3 font-[family-name:var(--font-hanzi)] text-[64px] font-medium leading-tight">{sentence.hanzi}</p>
         {showPinyin ? <p className="mt-2 text-lg text-[#57534E]">{sentence.pinyin}</p> : null}
         <p className="mt-3">{sentence.translation[locale]}</p>
       </article>
