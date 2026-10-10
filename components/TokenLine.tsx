@@ -31,9 +31,9 @@ export function TokenLine({ tokens }: { tokens: Token[] }) {
         )}
       </div>
       {item ? (
-        <p className="mt-2 rounded-xl bg-[#F7F3EC] px-3 py-2 text-sm text-[#57534E]">
+        <p className="mt-2 rounded-xl bg-[#F7F3EC] px-3 py-2 text-base text-[#57534E]">
           <span className="font-[family-name:var(--font-hanzi)] text-base text-[#1C1917]">{item.hanzi}</span>
-          {pinyin ? ` ${item.pinyin}` : ""} · {item.gloss[locale]}
+          {pinyin ? <span className="text-lg"> {item.pinyin}</span> : null} · {item.gloss[locale]}
         </p>
       ) : null}
     </div>

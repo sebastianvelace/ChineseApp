@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -23,17 +24,27 @@ export default function WordPage() {
   if (!ready || missing) return <LoadingRows />;
   const example = exampleSentence(item);
   const dictionary = item.senses[0]?.dictionaryExample;
+  const radicals = [...item.hanzi].flatMap((char) => {
+    const radical = radicalFor(char);
+    return radical ? [radical] : [];
+  }).filter((radical, index, list) => list.findIndex((row) => row.id === radical.id) === index);
   return (
     <main className="px-5 py-6">
-      <Link href="/practice" className="text-sm font-semibold text-[#57534E]">‹</Link>
+      <Link href="/practice" aria-label={t("lesson.back")} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]">
+        <ChevronLeft size={22} aria-hidden />
+      </Link>
       <p className="mt-4 text-center font-[family-name:var(--font-hanzi)] text-7xl">{item.hanzi}</p>
       {pinyin ? <p className="mt-2 text-center text-lg text-[#57534E]">{item.pinyin}</p> : null}
       <p className="mt-3 text-center text-lg">{item.gloss[locale]}</p>
-      {[...item.hanzi].map((char) => radicalFor(char)).filter(Boolean).slice(0, 1).map((radical) => (
-        <p key={radical!.id} className="mx-auto mt-4 max-w-sm text-sm leading-5 text-[#57534E]">
-          <span className="font-[family-name:var(--font-hanzi)] text-base text-[#1C1917]">{radical!.variant}</span> · {radical!.gloss[locale]}. {radical!.hint[locale]}
-        </p>
-      ))}
+      {radicals.length ? (
+        <ul className="mx-auto mt-4 flex max-w-sm flex-col gap-2">
+          {radicals.map((radical) => (
+            <li key={radical.id} className="rounded-2xl bg-white px-4 py-3 text-base leading-6 text-[#57534E]">
+              <span className="font-[family-name:var(--font-hanzi)] text-[22px] text-[#1C1917]">{radical.variant}</span> · {radical.gloss[locale]}. {radical.hint[locale]}
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {item.senses.slice(1).map((sense) => (
         <p key={sense.id} className="mt-2 text-center text-[#57534E]">{t("word.also")}: {sense.gloss[locale]}</p>
       ))}
@@ -51,16 +62,16 @@ export default function WordPage() {
         </article>
       ) : null}
       {dictionary ? (
-        <article className="mt-3 rounded-2xl border border-[#E7E0D6] bg-[#F3EFE8] px-4 py-3 text-sm text-[#57534E]">
-          <p className="text-xs font-semibold uppercase tracking-wide">{t("word.dictionary")}</p>
+        <article className="mt-3 rounded-2xl border border-[#E7E0D6] bg-[#F3EFE8] px-4 py-3 text-[#57534E]">
+          <p className="text-sm font-semibold uppercase tracking-wide">{t("word.dictionary")}</p>
           {dictionary.lines.map((line, i) => (
             <div key={i} className="mt-2">
-              {line.speaker ? <p className="text-xs font-semibold">{line.speaker}</p> : null}
+              {line.speaker ? <p className="text-sm font-semibold">{line.speaker}</p> : null}
               {line.tokens ? <TokenLine tokens={line.tokens} /> : <p className="font-[family-name:var(--font-hanzi)] text-[22px]">{line.hanzi}</p>}
               {pinyin && line.pinyin ? <p className="text-lg">{line.pinyin}</p> : null}
             </div>
           ))}
-          <p className="mt-2">{dictionary.translation[locale]}</p>
+          <p className="mt-2 text-base">{dictionary.translation[locale]}</p>
         </article>
       ) : null}
       {cards.some((card) => card.itemId === item.id) ? (

@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronRight, Lock } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Lock } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -24,11 +24,13 @@ export default function UnitPage() {
     setBlocked(true);
   }
   if (!ready) return <LoadingRows />;
-  if (!unit) return <p className="p-6">Missing unit.</p>;
+  if (!unit) return <p className="p-6 text-base">{t("missing.unit")}</p>;
   if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
   return (
     <main className="px-5 py-6" style={{ background: `${unit.color}1f` }}>
-      <Link href="/learn" className="text-sm font-semibold text-[#57534E]">‹</Link>
+      <Link href="/learn" aria-label={t("lesson.back")} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]">
+        <ChevronLeft size={22} aria-hidden />
+      </Link>
       <h1 className="mt-2 text-3xl font-bold">{unit.title[locale]}</h1>
       <ul className="mt-6 flex flex-col gap-3">
         {unit.lessons.map((lesson) => {

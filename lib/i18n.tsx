@@ -84,6 +84,9 @@ const STR: Record<Locale, Record<string, string>> = {
     "offline.lesson": "This lesson isn't on this phone yet.",
     "locked.body": "Finish the previous lesson to open this one.",
     "talk.done": "Done",
+    "missing.lesson": "That lesson isn't in this course.",
+    "missing.unit": "That unit isn't in this course.",
+    "missing.talk": "That note isn't in this course.",
     "loading": "Loading…",
   },
   es: {
@@ -167,6 +170,9 @@ const STR: Record<Locale, Record<string, string>> = {
     "offline.lesson": "Esta lección todavía no está en este teléfono.",
     "locked.body": "Termina la lección anterior para abrir esta.",
     "talk.done": "Listo",
+    "missing.lesson": "Esa lección no está en este curso.",
+    "missing.unit": "Esa unidad no está en este curso.",
+    "missing.talk": "Esa nota no está en este curso.",
     "loading": "Cargando…",
   },
 };

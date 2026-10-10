@@ -24,7 +24,7 @@ export default function TalkPage() {
   if (hit && replay.current === null) replay.current = !!passed[hit.talk.id];
   if (!ready || saved === "loading") return <p className="p-6">{t("loading")}</p>;
   if (saved === "missing") return <OfflineLesson />;
-  if (!hit) return <p className="p-6">Missing talk.</p>;
+  if (!hit) return <p className="p-6 text-base">{t("missing.talk")}</p>;
   if (extraStatus(hit.unit, hit.talk.id, passed) === "locked") {
     return (
       <main className="px-6 py-16">

@@ -35,7 +35,7 @@ export default function LessonPage() {
 
   const lessonHit = findLesson(params.lessonId);
   const reviewHit = findReview(params.lessonId);
-  if (!lessonHit && !reviewHit) return <p className="p-6">Missing lesson.</p>;
+  if (!lessonHit && !reviewHit) return <p className="p-6 text-base">{t("missing.lesson")}</p>;
 
   if (lessonHit) {
     const status = lessonStatus(lessonHit.unit, lessonHit.lesson, passed);
