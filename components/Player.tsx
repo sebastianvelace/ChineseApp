@@ -143,7 +143,7 @@ export function Player({
       const token = sentence ? contentTokens(sentence)[item.blankAt] : undefined;
       const answer = token?.text ?? "";
       const tokenId = token?.wordId ?? token?.supportId;
-      finish(selected === answer, answer, tokenId ? gloss(tokenId, locale) : "", tokenId ? [tokenId] : []);
+      finish(selected === answer, answer, tokenId ? gloss(tokenId, locale) : "", tokenId && keepsCards(tokenId) ? [tokenId] : []);
       return;
     }
     if (item.type === "build") {
