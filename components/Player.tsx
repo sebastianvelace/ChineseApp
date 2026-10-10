@@ -1,7 +1,7 @@
 "use client";
 
 import { Flame, X } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Sheet } from "@/components/Sheet";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
@@ -61,6 +61,9 @@ export function Player({
   const answeredLock = useRef(false);
   const outcomes = useRef<{ itemId: string; ok: boolean }[]>([]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [index]);
   const current = queue[index];
   if (phase === "end" || !current) {
     const passed = ratio >= 0.8;

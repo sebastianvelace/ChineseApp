@@ -44,6 +44,9 @@ function Deck() {
   useLayoutEffect(() => {
     setShownAt(Date.now());
   }, [index]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [index]);
   const [remembered, setRemembered] = useState(0);
   const [missed, setMissed] = useState(0);
   const [feedback, setFeedback] = useState<{ ok: boolean; answer: string } | null>(null);
