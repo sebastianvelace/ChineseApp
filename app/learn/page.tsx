@@ -1,8 +1,8 @@
 "use client";
 
-import { Check, Flame } from "lucide-react";
+import { Check, Flame, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingRows } from "@/components/LoadingRows";
 import { OfflineLesson } from "@/components/OfflineLesson";
 import { trackById } from "@/lib/content";
@@ -15,6 +15,10 @@ export default function LearnPage() {
   const { ready, track, setTrack, streak, xpToday, dailyGoal, locale, passed, freezeNotice, dismissFreezeNotice } = useProgress();
   const t = useT();
   const [blocked, setBlocked] = useState(false);
+  const [banner, setBanner] = useState(false);
+  useEffect(() => {
+    setBanner(sessionStorage.getItem("hanlu-local-banner") !== "off");
+  }, []);
   if (!ready) return <LoadingRows />;
   if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
   const units = trackById(track)?.levels[0]?.units ?? [];
@@ -34,7 +38,22 @@ export default function LearnPage() {
           {t("streak.freezeUsed")}
         </button>
       ) : null}
-      <p className="mt-3 rounded-2xl bg-white px-4 py-3 text-sm text-[#57534E]">{t("local.banner")}</p>
+      {banner ? (
+        <div className="mt-3 flex items-start gap-3 rounded-2xl bg-white px-4 py-3 text-sm text-[#57534E]">
+          <p className="flex-1">{t("local.banner")}</p>
+          <button
+            type="button"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+            aria-label={t("sheet.close")}
+            onClick={() => {
+              sessionStorage.setItem("hanlu-local-banner", "off");
+              setBanner(false);
+            }}
+          >
+            <X size={16} aria-hidden />
+          </button>
+        </div>
+      ) : null}
       <div className="mt-4 grid grid-cols-2 gap-2">
         <button className={`min-h-11 rounded-full font-semibold ${track === "hsk" ? "bg-[#1C1917] text-white" : "bg-white"}`} onClick={() => setTrack("hsk")}>
           {t("track.hsk")}
