@@ -63,7 +63,7 @@ export function Player({
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [index]);
+  }, [index, phase]);
   const current = queue[index];
   if (phase === "end" || !current) {
     const passed = ratio >= 0.8;
