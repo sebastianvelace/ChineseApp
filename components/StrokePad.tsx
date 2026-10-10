@@ -82,9 +82,16 @@ export function StrokePad({
         <button
           className="btn-ghost mt-4"
           onClick={() => {
-            writer.current?.cancelQuiz();
-            writer.current?.animateCharacter();
-            onResultRef.current(false);
+            const pad = writer.current;
+            pad?.cancelQuiz();
+            let settled = false;
+            const finish = () => {
+              if (settled) return;
+              settled = true;
+              onResultRef.current(false);
+            };
+            pad?.animateCharacter({ onComplete: finish });
+            window.setTimeout(finish, 5000);
           }}
         >
           {t("stroke.giveUp")}
