@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { LoadingRows } from "@/components/LoadingRows";
 import { StrokeReplay } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
 import { exampleSentence, getLearnable, radicalFor } from "@/lib/content";
@@ -10,17 +12,15 @@ import { useProgress } from "@/lib/progress";
 
 export default function WordPage() {
   const params = useParams<{ itemId: string }>();
+  const router = useRouter();
   const item = getLearnable(params.itemId);
-  const { locale, pinyin, seen } = useProgress();
+  const { ready, locale, pinyin, seen } = useProgress();
   const t = useT();
-  if (!item || !seen.has(item.id)) {
-    return (
-      <main className="px-6 py-16">
-        <p>{t("practice.noWords")}</p>
-        <Link href="/practice" className="mt-4 inline-block font-semibold text-[#E25B45]">{t("lesson.back")}</Link>
-      </main>
-    );
-  }
+  const missing = !item || !seen.has(item.id);
+  useEffect(() => {
+    if (ready && missing) router.replace("/practice");
+  }, [ready, missing, router]);
+  if (!ready || missing) return <LoadingRows />;
   const example = exampleSentence(item);
   const dictionary = item.senses[0]?.dictionaryExample;
   return (
