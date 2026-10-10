@@ -27,7 +27,7 @@ export default function WordPage() {
     <main className="px-5 py-6">
       <Link href="/practice" className="text-sm font-semibold text-[#57534E]">‹</Link>
       <p className="mt-4 text-center font-[family-name:var(--font-hanzi)] text-7xl">{item.hanzi}</p>
-      {pinyin ? <p className="mt-2 text-center text-xl text-[#57534E]">{item.pinyin}</p> : null}
+      {pinyin ? <p className="mt-2 text-center text-lg text-[#57534E]">{item.pinyin}</p> : null}
       <p className="mt-3 text-center text-lg">{item.gloss[locale]}</p>
       {[...item.hanzi].map((char) => radicalFor(char)).filter(Boolean).slice(0, 1).map((radical) => (
         <p key={radical!.id} className="mx-auto mt-4 max-w-sm text-sm leading-5 text-[#57534E]">
@@ -46,7 +46,7 @@ export default function WordPage() {
       {example ? (
         <article className="mt-6 rounded-2xl bg-white p-4">
           <TokenLine tokens={example.tokens} />
-          {pinyin ? <p className="text-sm text-[#57534E]">{example.pinyin}</p> : null}
+          {pinyin ? <p className="text-lg text-[#57534E]">{example.pinyin}</p> : null}
           <p className="mt-2">{example.translation[locale]}</p>
         </article>
       ) : null}
@@ -57,7 +57,7 @@ export default function WordPage() {
             <div key={i} className="mt-2">
               {line.speaker ? <p className="text-xs font-semibold">{line.speaker}</p> : null}
               {line.tokens ? <TokenLine tokens={line.tokens} /> : <p className="font-[family-name:var(--font-hanzi)] text-[22px]">{line.hanzi}</p>}
-              {pinyin && line.pinyin ? <p>{line.pinyin}</p> : null}
+              {pinyin && line.pinyin ? <p className="text-lg">{line.pinyin}</p> : null}
             </div>
           ))}
           <p className="mt-2">{dictionary.translation[locale]}</p>

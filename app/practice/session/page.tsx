@@ -98,7 +98,7 @@ function Deck() {
         <p className="text-sm font-semibold tabular-nums text-[#57534E]">{done}/{total}</p>
       </div>
       <p className={card.cardType === "hanzi" ? "mt-2 text-center text-4xl font-semibold leading-tight" : "mt-2 text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium leading-none"}>{card.cardType === "hanzi" ? item?.gloss[locale] : item?.hanzi}</p>
-      {card.cardType === "meaning" && pinyin ? <p className="mt-2 text-center text-[#57534E]">{item?.pinyin}</p> : null}
+      {card.cardType === "meaning" && pinyin ? <p className="mt-2 text-center text-lg text-[#57534E]">{item?.pinyin}</p> : null}
       <div className="choice-grid">
         {options.map((option) => {
           const correctValue = card.cardType === "pinyin" ? item?.pinyin ?? "" : card.itemId;
