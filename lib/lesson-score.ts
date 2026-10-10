@@ -1,3 +1,13 @@
+/** Word ids in a sentence, once each, in token order. */
+export function sentenceWordIds(tokens: readonly { wordId?: string; supportId?: string }[]): string[] {
+  const ids: string[] = [];
+  for (const token of tokens) {
+    const id = token.wordId ?? token.supportId;
+    if (id && !ids.includes(id)) ids.push(id);
+  }
+  return ids;
+}
+
 /** Same characters in order. Two identical tiles can swap without failing. */
 export function buildMatches(placed: readonly string[], tokens: readonly { text: string }[]): boolean {
   const placedText = placed.map((key) => tokens[Number(key)]?.text ?? "").join("");

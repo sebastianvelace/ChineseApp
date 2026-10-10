@@ -58,6 +58,11 @@ export function getDialogue(id: string) {
   return dialogues.find((d) => d.id === id);
 }
 
+export function keepsCards(id: string): boolean {
+  if (wordById.has(id)) return true;
+  return supportById.get(id)?.srs === true;
+}
+
 export function getLearnable(id: string): Learnable | undefined {
   const word = wordById.get(id);
   if (word) {

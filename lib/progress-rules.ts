@@ -1,3 +1,4 @@
+import { keepsCards } from "./content";
 import { deferExtraNewCards } from "./practice-queue";
 import { applyLessonRatings, cardKey, freshCard, rateCard, type CardType, type LessonRating, type SavedCard } from "./srs";
 import type { Grade } from "ts-fsrs";
@@ -162,10 +163,12 @@ export function passNode(
   let cards = state.cards;
   let reviews = state.reviews;
   if (kind === "lesson" && info) {
-    cards = ensureCards(cards, info.itemIds, dayNow, now);
-    if (!already && info.ratings?.length) {
-      cards = applyLessonRatings(cards, info.ratings);
-      reviews = [...reviews, ...lessonReviewRows(nodeId, info.ratings, now.toISOString(), reviews)];
+    cards = ensureCards(cards, info.itemIds.filter((id) => keepsCards(id)), dayNow, now);
+    const rated = new Set(cards.map((card) => card.itemId));
+    const ratings = (info.ratings ?? []).filter((row) => rated.has(row.itemId));
+    if (!already && ratings.length) {
+      cards = applyLessonRatings(cards, ratings);
+      reviews = [...reviews, ...lessonReviewRows(nodeId, ratings, now.toISOString(), reviews)];
     }
     cards = deferExtraNewCards(cards, seen, dayNow);
   }

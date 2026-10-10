@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { assembleLesson, pinyinChoices } from "./assemble";
-import { findLesson, getLearnable, getSentence } from "./content";
+import { findLesson, getLearnable, getSentence, keepsCards } from "./content";
 
 function hanzi(id: string): string {
   return getLearnable(id)?.hanzi ?? id;
@@ -141,4 +141,10 @@ test("a number set is one teach card, with pinyin on 1, 3, 5, and the last", () 
   assert.ok(toneHanzi.includes("一"));
   const build = items.find((item) => item.type === "build");
   assert.ok(build && build.type === "build");
+});
+
+test("gloss-only support does not get practice cards", () => {
+  assert.equal(keepsCards("hsk1-w072"), true);
+  assert.equal(keepsCards("sup-ba"), true);
+  assert.equal(keepsCards("sup-men5"), false);
 });

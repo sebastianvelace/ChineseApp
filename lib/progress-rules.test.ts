@@ -116,6 +116,27 @@ test("practice counts toward the streak only after the daily goal", () => {
   assert.deepEqual(daysThatCount(state), [localDay(now)]);
 });
 
+test("gloss-only support is seen and does not get cards", () => {
+  const state = passNode(
+    emptyProgress(),
+    "ev-u06-l3",
+    "lesson",
+    {
+      ratio: 1,
+      correct: 1,
+      itemIds: ["sup-ba", "sup-men5"],
+      ratings: [
+        { itemId: "sup-ba", rating: 3 },
+        { itemId: "sup-men5", rating: 1 },
+      ],
+    },
+    on(1),
+  );
+  assert.deepEqual(state.seen.map((row) => row.id), ["sup-ba", "sup-men5"]);
+  assert.deepEqual([...new Set(state.cards.map((card) => card.itemId))], ["sup-ba"]);
+  assert.equal(state.reviews.every((row) => row.itemId === "sup-ba"), true);
+});
+
 test("one practice point does not fill the week", () => {
   const now = on(1);
   const card = freshCard("hsk1-w072", "meaning", localDay(now), now);
