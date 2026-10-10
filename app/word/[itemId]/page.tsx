@@ -14,7 +14,7 @@ export default function WordPage() {
   const params = useParams<{ itemId: string }>();
   const router = useRouter();
   const item = getLearnable(params.itemId);
-  const { ready, locale, pinyin, seen } = useProgress();
+  const { ready, locale, pinyin, seen, cards } = useProgress();
   const t = useT();
   const missing = !item || !seen.has(item.id);
   useEffect(() => {
@@ -63,7 +63,9 @@ export default function WordPage() {
           <p className="mt-2">{dictionary.translation[locale]}</p>
         </article>
       ) : null}
-      <Link href={`/practice/session?item=${item.id}`} className="btn-primary mt-6 inline-flex items-center justify-center">{t("word.practice")}</Link>
+      {cards.some((card) => card.itemId === item.id) ? (
+        <Link href={`/practice/session?item=${item.id}`} className="btn-primary mt-6 inline-flex items-center justify-center">{t("word.practice")}</Link>
+      ) : null}
     </main>
   );
 }
