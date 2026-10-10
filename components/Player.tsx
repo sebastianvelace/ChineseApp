@@ -236,7 +236,7 @@ export function Player({
           onResolved={(ok, answer) => finish(ok, answer)}
         />
       </div>
-      <div className="sticky bottom-0 bg-[#F7F3EC] py-4">
+      <div className="mt-auto bg-[#F7F3EC] py-4">
         {checked ? (
           <div className="mb-3 rounded-2xl bg-white px-4 py-3">
             <p className={checked.ok ? "font-semibold text-[#1F8A70]" : "font-semibold text-[#9F1239]"}>
@@ -470,14 +470,14 @@ function Card({
       <p className="text-lg">{sentence?.translation[locale]}</p>
       <div className="mt-4 flex min-h-16 flex-wrap gap-2 rounded-2xl bg-white p-3">
         {placed.map((key) => (
-          <button key={key} className="tile" disabled={!!checked} onClick={() => onPlace(placed.filter((k) => k !== key))}>
+          <button type="button" key={key} className="tile" disabled={!!checked} onClick={() => onPlace(placed.filter((k) => k !== key))}>
             {byKey.get(key)?.text}
           </button>
         ))}
       </div>
       <div className="mt-4 flex flex-wrap gap-2">
         {bank.map((tile) => (
-          <button key={tile.key} className="tile" disabled={!!checked} onClick={() => onPlace([...placed, tile.key])}>
+          <button type="button" key={tile.key} className="tile" disabled={!!checked} onClick={() => onPlace([...placed, tile.key])}>
             {tile.text}
           </button>
         ))}
