@@ -42,7 +42,8 @@ export default function PracticePage() {
         </div>
       )}
       <h2 className="mt-8 font-semibold">{t("practice.words")} · {words.length}</h2>
-      <input className="mt-3 w-full rounded-xl border border-[#E7E0D6] bg-white px-4 py-3" placeholder={t("practice.search")} value={query} onChange={(e) => setQuery(e.target.value)} />
+      <input className="mt-3 w-full rounded-xl border border-[#E7E0D6] bg-white px-4 py-3 text-base" type="search" aria-label={t("practice.search")} placeholder={t("practice.search")} value={query} onChange={(e) => setQuery(e.target.value)} />
+      {query.trim() && filtered.length === 0 ? <p className="mt-3 text-base text-[#57534E]">{t("practice.noMatch")}</p> : null}
       <ul className="mt-3 flex flex-col gap-2">
         {filtered.map((item) => (
           <li key={item.id}>
