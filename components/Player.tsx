@@ -409,11 +409,18 @@ function Card({
   if (item.type === "blank") {
     const sentence = getSentence(item.sentenceId);
     const tokens = sentence ? contentTokens(sentence) : [];
+    let contentIndex = -1;
     return (
       <div>
         <p className="text-lg">{sentence?.translation[locale]}</p>
         <p className="mt-4 font-[family-name:var(--font-hanzi)] text-2xl leading-9">
-          {tokens.map((token, i) => (i === item.blankAt ? " ____ " : token.text)).join("")}
+          {(sentence?.tokens ?? []).map((token, i) => {
+            if (token.kind === "punct") return <span key={i}>{token.text}</span>;
+            contentIndex += 1;
+            if (contentIndex !== item.blankAt) return <span key={i}>{token.text}</span>;
+            if (!checked) return <span key={i}>____</span>;
+            return <span key={i} className="text-[#1F8A70]">{token.text}</span>;
+          })}
         </p>
         <div className="choice-grid">
           {item.options.map((option) => (
@@ -481,6 +488,7 @@ function Card({
           </button>
         ))}
       </div>
+      {checked && sentence ? <p className="mt-3 font-[family-name:var(--font-hanzi)] text-[22px] font-medium leading-8">{sentence.hanzi}</p> : null}
       <div className="mt-4 flex flex-wrap gap-2">
         {bank.map((tile) => (
           <button type="button" key={tile.key} className="tile" disabled={!!checked} onClick={() => onPlace([...placed, tile.key])}>
