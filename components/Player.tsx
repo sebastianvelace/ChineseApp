@@ -428,7 +428,7 @@ function Card({
     const row = getLearnable(item.itemId);
     return (
       <div>
-        <p className="text-center text-sm text-[#57534E]">{t("tone.prompt")}</p>
+        <p className="text-center text-base text-[#57534E]">{t("tone.prompt")}</p>
         <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{row?.hanzi}</p>
         <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p>
         <div className="choice-grid">
@@ -443,7 +443,7 @@ function Card({
   if (item.type === "radical") {
     return (
       <div>
-        <p className="text-center text-sm text-[#57534E]">{t("radical.prompt")}</p>
+        <p className="text-center text-base text-[#57534E]">{t("radical.prompt")}</p>
         <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{item.char}</p>
         <div className="choice-grid">
           {item.options.map((id) => {
@@ -481,7 +481,11 @@ function Card({
           </button>
         ))}
       </div>
-      {checked && sentence ? <p className="mt-3 font-[family-name:var(--font-hanzi)] text-[22px] font-medium leading-8">{sentence.hanzi}</p> : null}
+      {checked && sentence ? (
+        <div className="mt-3">
+          <TokenLine tokens={sentence.tokens} size="sentence" />
+        </div>
+      ) : null}
       <div className="mt-4 flex flex-wrap gap-2">
         {bank.map((tile) => (
           <button type="button" key={tile.key} className="tile" disabled={!!checked} onClick={() => onPlace([...placed, tile.key])}>
@@ -497,8 +501,8 @@ function RadicalHint({ hanzi, locale }: { hanzi: string; locale: Locale }) {
   const radical = [...hanzi].map((char) => radicalFor(char)).find(Boolean);
   if (!radical) return null;
   return (
-    <p className="mt-3 text-left text-sm leading-5 text-[#57534E]">
-      <span className="font-[family-name:var(--font-hanzi)] text-base text-[#1C1917]">{radical.variant}</span> · {radical.gloss[locale]}. {radical.hint[locale]}
+    <p className="mt-3 text-left text-base leading-6 text-[#57534E]">
+      <span className="font-[family-name:var(--font-hanzi)] text-[22px] text-[#1C1917]">{radical.variant}</span> · {radical.gloss[locale]}. {radical.hint[locale]}
     </p>
   );
 }
