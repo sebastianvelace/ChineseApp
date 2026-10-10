@@ -7,6 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Learn Chinese, one step at a time.",
     start_url: "/",
     display: "standalone",
+    orientation: "portrait",
     background_color: "#F7F3EC",
     theme_color: "#E25B45",
     icons: [

@@ -1,11 +1,14 @@
-const CACHE = "hanlu-v3";
+const CACHE = "hanlu-v4";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches
-      .open(CACHE)
-      .then((cache) => cache.addAll(["/offline.html", "/offline-lesson.html", "/icons/icon-192.png", "/icons/icon-512.png"]))
-      .then(() => self.skipWaiting()),
+    (async () => {
+      const cache = await caches.open(CACHE);
+      const index = await fetch("/strokes/index.json").then((response) => response.json());
+      const strokes = index.map((char) => `/strokes/${encodeURIComponent(char)}.json`);
+      await cache.addAll(["/offline.html", "/offline-lesson.html", "/icons/icon-192.png", "/icons/icon-512.png", "/strokes/index.json", ...strokes]);
+      await self.skipWaiting();
+    })(),
   );
 });
 

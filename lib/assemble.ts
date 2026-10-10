@@ -1,5 +1,6 @@
 import { allRadicals, allUnits, contentTokens, findLesson, firstTone, getDialogue, getLearnable, getSentence, radicalFor } from "./content";
 import { firstNumberedTone, markPinyin, withFirstTone } from "./pinyin";
+import { pickStroke } from "./stroke-pack";
 import { shuffle } from "./shuffle";
 import type { ExerciseItem, Lesson, Review, Unit } from "./types";
 
@@ -219,13 +220,7 @@ function radicalItems(lessonId: string, targets: string[]): ExerciseItem[] {
 }
 
 function strokeTarget(targets: string[]): { char: string; itemId: string } | null {
-  for (const id of targets) {
-    const hanzi = getLearnable(id)?.hanzi ?? "";
-    if ([...hanzi].length === 1) return { char: hanzi, itemId: id };
-  }
-  const id = targets[0];
-  const char = id ? [...(getLearnable(id)?.hanzi ?? "")][0] : undefined;
-  return id && char ? { char, itemId: id } : null;
+  return pickStroke(targets.map((id) => ({ id, hanzi: getLearnable(id)?.hanzi ?? "" })));
 }
 
 export function assembleReview(unit: Unit, review: Review): ExerciseItem[] {

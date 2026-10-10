@@ -91,8 +91,8 @@ export function StrokePad({
         </button>
       ) : null}
       {state === "missing" && !disabled ? (
-        <button className="btn-primary mt-4" onClick={() => onResultRef.current(true)}>
-          {t("lesson.continue")}
+        <button className="btn-ghost mt-4" onClick={() => onResultRef.current(false)}>
+          {t("stroke.giveUp")}
         </button>
       ) : null}
     </div>
