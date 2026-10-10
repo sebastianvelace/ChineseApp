@@ -1,4 +1,4 @@
-const CACHE = "hanlu-v5";
+const CACHE = "hanlu-v6";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

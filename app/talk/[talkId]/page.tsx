@@ -12,6 +12,7 @@ import { useProgress } from "@/lib/progress";
 import { useSavedHere } from "@/lib/saved-here";
 import { talkAnswerMatches, talkChoices } from "@/lib/talk-choices";
 import { extraStatus } from "@/lib/unlock";
+import { assignIfOffline } from "@/lib/warm-shell";
 
 export default function TalkPage() {
   const params = useParams<{ talkId: string }>();
@@ -36,7 +37,7 @@ export default function TalkPage() {
     return (
       <main className="px-6 py-16">
         <h1 className="text-2xl font-bold">{t("unit.locked")}</h1>
-        <button className="btn-primary mt-6" onClick={() => router.push(`/unit/${hit.unit.id}`)}>{t("lesson.back")}</button>
+        <button className="btn-primary mt-6" onClick={() => { if (!assignIfOffline(`/unit/${hit.unit.id}`)) router.push(`/unit/${hit.unit.id}`); }}>{t("lesson.back")}</button>
       </main>
     );
   }
@@ -45,7 +46,7 @@ export default function TalkPage() {
   const leave = leaving ? (
     <Sheet title={t("lesson.leaveTitle")} closeLabel={t("sheet.close")} onClose={() => setLeaving(false)}>
       <p className="text-base text-[#57534E]">{t("lesson.leaveBody")}</p>
-      <button type="button" className="btn-primary mt-6" onClick={() => router.push(`/unit/${hit.unit.id}`)}>{t("lesson.leave")}</button>
+      <button type="button" className="btn-primary mt-6" onClick={() => { if (!assignIfOffline(`/unit/${hit.unit.id}`)) router.push(`/unit/${hit.unit.id}`); }}>{t("lesson.leave")}</button>
     </Sheet>
   ) : null;
 
@@ -54,7 +55,7 @@ export default function TalkPage() {
       <main className="px-6 py-16">
         <h1 className="text-3xl font-bold">{t("talk.done")}</h1>
         <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: replay.current ? 0 : 10 })}</p>
-        <button className="btn-primary mt-8" onClick={() => router.push(`/unit/${hit.unit.id}`)}>{t("lesson.back")}</button>
+        <button className="btn-primary mt-8" onClick={() => { if (!assignIfOffline(`/unit/${hit.unit.id}`)) router.push(`/unit/${hit.unit.id}`); }}>{t("lesson.back")}</button>
       </main>
     );
   }

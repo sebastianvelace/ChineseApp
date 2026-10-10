@@ -13,6 +13,12 @@ export function openOffline(event: { preventDefault: () => void; defaultPrevente
   window.location.assign(href);
 }
 
+export function assignIfOffline(href: string): boolean {
+  if (typeof navigator === "undefined" || navigator.onLine) return false;
+  window.location.assign(href);
+  return true;
+}
+
 export function staticAssetUrls(html: string): string[] {
   return [...html.matchAll(/(?:src|href)="(\/_next\/static\/[^"]+)"/g)].map((match) => match[1].replaceAll("&amp;", "&"));
 }

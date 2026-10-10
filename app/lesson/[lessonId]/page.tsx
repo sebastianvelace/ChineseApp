@@ -10,6 +10,7 @@ import { allUnits, findLesson, findReview, getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { canOpenOffline, useSavedHere } from "@/lib/saved-here";
+import { assignIfOffline } from "@/lib/warm-shell";
 import { extraStatus, lessonStatus, nextLessonStep } from "@/lib/unlock";
 
 export default function LessonPage() {
@@ -27,6 +28,7 @@ export default function LessonPage() {
       setBlocked(true);
       return;
     }
+    if (assignIfOffline(href)) return;
     router.push(href);
   }
   if (!ready || saved === "loading") return <p className="p-6">{t("loading")}</p>;

@@ -12,6 +12,7 @@ import { useProgress } from "@/lib/progress";
 import { practiceQueue, wordSession } from "@/lib/practice-queue";
 import { shuffle } from "@/lib/shuffle";
 import { practiceRating, type SavedCard } from "@/lib/srs";
+import { assignIfOffline } from "@/lib/warm-shell";
 
 export default function SessionPage() {
   return (
@@ -62,7 +63,7 @@ function Deck() {
       <main className="px-6 py-16">
         <h1 className="text-3xl font-bold">{t("practice.none")}</h1>
         <p className="mt-2 text-base text-[#57534E]">{seen.size ? t("practice.noneBody") : t("practice.noWords")}</p>
-        <button type="button" className="btn-primary mt-8" onClick={() => router.push("/practice")}>{t("talk.done")}</button>
+        <button type="button" className="btn-primary mt-8" onClick={() => { if (!assignIfOffline("/practice")) router.push("/practice"); }}>{t("talk.done")}</button>
       </main>
     );
   }
@@ -81,7 +82,7 @@ function Deck() {
         <p className="mt-1 text-[#57534E]">{t("practice.missed", { count: missed })}</p>
         <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: Math.max(0, xp - xpStart) })}</p>
         {stillDue === 0 && when ? <p className="mt-4 font-semibold">{t("practice.nextDue", { when })}</p> : null}
-        <button className="btn-primary mt-8" onClick={() => router.push("/practice")}>{t("talk.done")}</button>
+        <button className="btn-primary mt-8" onClick={() => { if (!assignIfOffline("/practice")) router.push("/practice"); }}>{t("talk.done")}</button>
       </main>
     );
   }
@@ -147,7 +148,7 @@ function Deck() {
       {leaving ? (
         <Sheet title={t("practice.leaveTitle")} closeLabel={t("sheet.close")} onClose={() => setLeaving(false)}>
           <p className="text-base text-[#57534E]">{t("practice.leaveBody")}</p>
-          <button type="button" className="btn-primary mt-6" onClick={() => router.push("/practice")}>{t("lesson.leave")}</button>
+          <button type="button" className="btn-primary mt-6" onClick={() => { if (!assignIfOffline("/practice")) router.push("/practice"); }}>{t("lesson.leave")}</button>
         </Sheet>
       ) : null}
     </main>
