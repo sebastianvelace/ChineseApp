@@ -5,16 +5,17 @@ import { getLearnable } from "@/lib/content";
 import { useProgress } from "@/lib/progress";
 import type { Token } from "@/lib/types";
 
-export function TokenLine({ tokens }: { tokens: Token[] }) {
+export function TokenLine({ tokens, size = "inline" }: { tokens: Token[]; size?: "inline" | "card" }) {
   const { locale, pinyin } = useProgress();
   const [open, setOpen] = useState<number | null>(null);
   const token = open === null ? undefined : tokens[open];
   const itemId = token?.wordId ?? token?.supportId;
   const item = itemId ? getLearnable(itemId) : undefined;
+  const type = size === "card" ? "text-[64px] font-medium leading-tight" : "text-xl leading-9";
 
   return (
     <div>
-      <div className="font-[family-name:var(--font-hanzi)] text-xl leading-9">
+      <div className={`font-[family-name:var(--font-hanzi)] ${type}`}>
         {tokens.map((part, index) =>
           part.kind === "punct" ? (
             <span key={index}>{part.text}</span>
