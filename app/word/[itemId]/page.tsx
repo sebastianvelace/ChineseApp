@@ -10,6 +10,7 @@ import { TokenLine } from "@/components/TokenLine";
 import { exampleSentence, getLearnable, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
+import { openOffline } from "@/lib/warm-shell";
 
 export default function WordPage() {
   const params = useParams<{ itemId: string }>();
@@ -30,7 +31,7 @@ export default function WordPage() {
   }).filter((radical, index, list) => list.findIndex((row) => row.id === radical.id) === index);
   return (
     <main className="px-5 py-6">
-      <Link href="/practice" aria-label={t("lesson.back")} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]">
+      <Link href="/practice" aria-label={t("lesson.back")} onClick={(event) => openOffline(event, "/practice")} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]">
         <ChevronLeft size={22} aria-hidden />
       </Link>
       <p className="mt-4 text-center font-[family-name:var(--font-hanzi)] text-7xl">{item.hanzi}</p>
@@ -75,7 +76,7 @@ export default function WordPage() {
         </article>
       ) : null}
       {cards.some((card) => card.itemId === item.id) ? (
-        <Link href={`/practice/session?item=${item.id}`} className="btn-primary mt-6 inline-flex items-center justify-center">{t("word.practice")}</Link>
+        <Link href={`/practice/session?item=${item.id}`} onClick={(event) => openOffline(event, `/practice/session?item=${item.id}`)} className="btn-primary mt-6 inline-flex items-center justify-center">{t("word.practice")}</Link>
       ) : null}
     </main>
   );

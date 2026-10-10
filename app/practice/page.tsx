@@ -8,6 +8,7 @@ import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { practiceQueue } from "@/lib/practice-queue";
 import { resumeHref } from "@/lib/unlock";
+import { openOffline } from "@/lib/warm-shell";
 
 export default function PracticePage() {
   const { ready, cards, seen, seenItems, locale, pinyin, track, passed } = useProgress();
@@ -28,14 +29,14 @@ export default function PracticePage() {
       {due.length ? (
         <>
           <p className="mt-6 text-lg font-semibold">{t("practice.due", { count: due.length })}</p>
-          <Link href="/practice/session" className="btn-primary mt-3 inline-flex items-center justify-center">{t("practice.review")}</Link>
+          <Link href="/practice/session" onClick={(event) => openOffline(event, "/practice/session")} className="btn-primary mt-3 inline-flex items-center justify-center">{t("practice.review")}</Link>
         </>
       ) : (
         <div className="mt-6">
           <p className="text-lg font-semibold">{t("practice.none")}</p>
           <p className="mt-1 text-[#57534E]">{words.length ? t("practice.noneBody") : t("practice.noWords")}</p>
           {resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ? (
-            <Link href={resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ?? "/learn"} className="btn-primary mt-3 inline-flex items-center justify-center">
+            <Link href={resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ?? "/learn"} onClick={(event) => openOffline(event, resumeHref(trackById(track)?.levels[0]?.units ?? [], passed) ?? "/learn")} className="btn-primary mt-3 inline-flex items-center justify-center">
               {t("practice.continue")}
             </Link>
           ) : null}
@@ -47,7 +48,7 @@ export default function PracticePage() {
       <ul className="mt-3 flex flex-col gap-2">
         {filtered.map((item) => (
           <li key={item.id}>
-            <Link href={`/word/${item.id}`} className="flex items-baseline justify-between gap-3 rounded-2xl bg-white px-4 py-3">
+            <Link href={`/word/${item.id}`} onClick={(event) => openOffline(event, `/word/${item.id}`)} className="flex items-baseline justify-between gap-3 rounded-2xl bg-white px-4 py-3">
               <span className="font-[family-name:var(--font-hanzi)] text-[22px] font-medium">{item.hanzi}</span>
               <span className="text-base">
                 {pinyin ? <span className="mr-2 text-lg text-[#57534E]">{item.pinyin}</span> : null}

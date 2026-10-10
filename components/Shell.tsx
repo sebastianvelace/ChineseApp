@@ -7,7 +7,7 @@ import { GraduationCap, Layers, User, type LucideIcon } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { useOnline } from "@/lib/online";
 import { useProgress } from "@/lib/progress";
-import { warmAppShell } from "@/lib/warm-shell";
+import { openOffline, warmAppShell } from "@/lib/warm-shell";
 
 const HIDE = [/^\/lesson\//, /^\/talk\//, /^\/onboarding$/, /^\/practice\/session/];
 
@@ -49,7 +49,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
 function NavLink({ href, label, active, icon: Icon }: { href: string; label: string; active: boolean; icon: LucideIcon }) {
   return (
-    <Link href={href} className={`flex min-h-16 flex-1 flex-col items-center justify-center gap-1 text-sm font-semibold lg:flex-row lg:justify-start lg:gap-3 lg:px-3 ${active ? "text-[#E25B45]" : "text-[#57534E]"}`}>
+    <Link href={href} onClick={(event) => openOffline(event, href)} className={`flex min-h-16 flex-1 flex-col items-center justify-center gap-1 text-sm font-semibold lg:flex-row lg:justify-start lg:gap-3 lg:px-3 ${active ? "text-[#E25B45]" : "text-[#57534E]"}`}>
       <Icon size={22} aria-hidden />
       {label}
     </Link>

@@ -9,6 +9,7 @@ import { trackById } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { canOpenOffline } from "@/lib/saved-here";
+import { openOffline } from "@/lib/warm-shell";
 import { resumeTarget, unitState } from "@/lib/unlock";
 
 export default function LearnPage() {
@@ -72,9 +73,12 @@ export default function LearnPage() {
             className="mt-4 block rounded-2xl bg-[#E25B45] px-4 py-4 text-white"
             onClick={(event) => {
               const id = next.href.split("/").filter(Boolean).pop() ?? "";
-              if (canOpenOffline(id)) return;
-              event.preventDefault();
-              setBlocked(true);
+              if (!canOpenOffline(id)) {
+                event.preventDefault();
+                setBlocked(true);
+                return;
+              }
+              openOffline(event, next.href);
             }}
           >
             <span className="text-sm font-semibold">{t("practice.continue")}</span>
@@ -107,7 +111,7 @@ export default function LearnPage() {
           return (
             <li key={unit.id} className="flex w-full flex-col items-center">
               {index > 0 ? <span className="my-1 h-8 w-px bg-[#D6D3D1]" /> : null}
-              {locked ? <div aria-label={t("unit.locked")}>{node}</div> : <Link href={`/unit/${unit.id}`}>{node}</Link>}
+              {locked ? <div aria-label={t("unit.locked")}>{node}</div> : <Link href={`/unit/${unit.id}`} onClick={(event) => openOffline(event, `/unit/${unit.id}`)}>{node}</Link>}
               <p className="mt-2 text-center text-sm font-semibold">{unit.title[locale]}</p>
               <p className="text-center text-xs text-[#57534E]">
                 {state === "done" ? t("unit.done") : state === "locked" ? t("unit.locked") : t("unit.progress", { done, total: unit.lessons.length })}

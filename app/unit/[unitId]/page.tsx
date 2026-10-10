@@ -10,6 +10,7 @@ import { getLearnable, getUnit } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { canOpenOffline } from "@/lib/saved-here";
+import { openOffline } from "@/lib/warm-shell";
 import { extraStatus, lessonStatus } from "@/lib/unlock";
 
 export default function UnitPage() {
@@ -18,17 +19,20 @@ export default function UnitPage() {
   const { ready, locale, passed } = useProgress();
   const t = useT();
   const [blocked, setBlocked] = useState(false);
-  function guard(event: { preventDefault: () => void }, id: string) {
-    if (canOpenOffline(id)) return;
-    event.preventDefault();
-    setBlocked(true);
+  function guard(event: { preventDefault: () => void; defaultPrevented?: boolean }, id: string, href: string) {
+    if (!canOpenOffline(id)) {
+      event.preventDefault();
+      setBlocked(true);
+      return;
+    }
+    openOffline(event, href);
   }
   if (!ready) return <LoadingRows />;
   if (!unit) return <p className="p-6 text-base">{t("missing.unit")}</p>;
   if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
   return (
     <main className="px-5 py-6" style={{ background: `${unit.color}1f` }}>
-      <Link href="/learn" aria-label={t("lesson.back")} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]">
+      <Link href="/learn" aria-label={t("lesson.back")} onClick={(event) => openOffline(event, "/learn")} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]">
         <ChevronLeft size={22} aria-hidden />
       </Link>
       <h1 className="mt-2 text-3xl font-bold">{unit.title[locale]}</h1>
@@ -36,19 +40,19 @@ export default function UnitPage() {
         {unit.lessons.map((lesson) => {
           const status = lessonStatus(unit, lesson, passed);
           const hanzi = [...lesson.targetWordIds, ...lesson.supportTargetIds].map((id) => getLearnable(id)?.hanzi).filter(Boolean).join("、");
-          return <Row key={lesson.id} href={status === "locked" ? undefined : `/lesson/${lesson.id}`} title={t("unit.lesson", { order: lesson.order })} subtitle={hanzi} hanzi status={status} onNavigate={(event) => guard(event, lesson.id)} />;
+          return <Row key={lesson.id} href={status === "locked" ? undefined : `/lesson/${lesson.id}`} title={t("unit.lesson", { order: lesson.order })} subtitle={hanzi} hanzi status={status} onNavigate={(event) => guard(event, lesson.id, `/lesson/${lesson.id}`)} />;
         })}
       </ul>
       <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-white/90" style={{ color: unit.color }}>{t("unit.further")}</h2>
       <ul className="mt-3 flex flex-col gap-3">
-        <Row href={extraStatus(unit, unit.teacherTalk.id, passed) === "locked" ? undefined : `/talk/${unit.teacherTalk.id}`} title={t("unit.talk")} subtitle={unit.teacherTalk.title[locale]} status={extraStatus(unit, unit.teacherTalk.id, passed)} onNavigate={(event) => guard(event, unit.teacherTalk.id)} />
-        <Row href={extraStatus(unit, unit.review.id, passed) === "locked" ? undefined : `/lesson/${unit.review.id}`} title={t("unit.review")} subtitle={unit.review.title[locale]} status={extraStatus(unit, unit.review.id, passed)} onNavigate={(event) => guard(event, unit.review.id)} />
+        <Row href={extraStatus(unit, unit.teacherTalk.id, passed) === "locked" ? undefined : `/talk/${unit.teacherTalk.id}`} title={t("unit.talk")} subtitle={unit.teacherTalk.title[locale]} status={extraStatus(unit, unit.teacherTalk.id, passed)} onNavigate={(event) => guard(event, unit.teacherTalk.id, `/talk/${unit.teacherTalk.id}`)} />
+        <Row href={extraStatus(unit, unit.review.id, passed) === "locked" ? undefined : `/lesson/${unit.review.id}`} title={t("unit.review")} subtitle={unit.review.title[locale]} status={extraStatus(unit, unit.review.id, passed)} onNavigate={(event) => guard(event, unit.review.id, `/lesson/${unit.review.id}`)} />
       </ul>
     </main>
   );
 }
 
-function Row({ href, title, subtitle, status, onNavigate, hanzi = false }: { href?: string; title: string; subtitle: string; status: string; onNavigate?: (event: { preventDefault: () => void }) => void; hanzi?: boolean }) {
+function Row({ href, title, subtitle, status, onNavigate, hanzi = false }: { href?: string; title: string; subtitle: string; status: string; onNavigate?: (event: { preventDefault: () => void; defaultPrevented?: boolean }) => void; hanzi?: boolean }) {
   const t = useT();
   const statusLabel = status === "passed" ? t("unit.done") : status === "locked" ? t("unit.locked") : "";
   const body = (
