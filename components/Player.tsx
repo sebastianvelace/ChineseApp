@@ -207,22 +207,20 @@ export function Player({
 
   return (
     <main className="flex min-h-full flex-col px-5 py-4">
-      <div className="mb-5 flex items-center gap-3">
-        <div className="h-1 flex-1 overflow-hidden rounded-full bg-[#E7E0D6]">
-          <div className="h-full bg-[#E25B45]" style={{ width: `${Math.min(100, bar * 100)}%` }} />
-        </div>
-        <p className="text-sm font-semibold tabular-nums text-[#57534E]">{gradedSoFar}/{planned}</p>
-      </div>
-      <div className="mb-4 flex items-center justify-between gap-3">
+      <div className="mb-2 flex items-center gap-3">
         <button
-          className="flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#57534E]"
           aria-label={t("lesson.leave")}
           onClick={() => setLeaving(true)}
         >
           <X size={22} aria-hidden />
         </button>
-        <p className="text-sm text-[#57534E]">{title}</p>
+        <div className="h-1 flex-1 overflow-hidden rounded-full bg-[#E7E0D6]">
+          <div className="h-full bg-[#E25B45]" style={{ width: `${Math.min(100, bar * 100)}%` }} />
+        </div>
+        <p className="text-sm font-semibold tabular-nums text-[#57534E]">{gradedSoFar}/{planned}</p>
       </div>
+      <p className="mb-4 text-sm text-[#57534E]">{title}</p>
       <div className="flex-1">
         <Card
           item={current.item}
@@ -323,7 +321,7 @@ function Card({
               <article key={id} className="rounded-2xl bg-white px-2 py-4 text-center">
                 <p className="font-[family-name:var(--font-hanzi)] text-[64px] font-medium leading-none">{row.hanzi}</p>
                 {showPinyin ? <p className="mt-2 text-lg text-[#57534E]">{row.pinyin}</p> : null}
-                <p className="mt-1 text-sm text-[#57534E]">{row.gloss[locale]}</p>
+                <p className="mt-1 text-base text-[#57534E]">{row.gloss[locale]}</p>
               </article>
             );
           })}
