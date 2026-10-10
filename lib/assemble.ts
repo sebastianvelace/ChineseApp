@@ -90,8 +90,8 @@ function blankItem(sentenceId: string, sentenceIds: string[], targetWordIds: str
   const sentence = getSentence(sentenceId);
   if (!sentence) return null;
   const tokens = contentTokens(sentence);
-  let blankAt = tokens.findIndex((token) => (token.wordId ? targetWordIds.includes(token.wordId) : false));
-  if (blankAt < 0) blankAt = 0;
+  const blankAt = tokens.findIndex((token) => (token.wordId ? targetWordIds.includes(token.wordId) : false));
+  if (blankAt < 0) return null;
   const correct = tokens[blankAt]?.text;
   if (!correct) return null;
   const options = [correct];

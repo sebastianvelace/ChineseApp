@@ -99,6 +99,11 @@ test("a seen word skips its teach card and its pinyin question", () => {
   assert.equal(items.some((item) => item.type === "meaning" && item.itemId === seenId), true);
 });
 
+test("a blank is omitted when the next sentence has none of the lesson words", () => {
+  const items = assembleLesson("ev-u06-l3", [], "1.0.0");
+  assert.equal(items.some((item) => item.type === "blank"), false);
+});
+
 test("the blank is the next sentence and its choices come from the lesson", () => {
   const lesson = findLesson("hsk1-u01-l1")?.lesson;
   assert.ok(lesson);
