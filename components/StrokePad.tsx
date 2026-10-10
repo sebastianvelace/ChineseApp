@@ -74,10 +74,10 @@ export function StrokePad({
 
   return (
     <div className="flex flex-col items-center">
-      <p className="mb-3 text-center text-sm text-[#57534E]">{char}</p>
+      <p className="mb-3 text-center font-[family-name:var(--font-hanzi)] text-[22px] font-medium text-[#1C1917]">{char}</p>
       <div ref={host} className="rounded-2xl bg-white" />
-      {state === "loading" ? <p className="mt-3 text-sm text-[#57534E]">{t("stroke.loading")}</p> : null}
-      {state === "missing" ? <p className="mt-3 text-sm text-[#57534E]">{t("stroke.missing")}</p> : null}
+      {state === "loading" ? <p className="mt-3 text-base text-[#57534E]">{t("stroke.loading")}</p> : null}
+      {state === "missing" ? <p className="mt-3 text-base text-[#57534E]">{t("stroke.missing")}</p> : null}
       {state === "ready" && !disabled ? (
         <button
           className="btn-ghost mt-4"
