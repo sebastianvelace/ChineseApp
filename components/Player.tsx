@@ -506,15 +506,21 @@ function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; 
   const t = useT();
   const hanzi = shuffle(itemIds, itemIds.join(":h"));
   const glosses = shuffle(itemIds, itemIds.join(":g"));
-  const [picked, setPicked] = useState<string | null>(null);
+  const [picked, setPicked] = useState<{ side: "hanzi" | "gloss"; id: string } | null>(null);
   const [matched, setMatched] = useState<string[]>([]);
   const [missed, setMissed] = useState(false);
   const [shake, setShake] = useState<{ hanzi: string; gloss: string } | null>(null);
   const done = useRef(false);
 
-  function chooseGloss(id: string) {
-    if (disabled || !picked || matched.includes(id)) return;
-    if (picked === id) {
+  function choose(side: "hanzi" | "gloss", id: string) {
+    if (disabled || matched.includes(id)) return;
+    if (!picked || picked.side === side) {
+      setPicked({ side, id });
+      return;
+    }
+    const hanziId = side === "hanzi" ? id : picked.id;
+    const glossId = side === "gloss" ? id : picked.id;
+    if (hanziId === glossId) {
       const next = [...matched, id];
       setMatched(next);
       setPicked(null);
@@ -525,25 +531,32 @@ function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; 
       return;
     }
     setMissed(true);
-    setShake({ hanzi: picked, gloss: id });
+    setShake({ hanzi: hanziId, gloss: glossId });
     setPicked(null);
     window.setTimeout(() => setShake(null), 350);
   }
 
+  function pairClass(side: "hanzi" | "gloss", id: string) {
+    const selected = picked?.side === side && picked.id === id;
+    const border = selected ? "border-[#1C1917]" : "border-[#E7E0D6]";
+    const shaking = side === "hanzi" ? shake?.hanzi === id : shake?.gloss === id;
+    return `select-ease min-h-12 rounded-xl border-2 bg-white px-2 ${border} ${matched.includes(id) ? "opacity-40" : ""} ${shaking ? "shake" : ""}`;
+  }
+
   return (
     <div>
-      <p className="mb-3 text-sm text-[#57534E]">{t("match.prompt")}</p>
+      <p className="mb-3 text-base text-[#57534E]">{t("match.prompt")}</p>
       <div className="grid grid-cols-2 gap-2">
         <div className="flex flex-col gap-2">
           {hanzi.map((id) => (
-            <button type="button" key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border bg-white font-[family-name:var(--font-hanzi)] text-[22px] font-medium ${picked === id ? "border-[#1C1917]" : "border-[#E7E0D6]"} ${matched.includes(id) ? "opacity-40" : ""} ${shake?.hanzi === id ? "shake" : ""}`} onClick={() => setPicked(id)}>
+            <button type="button" key={id} aria-pressed={picked?.side === "hanzi" && picked.id === id} disabled={disabled || matched.includes(id)} className={`${pairClass("hanzi", id)} font-[family-name:var(--font-hanzi)] text-[22px] font-medium`} onClick={() => choose("hanzi", id)}>
               {getLearnable(id)?.hanzi}
             </button>
           ))}
         </div>
         <div className="flex flex-col gap-2">
           {glosses.map((id) => (
-            <button type="button" key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border border-[#E7E0D6] bg-white px-2 text-base font-semibold ${matched.includes(id) ? "opacity-40" : ""} ${shake?.gloss === id ? "shake" : ""}`} onClick={() => chooseGloss(id)}>
+            <button type="button" key={id} aria-pressed={picked?.side === "gloss" && picked.id === id} disabled={disabled || matched.includes(id)} className={`${pairClass("gloss", id)} text-base font-semibold`} onClick={() => choose("gloss", id)}>
               {gloss(id, locale)}
             </button>
           ))}
