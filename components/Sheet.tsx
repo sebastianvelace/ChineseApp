@@ -18,8 +18,13 @@ export function Sheet({
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") onClose();
     }
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
+    };
   }, [onClose]);
 
   return (
