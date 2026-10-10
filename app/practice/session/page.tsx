@@ -7,7 +7,7 @@ import { pinyinChoices } from "@/lib/assemble";
 import { getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
-import { practiceQueue } from "@/lib/practice-queue";
+import { practiceQueue, wordSession } from "@/lib/practice-queue";
 import { shuffle } from "@/lib/shuffle";
 import { practiceRating, type SavedCard } from "@/lib/srs";
 
@@ -34,7 +34,7 @@ function Deck() {
   const router = useRouter();
   const [sessionId] = useState(() => crypto.randomUUID());
   const [xpStart] = useState(xp);
-  const [deck] = useState(() => (only && seen.has(only) ? cards.filter((c) => c.itemId === only) : only ? [] : practiceQueue(cards, seenItems)));
+  const [deck] = useState(() => (only && seen.has(only) ? wordSession(cards, only) : only ? [] : practiceQueue(cards, seenItems)));
   useEffect(() => {
     if (only && !seen.has(only)) router.replace("/practice");
   }, [only, seen, router]);

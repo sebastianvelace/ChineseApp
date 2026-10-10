@@ -52,6 +52,13 @@ export function deferExtraNewCards(cards: SavedCard[], seen: SeenStamp[], day: s
   return cards.map((card) => (wait.has(cardKey(card)) ? { ...card, due } : card));
 }
 
+/** One word's three cards, meaning then pinyin then hanzi, even when none are due. */
+export function wordSession(cards: SavedCard[], itemId: string): SavedCard[] {
+  return cards
+    .filter((card) => card.itemId === itemId)
+    .sort((a, b) => TYPE_ORDER.indexOf(a.cardType) - TYPE_ORDER.indexOf(b.cardType));
+}
+
 export function practiceQueue(cards: SavedCard[], seen: SeenStamp[], now = new Date()): SavedCard[] {
   const day = localDay(now);
   const seenIds = new Set(seen.map((row) => row.id));

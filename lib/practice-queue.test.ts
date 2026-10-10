@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { deferExtraNewCards, localDay, nextMorning, practiceQueue, rankNewCards } from "./practice-queue";
+import { deferExtraNewCards, localDay, nextMorning, practiceQueue, rankNewCards, wordSession } from "./practice-queue";
 import type { CardType, SavedCard } from "./srs";
 
 const now = new Date(2026, 9, 9, 15, 0, 0);
@@ -99,4 +99,19 @@ test("cards past the daily cap wait until 00:05 tomorrow", () => {
   assert.equal(morning.getHours(), 0);
   assert.equal(morning.getMinutes(), 5);
   assert.equal(practiceQueue(deferred, seen, now).length, 10);
+});
+
+test("practice this word is meaning, pinyin, then hanzi, even when nothing is due", () => {
+  const later = new Date(now.getTime() + 60 * 60 * 1000).toISOString();
+  const cards = [
+    card("ni", "hanzi", day, later),
+    card("ta", "meaning", day, later),
+    card("ni", "pinyin", day, later),
+    card("ni", "meaning", day, later),
+  ];
+  assert.deepEqual(
+    wordSession(cards, "ni").map((row) => row.cardType),
+    ["meaning", "pinyin", "hanzi"],
+  );
+  assert.equal(practiceQueue(cards, [{ id: "ni", at: now.toISOString() }, { id: "ta", at: now.toISOString() }], now).length, 0);
 });
