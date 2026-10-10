@@ -530,14 +530,14 @@ function MatchBoard({ itemIds, locale, disabled, onDone }: { itemIds: string[]; 
       <div className="grid grid-cols-2 gap-2">
         <div className="flex flex-col gap-2">
           {hanzi.map((id) => (
-            <button key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border bg-white font-[family-name:var(--font-hanzi)] text-xl ${picked === id ? "border-[#1C1917]" : "border-[#E7E0D6]"} ${matched.includes(id) ? "opacity-40" : ""} ${shake?.hanzi === id ? "shake" : ""}`} onClick={() => setPicked(id)}>
+            <button type="button" key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border bg-white font-[family-name:var(--font-hanzi)] text-xl ${picked === id ? "border-[#1C1917]" : "border-[#E7E0D6]"} ${matched.includes(id) ? "opacity-40" : ""} ${shake?.hanzi === id ? "shake" : ""}`} onClick={() => setPicked(id)}>
               {getLearnable(id)?.hanzi}
             </button>
           ))}
         </div>
         <div className="flex flex-col gap-2">
           {glosses.map((id) => (
-            <button key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border border-[#E7E0D6] bg-white px-2 text-sm font-semibold ${matched.includes(id) ? "opacity-40" : ""} ${shake?.gloss === id ? "shake" : ""}`} onClick={() => chooseGloss(id)}>
+            <button type="button" key={id} disabled={disabled || matched.includes(id)} className={`min-h-12 rounded-xl border border-[#E7E0D6] bg-white px-2 text-base font-semibold ${matched.includes(id) ? "opacity-40" : ""} ${shake?.gloss === id ? "shake" : ""}`} onClick={() => chooseGloss(id)}>
               {gloss(id, locale)}
             </button>
           ))}

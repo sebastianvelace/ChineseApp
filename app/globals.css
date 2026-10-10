@@ -66,6 +66,12 @@ button:focus-visible {
   animation: hanlu-shake 0.35s ease;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .shake {
+    animation: none;
+  }
+}
+
 .tile {
   min-height: 44px;
   border-radius: 12px;
