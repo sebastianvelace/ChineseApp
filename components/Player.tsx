@@ -5,7 +5,7 @@ import { useMemo, useRef, useState } from "react";
 import { Sheet } from "@/components/Sheet";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
-import { lessonPassed } from "@/lib/lesson-score";
+import { buildMatches, lessonPassed } from "@/lib/lesson-score";
 import { gradedItemIds, lessonRatings } from "@/lib/srs";
 import { allRadicals, contentTokens, getLearnable, getSentence, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -149,7 +149,7 @@ export function Player({
     if (item.type === "build") {
       const sentence = getSentence(item.sentenceId);
       const tokens = sentence ? contentTokens(sentence) : [];
-      const ok = placed.join("|") === tokens.map((_, i) => String(i)).join("|");
+      const ok = buildMatches(placed, tokens);
       finish(ok, sentence?.hanzi ?? "", sentence?.translation[locale] ?? "");
       return;
     }
