@@ -330,7 +330,7 @@ function Card({
           })}
         </div>
         {!showPinyin ? (
-          <button className="mt-3 text-sm font-semibold text-[#E25B45]" onClick={onReveal}>{t("lesson.showPinyin")}</button>
+          <button type="button" className="mt-3 inline-flex min-h-11 items-center text-base font-semibold text-[#E25B45]" onClick={onReveal}>{t("lesson.showPinyin")}</button>
         ) : null}
       </div>
     );
@@ -353,7 +353,7 @@ function Card({
               <article key={id} className="rounded-2xl bg-white p-5 text-center shadow-[0_8px_24px_rgb(28_25_23/6%)]">
                 <p className="font-[family-name:var(--font-hanzi)] text-[64px] font-medium leading-none">{row.hanzi}</p>
                 {showPinyin ? <p className="mt-2 text-lg text-[#57534E]">{row.pinyin}</p> : (
-                  <button className="mt-2 text-sm font-semibold text-[#E25B45]" onClick={onReveal}>{t("lesson.showPinyin")}</button>
+                  <button type="button" className="mt-2 inline-flex min-h-11 items-center text-base font-semibold text-[#E25B45]" onClick={onReveal}>{t("lesson.showPinyin")}</button>
                 )}
                 <p className="mt-3 text-lg">{row.gloss[locale]}</p>
                 <RadicalHint hanzi={row.hanzi} locale={locale} />

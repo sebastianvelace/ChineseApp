@@ -145,7 +145,7 @@ export function StrokeReplay({ char }: { char: string }) {
     <figure className="flex flex-col items-center">
       <div ref={host} className="rounded-2xl bg-white" />
       {state === "ready" ? (
-        <button className="mt-2 text-sm font-semibold text-[#E25B45]" onClick={() => writer.current?.animateCharacter()}>
+        <button type="button" className="mt-2 inline-flex min-h-11 items-center text-base font-semibold text-[#E25B45]" onClick={() => writer.current?.animateCharacter()}>
           {t("word.again")}
         </button>
       ) : (

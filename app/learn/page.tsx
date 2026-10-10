@@ -43,7 +43,7 @@ export default function LearnPage() {
           <p className="flex-1">{t("local.banner")}</p>
           <button
             type="button"
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
             aria-label={t("sheet.close")}
             onClick={() => {
               sessionStorage.setItem("hanlu-local-banner", "off");

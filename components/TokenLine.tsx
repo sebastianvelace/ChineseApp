@@ -14,7 +14,7 @@ export function TokenLine({ tokens }: { tokens: Token[] }) {
 
   return (
     <div>
-      <p className="font-[family-name:var(--font-hanzi)] text-xl leading-9">
+      <div className="font-[family-name:var(--font-hanzi)] text-xl leading-9">
         {tokens.map((part, index) =>
           part.kind === "punct" ? (
             <span key={index}>{part.text}</span>
@@ -22,14 +22,14 @@ export function TokenLine({ tokens }: { tokens: Token[] }) {
             <button
               key={index}
               type="button"
-              className="underline decoration-[#E7E0D6] underline-offset-4"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center underline decoration-[#E7E0D6] underline-offset-4"
               onClick={() => setOpen(open === index ? null : index)}
             >
               {part.text}
             </button>
           ),
         )}
-      </p>
+      </div>
       {item ? (
         <p className="mt-2 rounded-xl bg-[#F7F3EC] px-3 py-2 text-sm text-[#57534E]">
           <span className="font-[family-name:var(--font-hanzi)] text-base text-[#1C1917]">{item.hanzi}</span>
