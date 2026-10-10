@@ -143,6 +143,13 @@ test("a number set is one teach card, with pinyin on 1, 3, 5, and the last", () 
   assert.ok(build && build.type === "build");
 });
 
+test("radical quizzes prefer a one-character word", () => {
+  const hello = assembleLesson("hsk1-u02-l1", [], "1.0.0").filter((item) => item.type === "radical");
+  assert.deepEqual(hello.map((item) => (item.type === "radical" ? item.char : "")), ["叫", "呢"]);
+  const weather = assembleLesson("hsk1-u14-l1", [], "1.0.0").filter((item) => item.type === "radical");
+  assert.equal(weather[0] && weather[0].type === "radical" ? weather[0].char : "", "热");
+});
+
 test("a support word's example is from its own lesson", () => {
   const item = getLearnable("sup-ba");
   assert.ok(item);

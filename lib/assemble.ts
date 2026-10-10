@@ -199,11 +199,17 @@ function toneItems(targets: string[], setLesson: boolean): ExerciseItem[] {
 }
 
 function radicalItems(lessonId: string, targets: string[]): ExerciseItem[] {
-  const found: { char: string; radicalId: string; itemId: string }[] = [];
+  const singles: string[] = [];
+  const compounds: string[] = [];
   for (const id of targets) {
-    const hanzi = getLearnable(id)?.hanzi ?? "";
-    const chars = [...hanzi];
-    const look = chars.length === 1 ? chars : chars.slice(0, 1);
+    const hanzi = [...(getLearnable(id)?.hanzi ?? "")];
+    if (hanzi.length === 1) singles.push(id);
+    else if (hanzi.length > 1) compounds.push(id);
+  }
+  const found: { char: string; radicalId: string; itemId: string }[] = [];
+  for (const id of [...singles, ...compounds]) {
+    const hanzi = [...(getLearnable(id)?.hanzi ?? "")];
+    const look = hanzi.length === 1 ? hanzi : hanzi.slice(0, 1);
     for (const char of look) {
       const radical = radicalFor(char);
       if (radical && !found.some((row) => row.char === char)) found.push({ char, radicalId: radical.id, itemId: id });
