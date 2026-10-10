@@ -54,6 +54,16 @@ function Deck() {
 
   if (only && !seen.has(only)) return <p className="p-6">{t("loading")}</p>;
 
+  if (deck.length === 0) {
+    return (
+      <main className="px-6 py-16">
+        <h1 className="text-3xl font-bold">{t("practice.none")}</h1>
+        <p className="mt-2 text-base text-[#57534E]">{seen.size ? t("practice.noneBody") : t("practice.noWords")}</p>
+        <button type="button" className="btn-primary mt-8" onClick={() => router.push("/practice")}>{t("talk.done")}</button>
+      </main>
+    );
+  }
+
   if (!card) {
     const stillDue = practiceQueue(cards, seenItems).length;
     const nextTime = cards
