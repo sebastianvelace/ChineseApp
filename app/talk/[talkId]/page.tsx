@@ -8,7 +8,7 @@ import { findTalk, getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
 import { useSavedHere } from "@/lib/saved-here";
-import { talkChoices } from "@/lib/talk-choices";
+import { talkAnswerMatches, talkChoices } from "@/lib/talk-choices";
 import { extraStatus } from "@/lib/unlock";
 
 export default function TalkPage() {
@@ -63,8 +63,8 @@ export default function TalkPage() {
         ))}
       </div>
       {picked ? (
-        <p className={`mt-4 font-semibold ${picked === check.answer ? "text-[#1F8A70]" : "text-[#9F1239]"}`}>
-          {picked === check.answer ? t("lesson.correct") : t("lesson.wrong")} · {check.answer}
+        <p className={`mt-4 font-semibold ${talkAnswerMatches(picked, check.answer) ? "text-[#1F8A70]" : "text-[#9F1239]"}`}>
+          {talkAnswerMatches(picked, check.answer) ? t("lesson.correct") : t("lesson.wrong")} · {check.answer}
         </p>
       ) : null}
       {picked ? (
@@ -79,7 +79,7 @@ export default function TalkPage() {
             } else setStep(step + 1);
           }}
         >
-          {t("lesson.continue")}
+          {step === checks.length - 1 ? t("talk.done") : t("lesson.continue")}
         </button>
       ) : null}
     </main>
