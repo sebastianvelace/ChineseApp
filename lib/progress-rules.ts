@@ -6,7 +6,7 @@ import type { Grade } from "ts-fsrs";
 export type Locale = "en" | "es";
 export type XpEvent = { id: string; amount: number; at: string };
 export type Passed = { ratio: number | null; at: string };
-export type ReviewRow = { id: string; itemId: string; cardType: CardType; rating: number; at: string; source: "lesson" | "practice" };
+export type ReviewRow = { id: string; itemId: string; cardType: CardType; rating: number; at: string; source: "lesson" | "review" | "practice" };
 export type Streak = { current: number; longest: number; lastActive: string | null; freezes: number; granted: number[]; freezeNotice: string | null; activeDays: string[] };
 
 export type ProgressState = {
@@ -121,14 +121,14 @@ function ensureCards(cards: SavedCard[], itemIds: string[], day: string, now: Da
   return next;
 }
 
-function lessonReviewRows(nodeId: string, ratings: LessonRating[], at: string, existing: ReviewRow[]): ReviewRow[] {
+function lessonReviewRows(nodeId: string, ratings: LessonRating[], at: string, existing: ReviewRow[], source: "lesson" | "review" = "lesson"): ReviewRow[] {
   const have = new Set(existing.map((row) => row.id));
   const added: ReviewRow[] = [];
   ratings.forEach((rating, index) => {
     for (const cardType of ["meaning", "pinyin", "hanzi"] as CardType[]) {
-      const id = `lesson:${nodeId}:${index}:${rating.itemId}:${cardType}`;
+      const id = `${source}:${nodeId}:${index}:${rating.itemId}:${cardType}`;
       if (have.has(id)) continue;
-      added.push({ id, itemId: rating.itemId, cardType, rating: rating.rating, at, source: "lesson" });
+      added.push({ id, itemId: rating.itemId, cardType, rating: rating.rating, at, source });
       have.add(id);
     }
   });
@@ -171,6 +171,14 @@ export function passNode(
       reviews = [...reviews, ...lessonReviewRows(nodeId, ratings, now.toISOString(), reviews)];
     }
     cards = deferExtraNewCards(cards, seen, dayNow);
+  }
+  if (kind === "review" && info && !already) {
+    const rated = new Set(cards.map((card) => card.itemId));
+    const ratings = (info.ratings ?? []).filter((row) => rated.has(row.itemId));
+    if (ratings.length) {
+      cards = applyLessonRatings(cards, ratings);
+      reviews = [...reviews, ...lessonReviewRows(nodeId, ratings, now.toISOString(), reviews, "review")];
+    }
   }
   const streak = bumpStreak(state.streak, dayNow);
   const streakBurst = streak.lastActive === dayNow && state.streak.lastActive !== dayNow ? streak.current : null;

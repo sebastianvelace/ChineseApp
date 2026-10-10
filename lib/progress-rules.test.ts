@@ -137,6 +137,29 @@ test("gloss-only support is seen and does not get cards", () => {
   assert.equal(state.reviews.every((row) => row.itemId === "sup-ba"), true);
 });
 
+test("a unit review rates cards the learner already has", () => {
+  let state = lesson(emptyProgress(), "hsk1-u01-l1", on(1));
+  const before = state.cards.find((card) => card.itemId === "hsk1-w072" && card.cardType === "meaning");
+  state = passNode(
+    state,
+    "hsk1-u01-rv",
+    "review",
+    { ratio: 0.9, correct: 1, itemIds: words, ratings: [{ itemId: "hsk1-w072", rating: 1 }] },
+    on(1),
+  );
+  const after = state.cards.find((card) => card.itemId === "hsk1-w072" && card.cardType === "meaning");
+  assert.notEqual(after?.due, before?.due);
+  assert.equal(state.reviews.filter((row) => row.source === "review" && row.rating === 1).length, 3);
+  const replay = passNode(
+    state,
+    "hsk1-u01-rv",
+    "review",
+    { ratio: 1, correct: 1, itemIds: words, ratings: [{ itemId: "hsk1-w072", rating: 3 }] },
+    on(1),
+  );
+  assert.equal(replay.reviews.filter((row) => row.source === "review").length, 3);
+});
+
 test("one practice point does not fill the week", () => {
   const now = on(1);
   const card = freshCard("hsk1-w072", "meaning", localDay(now), now);
