@@ -20,6 +20,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
     if (!ready) return;
     if (!onboarded && path !== "/onboarding" && path !== "/") router.replace("/onboarding");
   }, [ready, onboarded, path, router]);
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "production" || !navigator.onLine) return;
+    void fetch(`${window.location.pathname}${window.location.search}`, { credentials: "same-origin" });
+  }, [path]);
   const hide = HIDE.some((re) => re.test(path));
   const wide = path === "/learn" || path === "/practice" || path === "/me" || path.startsWith("/unit") || path.startsWith("/word");
   return (
