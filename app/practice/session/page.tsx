@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { withHanzi } from "@/components/Hanzi";
+import { Sheet } from "@/components/Sheet";
 import { pinyinChoices } from "@/lib/assemble";
 import { getLearnable } from "@/lib/content";
 import { useT } from "@/lib/i18n";
@@ -50,6 +51,7 @@ function Deck() {
   }, [index]);
   const [remembered, setRemembered] = useState(0);
   const [missed, setMissed] = useState(0);
+  const [leaving, setLeaving] = useState(false);
   const [feedback, setFeedback] = useState<{ ok: boolean; answer: string } | null>(null);
   const card = deck[index];
 
@@ -103,7 +105,7 @@ function Deck() {
   return (
     <main className="flex min-h-full flex-col px-5 py-4">
       <div className="mb-5 flex items-center gap-3">
-        <button className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#57534E]" aria-label={t("lesson.leave")} onClick={() => router.push("/practice")}>
+        <button type="button" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#57534E]" aria-label={t("lesson.leave")} onClick={() => setLeaving(true)}>
           <X size={22} aria-hidden />
         </button>
         <div className="h-1 flex-1 overflow-hidden rounded-full bg-[#E7E0D6]">
@@ -142,6 +144,12 @@ function Deck() {
       >
         {feedback ? t("lesson.continue") : t("lesson.check")}
       </button>
+      {leaving ? (
+        <Sheet title={t("practice.leaveTitle")} closeLabel={t("sheet.close")} onClose={() => setLeaving(false)}>
+          <p className="text-base text-[#57534E]">{t("practice.leaveBody")}</p>
+          <button type="button" className="btn-primary mt-6" onClick={() => router.push("/practice")}>{t("lesson.leave")}</button>
+        </Sheet>
+      ) : null}
     </main>
   );
 }
