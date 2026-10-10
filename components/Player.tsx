@@ -385,7 +385,7 @@ function Card({
     const row = getLearnable(item.itemId);
     return (
       <div>
-        <p className="text-center font-[family-name:var(--font-hanzi)] text-6xl font-medium">{row?.hanzi}</p>
+        <p className="text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{row?.hanzi}</p>
         {item.type === "meaning" && showPinyin ? <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p> : null}
         <div className="choice-grid">
           {item.options.map((option) => {
@@ -423,7 +423,7 @@ function Card({
     return (
       <div>
         <p className="text-center text-sm text-[#57534E]">{t("tone.prompt")}</p>
-        <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-6xl">{row?.hanzi}</p>
+        <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{row?.hanzi}</p>
         <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p>
         <div className="choice-grid">
           {[1, 2, 3, 4, 5].map((tone) => (
@@ -438,7 +438,7 @@ function Card({
     return (
       <div>
         <p className="text-center text-sm text-[#57534E]">{t("radical.prompt")}</p>
-        <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-6xl">{item.char}</p>
+        <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{item.char}</p>
         <div className="choice-grid">
           {item.options.map((id) => {
             const radical = allRadicals().find((row) => row.id === id);
