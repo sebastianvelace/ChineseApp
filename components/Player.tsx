@@ -409,19 +409,12 @@ function Card({
   if (item.type === "blank") {
     const sentence = getSentence(item.sentenceId);
     const tokens = sentence ? contentTokens(sentence) : [];
-    let contentIndex = -1;
     return (
       <div>
         <p className="text-lg">{sentence?.translation[locale]}</p>
-        <p className="mt-4 font-[family-name:var(--font-hanzi)] text-2xl leading-9">
-          {(sentence?.tokens ?? []).map((token, i) => {
-            if (token.kind === "punct") return <span key={i}>{token.text}</span>;
-            contentIndex += 1;
-            if (contentIndex !== item.blankAt) return <span key={i}>{token.text}</span>;
-            if (!checked) return <span key={i}>____</span>;
-            return <span key={i} className="text-[#1F8A70]">{token.text}</span>;
-          })}
-        </p>
+        <div className="mt-4">
+          <TokenLine tokens={sentence?.tokens ?? []} size="sentence" blankAt={item.blankAt} blankRevealed={!!checked} />
+        </div>
         <div className="choice-grid">
           {item.options.map((option) => (
             <Choice key={option} label={option} selected={selected === option} verdict={verdict(checked, selected, option, tokens[item.blankAt]?.text ?? "")} disabled={!!checked} onClick={() => onSelect(option)} />
