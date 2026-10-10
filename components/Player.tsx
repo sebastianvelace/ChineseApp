@@ -241,7 +241,7 @@ export function Player({
       </div>
       <div className="mt-auto bg-[#F7F3EC] py-4">
         {checked ? (
-          <div className="mb-3 rounded-2xl bg-white px-4 py-3">
+          <div className="mb-3 rounded-2xl bg-white px-4 py-3" role="status" aria-live="polite">
             <p className={checked.ok ? "font-semibold text-[#1F8A70]" : "font-semibold text-[#9F1239]"}>
               {checked.ok ? t("lesson.correct") : t("lesson.wrong")}
             </p>

@@ -114,7 +114,7 @@ function Deck() {
           );
         })}
       </div>
-      {feedback ? <p className={`mt-4 text-lg font-semibold ${feedback.ok ? "text-[#1F8A70]" : "text-[#9F1239]"}`}>{feedback.ok ? t("lesson.correct") : t("lesson.wrong")} · {feedback.answer}</p> : null}
+      {feedback ? <p className={`mt-4 text-lg font-semibold ${feedback.ok ? "text-[#1F8A70]" : "text-[#9F1239]"}`} role="status" aria-live="polite">{feedback.ok ? t("lesson.correct") : t("lesson.wrong")} · {feedback.answer}</p> : null}
       <button
         className="btn-primary mt-auto"
         disabled={!selected && !feedback}
