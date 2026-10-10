@@ -7,6 +7,7 @@ import { GraduationCap, Layers, User, type LucideIcon } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { useOnline } from "@/lib/online";
 import { useProgress } from "@/lib/progress";
+import { warmAppShell } from "@/lib/warm-shell";
 
 const HIDE = [/^\/lesson\//, /^\/talk\//, /^\/onboarding$/, /^\/practice\/session/];
 
@@ -22,7 +23,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   }, [ready, onboarded, path, router]);
   useEffect(() => {
     if (process.env.NODE_ENV !== "production" || !navigator.onLine) return;
-    void fetch(`${window.location.pathname}${window.location.search}`, { credentials: "same-origin" });
+    void warmAppShell(`${window.location.pathname}${window.location.search}`);
   }, [path]);
   const hide = HIDE.some((re) => re.test(path));
   const wide = path === "/learn" || path === "/practice" || path === "/me" || path.startsWith("/unit") || path.startsWith("/word");
@@ -30,7 +31,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
     <div className="min-h-full bg-[#F7F3EC] text-[#1C1917]">
       <div className={wide && !hide ? "mx-auto min-h-full w-full max-w-[480px] pb-24 lg:max-w-none lg:pl-56" : "mx-auto min-h-full w-full max-w-[480px]"}>
         {saveError ? <p className="px-5 pt-4 text-base font-semibold text-[#9F1239]">{t("error.save")}</p> : null}
-        {online === false && !hide ? <p className="px-5 pt-4 text-sm font-semibold text-[#57534E]">{t("offline.banner")}</p> : null}
+        {online === false && !hide ? <p className="px-5 pt-4 text-base font-semibold text-[#57534E]">{t("offline.banner")}</p> : null}
         {children}
       </div>
       {hide ? null : (
