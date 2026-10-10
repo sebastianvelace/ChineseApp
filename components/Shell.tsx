@@ -13,7 +13,7 @@ const HIDE = [/^\/lesson\//, /^\/talk\//, /^\/onboarding$/, /^\/practice\/sessio
 export function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const router = useRouter();
-  const { ready, onboarded } = useProgress();
+  const { ready, onboarded, saveError } = useProgress();
   const online = useOnline();
   const t = useT();
   useEffect(() => {
@@ -29,6 +29,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-full bg-[#F7F3EC] text-[#1C1917]">
       <div className={wide && !hide ? "mx-auto min-h-full w-full max-w-[480px] pb-24 lg:max-w-none lg:pl-56" : "mx-auto min-h-full w-full max-w-[480px]"}>
+        {saveError ? <p className="px-5 pt-4 text-base font-semibold text-[#9F1239]">{t("error.save")}</p> : null}
         {online === false && !hide ? <p className="px-5 pt-4 text-sm font-semibold text-[#57534E]">{t("offline.banner")}</p> : null}
         {children}
       </div>

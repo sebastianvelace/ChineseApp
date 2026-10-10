@@ -47,6 +47,7 @@ type ProgressApi = {
   setPinyin: (pinyin: boolean) => void;
   setGoal: (goal: 10 | 20 | 50) => void;
   setTrack: (track: "hsk" | "everyday") => void;
+  saveError: boolean;
   dismissFreezeNotice: () => void;
   passNode: (nodeId: string, kind: PassKind, info?: { ratio: number; correct: number; itemIds: string[]; ratings?: LessonRating[] }) => void;
   answerCard: (card: SavedCard, rating: Grade, review: { id: string; sessionId: string }) => void;
@@ -73,6 +74,8 @@ function normalize(saved: Partial<ProgressState> | null): ProgressState {
 export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<ProgressState | null>(null);
   const [day, setDay] = useState("1970-01-01");
+  const [persist, setPersist] = useState(false);
+  const [saveError, setSaveError] = useState(false);
 
   useEffect(() => {
     const syncDay = () => setDay(localDay(new Date()));
@@ -81,11 +84,23 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const timer = window.setInterval(syncDay, 60_000);
     let cancelled = false;
     loadDeviceProgress<ProgressState>()
-      .then((saved) => {
-        if (!cancelled) setData(normalize(saved));
+      .then((loaded) => {
+        if (cancelled) return;
+        if (!loaded.ok) {
+          setPersist(false);
+          setSaveError(true);
+          setData(emptyProgress());
+          return;
+        }
+        setPersist(true);
+        setData(normalize(loaded.data));
       })
       .catch(() => {
-        if (!cancelled) setData(emptyProgress());
+        if (!cancelled) {
+          setPersist(false);
+          setSaveError(true);
+          setData(emptyProgress());
+        }
       });
     return () => {
       cancelled = true;
@@ -95,8 +110,9 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (data) void saveDeviceProgress(data);
-  }, [data]);
+    if (!data || !persist) return;
+    void saveDeviceProgress(data).then((ok) => setSaveError(!ok));
+  }, [data, persist]);
 
   const api = useMemo<ProgressApi>(() => {
     const current = data ?? emptyProgress();
@@ -121,6 +137,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       freezes: current.streak.freezes,
       freezeNotice: current.streak.freezeNotice === day,
       streakBurst: current.streakBurst,
+      saveError,
       cards: current.cards,
       activeDays,
       weekDates,
@@ -133,7 +150,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       passNode: (nodeId, kind, info) => setData((prev) => recordPass(normalize(prev), nodeId, kind, info, new Date())),
       answerCard: (card, rating, review) => setData((prev) => recordAnswer(normalize(prev), card, rating, review, new Date())),
     };
-  }, [data, day]);
+  }, [data, day, saveError]);
 
   return <ProgressContext.Provider value={api}>{children}</ProgressContext.Provider>;
 }

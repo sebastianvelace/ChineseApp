@@ -14,7 +14,9 @@ function openDb(): Promise<IDBDatabase> {
   });
 }
 
-export async function loadDeviceProgress<T>(): Promise<T | null> {
+export type Loaded<T> = { ok: true; data: T | null } | { ok: false };
+
+export async function loadDeviceProgress<T>(): Promise<Loaded<T>> {
   try {
     const db = await openDb();
     const stored = await new Promise<T | null>((resolve, reject) => {
@@ -23,22 +25,33 @@ export async function loadDeviceProgress<T>(): Promise<T | null> {
       request.onsuccess = () => resolve((request.result as T | undefined) ?? null);
       request.onerror = () => reject(request.error);
     });
-    if (stored) return stored;
+    if (stored) return { ok: true, data: stored };
   } catch {
-    // IndexedDB can be blocked. Fall through to the legacy copy.
+    return readLegacy<T>();
   }
   try {
     const raw = localStorage.getItem(LEGACY);
-    if (!raw) return null;
+    if (!raw) return { ok: true, data: null };
     const parsed = JSON.parse(raw) as T;
     await saveDeviceProgress(parsed);
-    return parsed;
+    return { ok: true, data: parsed };
   } catch {
-    return null;
+    return { ok: true, data: null };
   }
 }
 
-export async function saveDeviceProgress(data: unknown): Promise<void> {
+function readLegacy<T>(): Loaded<T> {
+  try {
+    const raw = localStorage.getItem(LEGACY);
+    if (!raw) return { ok: false };
+    return { ok: true, data: JSON.parse(raw) as T };
+  } catch {
+    return { ok: false };
+  }
+}
+
+export async function saveDeviceProgress(data: unknown): Promise<boolean> {
+  let saved = false;
   try {
     const db = await openDb();
     await new Promise<void>((resolve, reject) => {
@@ -47,12 +60,15 @@ export async function saveDeviceProgress(data: unknown): Promise<void> {
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
+    saved = true;
   } catch {
     // Keep the legacy copy below even if IndexedDB is unavailable.
   }
   try {
     localStorage.setItem(LEGACY, JSON.stringify(data));
+    saved = true;
   } catch {
     // Private mode can refuse both stores. The session still works in memory.
   }
+  return saved;
 }
