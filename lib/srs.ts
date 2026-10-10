@@ -75,6 +75,12 @@ export function rateCard(saved: SavedCard, rating: Grade, now = new Date()): Sav
 
 export type LessonRating = { itemId: string; rating: 1 | 2 | 3 };
 
+export function gradedItemIds(item: { type: string; itemId?: string; itemIds?: string[] }): string[] {
+  if (item.type === "match") return item.itemIds ?? [];
+  if (item.type === "teach" || item.type === "teach-set" || item.type === "line" || item.type === "build") return [];
+  return item.itemId ? [item.itemId] : [];
+}
+
 export function lessonRatings(outcomes: { itemId: string; ok: boolean }[]): LessonRating[] {
   const missed = new Set(outcomes.filter((row) => !row.ok).map((row) => row.itemId));
   return outcomes.map((row) => ({

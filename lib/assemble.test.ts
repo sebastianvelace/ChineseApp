@@ -27,6 +27,16 @@ test("lesson 1 is stable, teaches four words, and stays inside that set", () => 
       for (const id of item.itemIds) assert.ok(allowed.has(id));
     }
   }
+  const stroke = first.find((item) => item.type === "stroke");
+  assert.ok(stroke && stroke.type === "stroke");
+  assert.equal(stroke.itemId, "hsk1-w072");
+  assert.equal(stroke.char, "你");
+  const radicals = first.filter((item) => item.type === "radical");
+  assert.equal(radicals.length, 2);
+  for (const radical of radicals) {
+    assert.equal(radical.type, "radical");
+    assert.ok(allowed.has(radical.itemId));
+  }
   const ni = first.find((item) => item.type === "pinyin" && hanzi(item.itemId) === "你");
   assert.ok(ni && ni.type === "pinyin");
   assert.deepEqual([...ni.options].sort(), ["nì", "ní", "nī", "nǐ"]);

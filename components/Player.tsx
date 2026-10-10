@@ -6,7 +6,7 @@ import { Sheet } from "@/components/Sheet";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
 import { lessonPassed } from "@/lib/lesson-score";
-import { lessonRatings } from "@/lib/srs";
+import { gradedItemIds, lessonRatings } from "@/lib/srs";
 import { allRadicals, contentTokens, getLearnable, getSentence, radicalFor } from "@/lib/content";
 import { useT } from "@/lib/i18n";
 import { useProgress } from "@/lib/progress";
@@ -116,11 +116,13 @@ export function Player({
   const gradedSoFar = queue.slice(0, index).filter((row) => !row.recycle && isGraded(row.item)).length;
   const bar = planned === 0 ? 1 : gradedSoFar / planned;
 
-  function finish(ok: boolean, answer: string, glossText = "", itemId?: string) {
+  function finish(ok: boolean, answer: string, glossText = "", itemIds?: string[]) {
     if (answeredLock.current) return;
     answeredLock.current = true;
     if (!current.recycle && ok) correctRef.current += 1;
-    if (!current.recycle && itemId) outcomes.current.push({ itemId, ok });
+    if (!current.recycle) {
+      for (const itemId of itemIds ?? gradedItemIds(current.item)) outcomes.current.push({ itemId, ok });
+    }
     setChecked({ ok, answer, gloss: glossText });
   }
 
@@ -128,12 +130,12 @@ export function Player({
     const item = current.item;
     if (item.type === "meaning") {
       const ok = selected === item.itemId;
-      finish(ok, gloss(item.itemId, locale), getLearnable(item.itemId)?.hanzi ?? "", item.itemId);
+      finish(ok, gloss(item.itemId, locale), getLearnable(item.itemId)?.hanzi ?? "");
       return;
     }
     if (item.type === "pinyin") {
       const answer = getLearnable(item.itemId)?.pinyin ?? "";
-      finish(selected === answer, answer, gloss(item.itemId, locale), item.itemId);
+      finish(selected === answer, answer, gloss(item.itemId, locale));
       return;
     }
     if (item.type === "blank") {
@@ -141,7 +143,7 @@ export function Player({
       const token = sentence ? contentTokens(sentence)[item.blankAt] : undefined;
       const answer = token?.text ?? "";
       const tokenId = token?.wordId ?? token?.supportId;
-      finish(selected === answer, answer, tokenId ? gloss(tokenId, locale) : "", tokenId);
+      finish(selected === answer, answer, tokenId ? gloss(tokenId, locale) : "", tokenId ? [tokenId] : []);
       return;
     }
     if (item.type === "build") {
@@ -152,7 +154,7 @@ export function Player({
       return;
     }
     if (item.type === "tone") {
-      finish(selected === String(item.tone), t(`tone.${item.tone}`), gloss(item.itemId, locale), item.itemId);
+      finish(selected === String(item.tone), t(`tone.${item.tone}`), gloss(item.itemId, locale));
       return;
     }
     if (item.type === "radical") {

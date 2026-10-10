@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { freshCard, practiceRating, rateCard } from "./srs";
+import { freshCard, gradedItemIds, lessonRatings, practiceRating, rateCard } from "./srs";
 import { Rating } from "ts-fsrs";
 
 test("practice auto-rates by the clock", () => {
@@ -20,4 +20,18 @@ test("Good schedules later than Again, and two Goods match", () => {
   assert.ok(new Date(good.due).getTime() > new Date(again.due).getTime());
   const at = new Date(good.due);
   assert.equal(rateCard(good, Rating.Good, at).due, rateCard(good, Rating.Good, at).due);
+});
+
+test("a stroke or radical miss marks that word, and a match covers every pair", () => {
+  assert.deepEqual(gradedItemIds({ type: "stroke", itemId: "hsk1-w072" }), ["hsk1-w072"]);
+  assert.deepEqual(gradedItemIds({ type: "radical", itemId: "hsk1-w035" }), ["hsk1-w035"]);
+  assert.deepEqual(gradedItemIds({ type: "match", itemIds: ["a", "b"] }), ["a", "b"]);
+  assert.deepEqual(gradedItemIds({ type: "build" }), []);
+  assert.deepEqual(
+    lessonRatings([
+      { itemId: "hsk1-w072", ok: false },
+      { itemId: "hsk1-w072", ok: true },
+    ]).map((row) => row.rating),
+    [1, 2],
+  );
 });

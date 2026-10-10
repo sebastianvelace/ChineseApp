@@ -179,8 +179,8 @@ export function assembleLesson(lessonId: string, seenWordIds: readonly string[] 
     if (blank) items.push(blank);
   }
   items.push(...radicalItems(lesson.id, targets));
-  const stroke = strokeChar(targets);
-  if (stroke) items.push({ type: "stroke", char: stroke });
+  const stroke = strokeTarget(targets);
+  if (stroke) items.push({ type: "stroke", char: stroke.char, itemId: stroke.itemId });
   return items;
 }
 
@@ -198,14 +198,14 @@ function toneItems(targets: string[], setLesson: boolean): ExerciseItem[] {
 }
 
 function radicalItems(lessonId: string, targets: string[]): ExerciseItem[] {
-  const found: { char: string; radicalId: string }[] = [];
+  const found: { char: string; radicalId: string; itemId: string }[] = [];
   for (const id of targets) {
     const hanzi = getLearnable(id)?.hanzi ?? "";
     const chars = [...hanzi];
     const look = chars.length === 1 ? chars : chars.slice(0, 1);
     for (const char of look) {
       const radical = radicalFor(char);
-      if (radical && !found.some((row) => row.char === char)) found.push({ char, radicalId: radical.id });
+      if (radical && !found.some((row) => row.char === char)) found.push({ char, radicalId: radical.id, itemId: id });
     }
   }
   return found.slice(0, 2).map((row) => {
@@ -214,17 +214,18 @@ function radicalItems(lessonId: string, targets: string[]): ExerciseItem[] {
       if (!options.includes(radical.id)) options.push(radical.id);
       if (options.length === 4) break;
     }
-    return { type: "radical" as const, char: row.char, radicalId: row.radicalId, options: shuffle(options, `${lessonId}:rad:${row.char}`) };
+    return { type: "radical" as const, char: row.char, radicalId: row.radicalId, itemId: row.itemId, options: shuffle(options, `${lessonId}:rad:${row.char}`) };
   });
 }
 
-function strokeChar(targets: string[]): string | null {
+function strokeTarget(targets: string[]): { char: string; itemId: string } | null {
   for (const id of targets) {
     const hanzi = getLearnable(id)?.hanzi ?? "";
-    if ([...hanzi].length === 1) return hanzi;
+    if ([...hanzi].length === 1) return { char: hanzi, itemId: id };
   }
-  const first = getLearnable(targets[0] ?? "")?.hanzi;
-  return first ? [...first][0] ?? null : null;
+  const id = targets[0];
+  const char = id ? [...(getLearnable(id)?.hanzi ?? "")][0] : undefined;
+  return id && char ? { char, itemId: id } : null;
 }
 
 export function assembleReview(unit: Unit, review: Review): ExerciseItem[] {
