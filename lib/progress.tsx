@@ -75,7 +75,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const [day, setDay] = useState("1970-01-01");
 
   useEffect(() => {
-    setDay(localDay(new Date()));
+    const syncDay = () => setDay(localDay(new Date()));
+    syncDay();
+    document.addEventListener("visibilitychange", syncDay);
+    const timer = window.setInterval(syncDay, 60_000);
     let cancelled = false;
     loadDeviceProgress<ProgressState>()
       .then((saved) => {
@@ -86,6 +89,8 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       });
     return () => {
       cancelled = true;
+      document.removeEventListener("visibilitychange", syncDay);
+      window.clearInterval(timer);
     };
   }, []);
 
