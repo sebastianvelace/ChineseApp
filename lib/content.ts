@@ -136,6 +136,15 @@ export function firstTone(id: string): number | null {
 }
 
 export function exampleSentence(item: Learnable): Sentence | undefined {
-  if (item.teachSentenceId) return sentenceById.get(item.teachSentenceId);
-  return sentences.find((s) => s.hanzi.includes(item.hanzi));
+  if (item.teachSentenceId) {
+    const taught = sentenceById.get(item.teachSentenceId);
+    if (taught) return taught;
+  }
+  const matches = sentences.filter((sentence) => sentence.tokens.some((token) => token.wordId === item.id || token.supportId === item.id));
+  const lessonId = supportById.get(item.id)?.canonicalLessonId;
+  if (lessonId) {
+    const own = matches.find((sentence) => sentence.id.startsWith(`${lessonId}-`) || sentence.id === lessonId);
+    if (own) return own;
+  }
+  return matches[0];
 }

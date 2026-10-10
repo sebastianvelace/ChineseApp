@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { assembleLesson, pinyinChoices } from "./assemble";
-import { findLesson, getLearnable, getSentence, keepsCards } from "./content";
+import { exampleSentence, findLesson, getLearnable, getSentence, keepsCards } from "./content";
 
 function hanzi(id: string): string {
   return getLearnable(id)?.hanzi ?? id;
@@ -141,6 +141,13 @@ test("a number set is one teach card, with pinyin on 1, 3, 5, and the last", () 
   assert.ok(toneHanzi.includes("一"));
   const build = items.find((item) => item.type === "build");
   assert.ok(build && build.type === "build");
+});
+
+test("a support word's example is from its own lesson", () => {
+  const item = getLearnable("sup-ba");
+  assert.ok(item);
+  assert.equal(exampleSentence(item)?.id.startsWith("ev-u06-l3"), true);
+  assert.equal(exampleSentence(getLearnable("hsk1-w072")!)?.hanzi, "你好！");
 });
 
 test("gloss-only support does not get practice cards", () => {
