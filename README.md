@@ -13,6 +13,17 @@ Open [http://localhost:4317](http://localhost:4317).
 
 Check the lesson files with `npm run lint:content`. It fails if a word, sentence, or id does not match.
 
+Run the local quality checks with:
+
+```bash
+npm run lint:content
+npm run test
+npm run lint
+npm run build
+```
+
+GitHub Actions runs those checks on pushes and pull requests, then runs the production E2E suite with Chromium.
+
 The dev server listens on port **4317**.
 
 ## What this build includes
@@ -34,7 +45,7 @@ npm start
 `npm start` serves http://localhost:4317. Open Learn once online. After that, Learn and any lesson you already opened still load with the network off. A lesson you have never opened shows a short offline message.
 - Teacher talks and unit reviews
 - Practice with FSRS (`ts-fsrs`) for words you have already passed
-- Daily goal, XP, and streak, saved in `localStorage`
+- Daily goal, XP, and streak, saved in IndexedDB with a `localStorage` fallback
 
 Account sync (Supabase + Google) is specified in the design package and is not required to study.
 # ChineseApp
