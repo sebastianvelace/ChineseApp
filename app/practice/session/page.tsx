@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useLayoutEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { withHanzi } from "@/components/Hanzi";
 import { Sheet } from "@/components/Sheet";
 import { pinyinChoices } from "@/lib/assemble";
@@ -43,10 +43,8 @@ function Deck() {
   }, [only, seen, router]);
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
-  const [shownAt, setShownAt] = useState(0);
-  useLayoutEffect(() => {
-    setShownAt(Date.now());
-  }, [index]);
+  const [shownAt, setShownAt] = useState(() => Date.now());
+  const [renderedAt] = useState(() => Date.now());
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [index]);
@@ -72,7 +70,7 @@ function Deck() {
     const stillDue = practiceQueue(cards, seenItems).length;
     const nextTime = cards
       .map((saved) => new Date(saved.due).getTime())
-      .filter((time) => time > Date.now())
+      .filter((time) => time > renderedAt)
       .sort((a, b) => a - b)[0];
     const when = nextTime ? new Date(nextTime).toLocaleDateString(locale === "es" ? "es" : "en", { month: "short", day: "numeric" }) : "";
     return (

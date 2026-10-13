@@ -1,16 +1,28 @@
-const CACHE = "hanlu-v6";
+const CACHE = "hanlu-v7";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE);
-      const index = await fetch("/strokes/index.json").then((response) => response.json());
-      const strokes = index.map((char) => `/strokes/${encodeURIComponent(char)}.json`);
-      await cache.addAll(["/offline.html", "/offline-lesson.html", "/icons/icon-192.png", "/icons/icon-512.png", "/strokes/index.json", ...strokes]);
+      let strokes = [];
+      try {
+        const response = await fetch("/strokes/index.json");
+        if (response.ok) {
+          const index = await response.json();
+          strokes = Array.isArray(index) ? index.map((char) => `/strokes/${encodeURIComponent(char)}.json`) : [];
+        }
+      } catch {
+        // The worker can still cache the core shell when the stroke index is unavailable.
+      }
+      await cacheBestEffort(cache, ["/offline.html", "/offline-lesson.html", "/icons/icon-192.png", "/icons/icon-512.png", "/strokes/index.json", ...strokes]);
       await self.skipWaiting();
     })(),
   );
 });
+
+async function cacheBestEffort(cache, urls) {
+  await Promise.all(urls.map((url) => cache.add(url).catch(() => undefined)));
+}
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(

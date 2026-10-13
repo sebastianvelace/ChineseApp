@@ -1,22 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useOnline } from "./online";
 import { markOpened, openedLessons } from "./opened";
 
 export function useSavedHere(id: string): "loading" | "saved" | "missing" {
   const online = useOnline();
-  const [saved, setSaved] = useState<boolean | null>(null);
   useEffect(() => {
-    const already = openedLessons().includes(id);
-    setSaved(already);
     if (online) {
       markOpened(id);
-      setSaved(true);
     }
   }, [online, id]);
-  if (online === null || saved === null) return "loading";
-  if (!online && !saved) return "missing";
+  if (online === null) return "loading";
+  if (!online && !openedLessons().includes(id)) return "missing";
   return "saved";
 }
 

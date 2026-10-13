@@ -4,12 +4,14 @@ import { applyLessonRatings, cardKey, freshCard, rateCard, type CardType, type L
 import type { Grade } from "ts-fsrs";
 
 export type Locale = "en" | "es";
+export const PROGRESS_SCHEMA_VERSION = 1;
 export type XpEvent = { id: string; amount: number; at: string };
 export type Passed = { ratio: number | null; at: string };
 export type ReviewRow = { id: string; itemId: string; cardType: CardType; rating: number; at: string; source: "lesson" | "review" | "practice" };
 export type Streak = { current: number; longest: number; lastActive: string | null; freezes: number; granted: number[]; freezeNotice: string | null; activeDays: string[] };
 
 export type ProgressState = {
+  schemaVersion: number;
   onboarded: boolean;
   locale: Locale;
   pinyin: boolean;
@@ -47,6 +49,7 @@ export function addDays(iso: string, days: number): string {
 
 export function emptyProgress(): ProgressState {
   return {
+    schemaVersion: PROGRESS_SCHEMA_VERSION,
     onboarded: false,
     locale: "en",
     pinyin: true,

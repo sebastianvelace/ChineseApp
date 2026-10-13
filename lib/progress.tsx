@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { loadDeviceProgress, saveDeviceProgress } from "./device-store";
+import { clearDeviceProgress, loadDeviceProgress, saveDeviceProgress } from "./device-store";
+import { normalizeProgress, parseProgressExport, serializeProgress, type ImportProgressResult } from "./progress-schema";
 import { type SeenStamp } from "./practice-queue";
 import {
   addDays,
@@ -9,7 +10,6 @@ import {
   dismissFreezeNotice,
   emptyProgress,
   localDay,
-  localDayFromIso,
   passNode as recordPass,
   daysThatCount,
   xpOnDay,
@@ -51,25 +51,12 @@ type ProgressApi = {
   dismissFreezeNotice: () => void;
   passNode: (nodeId: string, kind: PassKind, info?: { ratio: number; correct: number; itemIds: string[]; ratings?: LessonRating[] }) => void;
   answerCard: (card: SavedCard, rating: Grade, review: { id: string; sessionId: string }) => void;
+  exportProgress: () => string;
+  importProgress: (raw: string) => ImportProgressResult;
+  resetProgress: () => Promise<boolean>;
 };
 
 const ProgressContext = createContext<ProgressApi | null>(null);
-
-function normalize(saved: Partial<ProgressState> | null): ProgressState {
-  const base = emptyProgress();
-  if (!saved) return base;
-  return {
-    ...base,
-    ...saved,
-    seen: saved.seen ?? [],
-    passed: saved.passed ?? {},
-    xpEvents: saved.xpEvents ?? [],
-    cards: saved.cards ?? [],
-    reviews: saved.reviews ?? [],
-    streak: { ...base.streak, ...saved.streak, freezeNotice: saved.streak?.freezeNotice ?? null, activeDays: saved.streak?.activeDays ?? [] },
-    streakBurst: saved.streakBurst ?? null,
-  };
-}
 
 export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<ProgressState | null>(null);
@@ -92,8 +79,14 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
           setData(emptyProgress());
           return;
         }
-        setPersist(true);
-        setData(normalize(loaded.data));
+        try {
+          setPersist(true);
+          setData(normalizeProgress(loaded.data));
+        } catch {
+          setPersist(false);
+          setSaveError(true);
+          setData(emptyProgress());
+        }
       })
       .catch(() => {
         if (!cancelled) {
@@ -141,14 +134,35 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       cards: current.cards,
       activeDays,
       weekDates,
-      completeOnboarding: (locale, pinyin) => setData((prev) => ({ ...normalize(prev), onboarded: true, locale, pinyin })),
-      setLocale: (locale) => setData((prev) => ({ ...normalize(prev), locale })),
-      setPinyin: (pinyin) => setData((prev) => ({ ...normalize(prev), pinyin })),
-      setGoal: (dailyGoal) => setData((prev) => ({ ...normalize(prev), dailyGoal })),
-      setTrack: (track) => setData((prev) => ({ ...normalize(prev), track })),
-      dismissFreezeNotice: () => setData((prev) => dismissFreezeNotice(normalize(prev))),
-      passNode: (nodeId, kind, info) => setData((prev) => recordPass(normalize(prev), nodeId, kind, info, new Date())),
-      answerCard: (card, rating, review) => setData((prev) => recordAnswer(normalize(prev), card, rating, review, new Date())),
+      completeOnboarding: (locale, pinyin) => setData((prev) => ({ ...normalizeProgress(prev), onboarded: true, locale, pinyin })),
+      setLocale: (locale) => setData((prev) => ({ ...normalizeProgress(prev), locale })),
+      setPinyin: (pinyin) => setData((prev) => ({ ...normalizeProgress(prev), pinyin })),
+      setGoal: (dailyGoal) => setData((prev) => ({ ...normalizeProgress(prev), dailyGoal })),
+      setTrack: (track) => setData((prev) => ({ ...normalizeProgress(prev), track })),
+      dismissFreezeNotice: () => setData((prev) => dismissFreezeNotice(normalizeProgress(prev))),
+      passNode: (nodeId, kind, info) => setData((prev) => recordPass(normalizeProgress(prev), nodeId, kind, info, new Date())),
+      answerCard: (card, rating, review) => setData((prev) => recordAnswer(normalizeProgress(prev), card, rating, review, new Date())),
+      exportProgress: () => serializeProgress(current),
+      importProgress: (raw) => {
+        const result = parseProgressExport(raw);
+        if (result.ok) {
+          setData(result.data);
+          setPersist(true);
+          setSaveError(false);
+        }
+        return result;
+      },
+      resetProgress: async () => {
+        const cleared = await clearDeviceProgress();
+        if (!cleared) {
+          setSaveError(true);
+          return false;
+        }
+        setData(emptyProgress());
+        setPersist(true);
+        setSaveError(false);
+        return true;
+      },
     };
   }, [data, day, saveError]);
 

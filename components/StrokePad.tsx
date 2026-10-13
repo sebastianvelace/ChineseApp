@@ -22,25 +22,33 @@ function loadStrokeData(glyph: string, onLoad: (data: never) => void, onErr: (er
             .catch((err: unknown) => onErr(err));
 }
 
-export function StrokePad({
-  char,
-  disabled,
-  onResult,
-}: {
+type StrokePadProps = {
   char: string;
   disabled: boolean;
   onResult: (ok: boolean) => void;
-}) {
+};
+
+export function StrokePad(props: StrokePadProps) {
+  return <StrokePadInner key={props.char} {...props} />;
+}
+
+function StrokePadInner({
+  char,
+  disabled,
+  onResult,
+}: StrokePadProps) {
   const t = useT();
   const host = useRef<HTMLDivElement>(null);
   const writer = useRef<Writer | null>(null);
   const onResultRef = useRef(onResult);
-  onResultRef.current = onResult;
   const [state, setState] = useState<"loading" | "ready" | "missing">("loading");
 
   useEffect(() => {
+    onResultRef.current = onResult;
+  }, [onResult]);
+
+  useEffect(() => {
     let dead = false;
-    setState("loading");
     (async () => {
       const mod = await import("hanzi-writer");
       const HanziWriter = mod.default;

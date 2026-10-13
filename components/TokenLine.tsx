@@ -22,14 +22,14 @@ export function TokenLine({
   const itemId = token?.wordId ?? token?.supportId;
   const item = itemId ? getLearnable(itemId) : undefined;
   const type = size === "card" ? "text-[64px] font-medium leading-tight" : size === "sentence" ? "text-2xl leading-9" : "text-xl leading-9";
-  let contentIndex = -1;
+  const contentIndexes = tokens.map((_, index) => tokens.slice(0, index + 1).filter((part) => part.kind !== "punct").length - 1);
 
   return (
     <div>
       <div className={`font-[family-name:var(--font-hanzi)] ${type}`}>
         {tokens.map((part, index) => {
           if (part.kind === "punct") return <span key={index}>{part.text}</span>;
-          contentIndex += 1;
+          const contentIndex = contentIndexes[index] ?? -1;
           if (contentIndex === blankAt && !blankRevealed) return <span key={index}>____</span>;
           const revealed = contentIndex === blankAt && blankRevealed;
           return (

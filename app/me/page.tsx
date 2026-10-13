@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronRight, Flame } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { LoadingRows } from "@/components/LoadingRows";
 import { Sheet } from "@/components/Sheet";
 import { levelFor, useT } from "@/lib/i18n";
@@ -10,9 +10,11 @@ import { useProgress, type Locale } from "@/lib/progress";
 type SheetId = "goal" | "language" | "pinyin" | "account";
 
 export default function MePage() {
-  const { ready, xp, xpToday, streak, freezes, dailyGoal, setGoal, locale, setLocale, pinyin, setPinyin, seen, activeDays, weekDates } = useProgress();
+  const { ready, xp, xpToday, streak, freezes, dailyGoal, setGoal, locale, setLocale, pinyin, setPinyin, seen, activeDays, weekDates, exportProgress, importProgress, resetProgress } = useProgress();
   const t = useT();
   const [open, setOpen] = useState<SheetId | null>(null);
+  const [accountMessage, setAccountMessage] = useState<"imported" | "invalid" | "resetDone" | "resetFailed" | null>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
   if (!ready) return <LoadingRows />;
   const level = levelFor(xp, locale);
   const languageName = locale === "es" ? "Español" : "English";
@@ -83,10 +85,52 @@ export default function MePage() {
       {open === "account" ? (
         <Sheet title={t("me.account")} closeLabel={t("sheet.close")} onClose={() => setOpen(null)}>
           <p className="text-base text-[#57534E]">{t("local.banner")}</p>
+          <div className="mt-5 grid gap-2">
+            <button type="button" className="min-h-12 rounded-xl bg-[#1C1917] px-4 font-semibold text-white" onClick={() => downloadProgress(exportProgress())}>
+              {t("me.export")}
+            </button>
+            <button type="button" className="min-h-12 rounded-xl bg-[#E7E0D6] px-4 font-semibold" onClick={() => fileInput.current?.click()}>
+              {t("me.import")}
+            </button>
+            <button
+              type="button"
+              className="min-h-12 rounded-xl border border-[#E25B45] px-4 font-semibold text-[#B13D2D]"
+              onClick={async () => {
+                if (!window.confirm(t("me.resetConfirm"))) return;
+                setAccountMessage((await resetProgress()) ? "resetDone" : "resetFailed");
+              }}
+            >
+              {t("me.reset")}
+            </button>
+            <input
+              ref={fileInput}
+              type="file"
+              accept="application/json,.json"
+              className="hidden"
+              onChange={async (event) => {
+                const file = event.currentTarget.files?.[0];
+                event.currentTarget.value = "";
+                if (!file) return;
+                const result = importProgress(await file.text());
+                setAccountMessage(result.ok ? "imported" : "invalid");
+              }}
+            />
+            {accountMessage ? <p role="status" className="text-sm text-[#57534E]">{t(`me.${accountMessage}`)}</p> : null}
+          </div>
         </Sheet>
       ) : null}
     </main>
   );
+}
+
+function downloadProgress(raw: string) {
+  const blob = new Blob([raw], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `hanlu-progress-${new Date().toISOString().slice(0, 10)}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
 }
 
 function Row({ label, value, onClick }: { label: string; value: string; onClick: () => void }) {

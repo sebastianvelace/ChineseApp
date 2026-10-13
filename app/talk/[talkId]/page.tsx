@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { withHanzi } from "@/components/Hanzi";
 import { OfflineLesson } from "@/components/OfflineLesson";
 import { Sheet } from "@/components/Sheet";
@@ -24,13 +24,12 @@ export default function TalkPage() {
   const [step, setStep] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [leaving, setLeaving] = useState(false);
-  const replay = useRef<boolean | null>(null);
+  const [replayState, setReplayState] = useState<{ id: string; value: boolean } | null>(null);
   const hit = findTalk(params.talkId);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [phase, step]);
   if (!ready || saved === "loading") return <p className="p-6">{t("loading")}</p>;
-  if (hit && replay.current === null) replay.current = !!passed[hit.talk.id];
   if (saved === "missing") return <OfflineLesson />;
   if (!hit) return <p className="p-6 text-base">{t("missing.talk")}</p>;
   if (extraStatus(hit.unit, hit.talk.id, passed) === "locked") {
@@ -51,10 +50,11 @@ export default function TalkPage() {
   ) : null;
 
   if (phase === "end") {
+    const replay = replayState?.id === hit.talk.id ? replayState.value : !!passed[hit.talk.id];
     return (
       <main className="px-6 py-16">
         <h1 className="text-3xl font-bold">{t("talk.done")}</h1>
-        <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: replay.current ? 0 : 10 })}</p>
+        <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: replay ? 0 : 10 })}</p>
         <button className="btn-primary mt-8" onClick={() => { if (!assignIfOffline(`/unit/${hit.unit.id}`)) router.push(`/unit/${hit.unit.id}`); }}>{t("lesson.back")}</button>
       </main>
     );
@@ -111,6 +111,7 @@ export default function TalkPage() {
           onClick={() => {
             setPicked(null);
             if (last) {
+              setReplayState({ id: hit.talk.id, value: !!passed[hit.talk.id] });
               passNode(hit.talk.id, "talk");
               setPhase("end");
             } else setStep(step + 1);

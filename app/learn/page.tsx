@@ -2,7 +2,7 @@
 
 import { Check, Flame, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { LoadingRows } from "@/components/LoadingRows";
 import { OfflineLesson } from "@/components/OfflineLesson";
 import { trackById } from "@/lib/content";
@@ -16,10 +16,7 @@ export default function LearnPage() {
   const { ready, track, setTrack, streak, xpToday, dailyGoal, locale, passed, freezeNotice, dismissFreezeNotice } = useProgress();
   const t = useT();
   const [blocked, setBlocked] = useState(false);
-  const [banner, setBanner] = useState(false);
-  useEffect(() => {
-    setBanner(sessionStorage.getItem("hanlu-local-banner") !== "off");
-  }, []);
+  const banner = useSyncExternalStore(subscribeBanner, getBannerSnapshot, getBannerServerSnapshot);
   if (!ready) return <LoadingRows />;
   if (blocked) return <OfflineLesson onBack={() => setBlocked(false)} />;
   const units = trackById(track)?.levels[0]?.units ?? [];
@@ -48,7 +45,7 @@ export default function LearnPage() {
             aria-label={t("sheet.close")}
             onClick={() => {
               sessionStorage.setItem("hanlu-local-banner", "off");
-              setBanner(false);
+              window.dispatchEvent(new Event("hanlu-local-banner"));
             }}
           >
             <X size={16} aria-hidden />
@@ -122,4 +119,17 @@ export default function LearnPage() {
       </ol>
     </main>
   );
+}
+
+function subscribeBanner(onChange: () => void) {
+  window.addEventListener("hanlu-local-banner", onChange);
+  return () => window.removeEventListener("hanlu-local-banner", onChange);
+}
+
+function getBannerSnapshot() {
+  return sessionStorage.getItem("hanlu-local-banner") !== "off";
+}
+
+function getBannerServerSnapshot() {
+  return true;
 }
