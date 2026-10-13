@@ -37,3 +37,4 @@ npm start
 - Daily goal, XP, and streak, saved in `localStorage`
 
 Account sync (Supabase + Google) is specified in the design package and is not required to study.
+# ChineseApp
