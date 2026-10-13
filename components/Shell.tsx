@@ -29,13 +29,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const wide = path === "/learn" || path === "/practice" || path === "/me" || path.startsWith("/unit") || path.startsWith("/word");
   return (
     <div className="min-h-full bg-[#F7F3EC] text-[#1C1917]">
-      <div className={wide && !hide ? "mx-auto min-h-full w-full max-w-[480px] pb-24 lg:max-w-none lg:pl-56" : "mx-auto min-h-full w-full max-w-[480px]"}>
+      <div className={wide && !hide ? "mx-auto min-h-full w-full max-w-[480px] pb-[calc(6rem+env(safe-area-inset-bottom))] lg:max-w-none lg:pl-56" : "mx-auto min-h-full w-full max-w-[480px]"}>
         {saveError ? <p className="px-5 pt-4 text-base font-semibold text-[#9F1239]">{t("error.save")}</p> : null}
         {online === false && !hide ? <p className="px-5 pt-4 text-base font-semibold text-[#57534E]">{t("offline.banner")}</p> : null}
         {children}
       </div>
       {hide ? null : (
-        <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-[#E7E0D6] bg-white pb-[env(safe-area-inset-bottom)] lg:inset-y-0 lg:right-auto lg:w-56 lg:border-r lg:border-t-0 lg:pb-0">
+        <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-[#E7E0D6] bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgb(28_25_23/7%)] backdrop-blur lg:inset-y-0 lg:right-auto lg:w-56 lg:border-r lg:border-t-0 lg:pb-0 lg:shadow-none">
           <div className="mx-auto flex max-w-[480px] lg:max-w-none lg:flex-col lg:gap-2 lg:p-4">
             <NavLink href="/learn" label={t("nav.learn")} icon={GraduationCap} active={path.startsWith("/learn") || path.startsWith("/unit")} />
             <NavLink href="/practice" label={t("nav.practice")} icon={Layers} active={path.startsWith("/practice") || path.startsWith("/word")} />

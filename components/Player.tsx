@@ -4,6 +4,7 @@ import { Flame, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { withHanzi } from "@/components/Hanzi";
 import { Sheet } from "@/components/Sheet";
+import { SpeechButton } from "@/components/SpeechButton";
 import { StrokePad } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
 import { buildMatches, lessonPassed, sentenceWordIds } from "@/lib/lesson-score";
@@ -69,7 +70,7 @@ export function Player({
   if (phase === "end" || !current) {
     const passed = ratio >= 0.8;
     return (
-      <main className="flex min-h-full flex-col px-5 py-8" style={passed && accent ? { background: `${accent}1f` } : undefined}>
+      <main className="animate-enter flex min-h-full flex-col px-5 py-8" style={passed && accent ? { background: `${accent}1f` } : undefined}>
         <h1 className="font-[family-name:var(--font-hanzi)] text-4xl">{passed ? t("lesson.passTitle") : t("lesson.failTitle")}</h1>
         <p className="mt-3 text-lg text-[#57534E]">{Math.round(ratio * 100)}%</p>
         {passed ? <p className="mt-2 text-[#C48A16]">{t("lesson.xp", { count: xpFor(finalCorrect) })}</p> : null}
@@ -242,7 +243,7 @@ export function Player({
       </div>
       <div className="mt-auto bg-[#F7F3EC] py-4">
         {checked ? (
-          <div className="mb-3 rounded-2xl bg-white px-4 py-3" role="status" aria-live="polite">
+          <div className="animate-feedback mb-3 rounded-2xl bg-white px-4 py-3" role="status" aria-live="polite">
             <p className={checked.ok ? "font-semibold text-[#1F8A70]" : "font-semibold text-[#9F1239]"}>
               {checked.ok ? t("lesson.correct") : t("lesson.wrong")}
             </p>
@@ -324,6 +325,7 @@ function Card({
             return (
               <article key={id} className="rounded-2xl bg-white px-2 py-4 text-center">
                 <p className="font-[family-name:var(--font-hanzi)] text-[64px] font-medium leading-none">{row.hanzi}</p>
+                <SpeechButton text={row.hanzi} />
                 {showPinyin ? <p className="mt-2 text-lg text-[#57534E]">{row.pinyin}</p> : null}
                 <p className="mt-1 text-base text-[#57534E]">{row.gloss[locale]}</p>
               </article>
@@ -353,6 +355,7 @@ function Card({
             return (
               <article key={id} className="rounded-2xl bg-white p-5 text-center shadow-[0_8px_24px_rgb(28_25_23/6%)]">
                 <p className="font-[family-name:var(--font-hanzi)] text-[64px] font-medium leading-none">{row.hanzi}</p>
+                <SpeechButton text={row.hanzi} />
                 {showPinyin ? <p className="mt-2 text-lg text-[#57534E]">{row.pinyin}</p> : (
                   <button type="button" className="mt-2 inline-flex min-h-11 items-center text-base font-semibold text-[#E25B45]" onClick={onReveal}>{t("lesson.showPinyin")}</button>
                 )}
@@ -378,8 +381,9 @@ function Card({
     return (
       <article className="rounded-2xl bg-white p-5">
         {sentence.speaker ? <p className="text-base font-semibold text-[#57534E]">{sentence.speaker}</p> : null}
-        <div className="mt-3">
+        <div className="mt-3 flex items-center justify-center gap-2">
           <TokenLine tokens={sentence.tokens} size="card" />
+          <SpeechButton text={sentence.hanzi} />
         </div>
         {showPinyin ? <p className="mt-2 text-lg text-[#57534E]">{sentence.pinyin}</p> : null}
         <p className="mt-3">{sentence.translation[locale]}</p>
@@ -391,7 +395,10 @@ function Card({
     const row = getLearnable(item.itemId);
     return (
       <div>
-        <p className="text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{row?.hanzi}</p>
+        <div className="flex items-center justify-center gap-2">
+          <p className="text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{row?.hanzi}</p>
+          {row?.hanzi ? <SpeechButton text={row.hanzi} /> : null}
+        </div>
         {item.type === "meaning" && showPinyin ? <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p> : null}
         <div className="choice-grid">
           {item.options.map((option) => {
@@ -429,7 +436,10 @@ function Card({
     return (
       <div>
         <p className="text-center text-base text-[#57534E]">{t("tone.prompt")}</p>
-        <p className="mt-2 text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{row?.hanzi}</p>
+        <div className="mt-2 flex items-center justify-center gap-2">
+          <p className="text-center font-[family-name:var(--font-hanzi)] text-[64px] font-medium">{row?.hanzi}</p>
+          {row?.hanzi ? <SpeechButton text={row.hanzi} /> : null}
+        </div>
         <p className="mt-2 text-center text-lg text-[#57534E]">{row?.pinyin}</p>
         <div className="choice-grid">
           {[1, 2, 3, 4, 5].map((tone) => (

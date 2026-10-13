@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { LoadingRows } from "@/components/LoadingRows";
+import { SpeechButton } from "@/components/SpeechButton";
 import { StrokeReplay } from "@/components/StrokePad";
 import { TokenLine } from "@/components/TokenLine";
 import { exampleSentence, getLearnable, radicalFor } from "@/lib/content";
@@ -34,7 +35,10 @@ export default function WordPage() {
       <Link href="/practice" aria-label={t("lesson.back")} onClick={(event) => openOffline(event, "/practice")} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#57534E]">
         <ChevronLeft size={22} aria-hidden />
       </Link>
-      <p className="mt-4 text-center font-[family-name:var(--font-hanzi)] text-7xl">{item.hanzi}</p>
+      <div className="mt-4 flex items-center justify-center gap-3">
+        <p className="text-center font-[family-name:var(--font-hanzi)] text-7xl">{item.hanzi}</p>
+        <SpeechButton text={item.hanzi} />
+      </div>
       {pinyin ? <p className="mt-2 text-center text-lg text-[#57534E]">{item.pinyin}</p> : null}
       <p className="mt-3 text-center text-lg">{item.gloss[locale]}</p>
       {radicals.length ? (
